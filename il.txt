@@ -149,6 +149,27 @@
     has_many(:innm_dosages, through: [:ingredients, :innm_dosage])
     timestamps(type: :utc_datetime_usec)
   end
+  
+    @primary_key {:id, :binary_id, autogenerate: true}
+  schema "medications" do
+    field(:name, :string)
+    field(:form, :string)
+    field(:daily_dosage, :float)
+    field(:type, :string)
+    field(:mr_blank_type, :string)
+    field(:dosage_form_is_dosed, :boolean)
+    field(:is_active, :boolean, default: true)
+    field(:end_date, :date)
+    field(:inserted_by, Ecto.UUID)
+    field(:updated_by, Ecto.UUID)
+
+    has_many(:ingredients, InnmDosageIngredient, foreign_key: :parent_id)
+    has_many(:ingredients_medication, BrandIngredient, foreign_key: :medication_child_id)
+    has_many(:innm, through: [:ingredients, :innm])
+
+    timestamps(type: :utc_datetime_usec)
+  end
+
 ```
 
 10. Таблиця баз даних Пошук лікарських засобів
@@ -539,4 +560,1069 @@
 * get_declarations_count.ex
 * list_declarations.ex
 
-32. 
+32. Таблиця баз даних Декларація
+
+```
+  embedded_schema do
+    field(:person_id, UUID)
+    field(:start_date, :date)
+    field(:end_date, :date)
+    field(:status, :string)
+    field(:signed_at, :utc_datetime)
+    field(:created_by, UUID)
+    field(:updated_by, UUID)
+    field(:is_active, :boolean, default: false)
+    field(:scope, :string)
+    field(:reason, :string)
+    field(:reason_description, :string)
+    field(:declaration_number, :string)
+    timestamps(type: :utc_datetime_usec)
+    belongs_to(:declaration_request, DeclarationRequest, type: UUID)
+    belongs_to(:division, Division, type: UUID)
+    belongs_to(:employee, Employee, type: UUID)
+    belongs_to(:legal_entity, LegalEntity, type: UUID)
+  end
+```
+
+33. Таблиця баз даних Історія статусів декларацій
+
+```
+  embedded_schema do
+    field(:status, :string)
+    field(:reason, :string)
+    field(:reason_description, :string)
+    field(:inserted_by, UUID)
+    belongs_to(:declaration, Declaration, type: UUID)
+    timestamps(type: :utc_datetime, updated_at: false)
+  end
+```
+
+34. Локальні сервіси дедуплікації
+
+* create_deduplication_candidate.ex
+* deduplication_online_candidates_check.ex
+* get_matching_person_candidates.ex
+* match.ex
+* person_update_deduplication_check.ex
+
+35. Таблиця баз даних Визначення Пристроїв
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "device_definitions" do
+    field(:is_active, :boolean, default: true)
+    field(:external_id, :string)
+    field(:classification_type, :string)
+    field(:description, :string)
+    field(:manufacturer_name, :string)
+    field(:manufacturer_country, :string)
+    field(:model_number, :string)
+    field(:part_number, :string)
+    field(:packaging_type, :string)
+    field(:packaging_count, :integer)
+    field(:packaging_unit, :string)
+    field(:note, :string)
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+    belongs_to(:parent, __MODULE__, type: UUID)
+    has_many(:device_names, DeviceDefinitionName, foreign_key: :device_definition_id, on_replace: :delete)
+    has_many(:classification_types, DeviceDefinitionClassificationType, foreign_key: :device_definition_id, on_replace: :delete)
+    has_many(:programs, ProgramDevice, foreign_key: :device_definition_id)
+    embeds_many(:properties, DeviceDefinitionProperty)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+36. Таблиця баз даних Класифікатори Визначень Пристроїв
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "device_definition_classification_types" do
+    field(:code, :string)
+    field(:system, :string)
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+    belongs_to(:device_definition, DeviceDefinition, type: UUID)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+37. Таблиця баз даних Імена Визначень Пристроїв
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "device_definition_names" do
+    field(:type, :string)
+    field(:name, :string)
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+    belongs_to(:device_definition, DeviceDefinition, type: UUID)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+38. Таблиця баз даних Властивості визначень пристроїв
+
+```
+  @primary_key false
+  embedded_schema do
+    field(:value_integer, :integer)
+    field(:value_string, :string)
+    field(:value_boolean, :boolean)
+    field(:value_decimal, :float)
+    embeds_one(:type, Coding)
+    embeds_one(:value_codeable_concept, CodeableConcept)
+  end
+```
+
+39. Локальні сервіси визначень пристроїв
+
+* create_device_definition.ex
+* device_definition_exists.ex
+* get_device_definition.ex
+* list_device_definitions_paginated.ex
+* list_device_definitions.ex
+* update_device_definition.ex
+
+40. Таблиця баз даних Конфігураційні параметри Пристроїв
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "device_parameters_configurations" do
+    field(:code, :string)
+    field(:system, :string)
+    field(:settings, :map)
+    field(:is_active, :boolean, default: true)
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+41. Локальні сервіси параметрів пристроїв
+
+* get_device_parameters_configuration_by.ex
+* list_device_parameters_configurations_paginated.ex
+
+42. Таблиця баз даних Конфігурації пристроїв
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "devices_configurations" do
+    field(:code, :string)
+    field(:system, :string)
+    field(:settings, :map)
+    field(:is_active, :boolean, default: true)
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+43. Локальний сервіс Конфігурацій пристроїв
+
+* get_devices_configuration_by.ex
+* list_devices_configurations_paginated.ex
+
+44. Таблиця баз даних Групи Діагнозів
+
+```
+  schema "diagnoses_groups" do
+    field(:name, :string)
+    field(:code, :string)
+    field(:description, :string)
+    field(:deactivation_reason, :string)
+    field(:is_active, :boolean, default: true)
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+    has_many(:diagnoses_group_codes, DiagnosesGroupCode)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+45. Таблиця баз даних Коди Груп Діагнозів
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "diagnoses_group_codes" do
+    field(:code, :string)
+    field(:system, :string)
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+    belongs_to(:diagnoses_group, DiagnosesGroup, type: UUID)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+46. Локальні сервіси груп діагнозів
+
+* create_diagnoses_group.ex
+* deactivate_diagnoses_group.ex
+* get_diagnoses_group.ex
+* list_diagnoses_groups.ex
+
+47. Таблиця Словників
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "dictionaries" do
+    field(:name, :string)
+    field(:description, :string)
+    field(:labels, {:array, :string})
+    field(:is_active, :boolean, default: false)
+    field(:is_editable, :boolean, default: false)
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+    has_many(:values, DictionaryValue, foreign_key: :dictionary_id, on_replace: :delete)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+48. Таблиця Змін в словники
+
+```
+  @primary_key {:id, :binary_id, autogenerate: false}
+  schema "dictionary_changes" do
+    field(:name, :string)
+    field(:action, :string)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+49. Таблиця Значень Словників
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "dictionary_values" do
+    field(:code, :string)
+    field(:description, :string)
+    field(:is_active, :boolean, default: true)
+    belongs_to(:dictionary, Dictionary, type: UUID)
+    belongs_to(:parent, DictionaryValue, type: UUID)
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+    has_many(:child_values, DictionaryValue, foreign_key: :parent_id, on_replace: :delete)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+50. Локальний сервіс словників
+
+* create_dictionary_value.ex
+* create_dictionary.ex
+* create_or_update_dictionary.ex
+* delete_dictionary_by.ex
+* delete_dictionary_value_by.ex
+* dictionary_value_exists.ex
+* get_dictionary_by.ex
+* get_dictionary_value.ex
+* get_dictionary.ex
+* list_dictionaries_hierarchically.ex
+* list_dictionaries.ex
+* list_dictionary_values.ex
+* migrate_dictionary_values.ex
+* update_dictionary_value.ex
+* update_dictionary.ex
+
+51. Таблиця конфігурації словників
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "dictionaries_configurations" do
+    field(:name, :string)
+    field(:is_active, :boolean, default: true)
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+    embeds_many(:settings, DictionariesConfigurationSettings, on_replace: :delete)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+52. Таблиця Налаштувань Конфігурацій
+
+```
+  @primary_key false
+  embedded_schema do
+    field(:system, :string)
+    field(:codes, {:array, :string})
+  end
+```
+
+53. Локальний сервіс Конфігураційнх налаштувань
+
+* get_dictionaries_configuration_by.ex
+* list_dictionaries_configurations_paginated.ex
+
+54. Сервіс Цифрового Підпису DS
+
+* DECODE SIGNED CONTENT
+* GET SIGNED CONTENT
+
+55. Таблиця Підрозділ
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "divisions" do
+    field(:email, :string)
+    field(:external_id, :string)
+    field(:mountain_group, :boolean)
+    field(:name, :string)
+    field(:phones, {:array, :map})
+    field(:type, :string)
+    field(:status, :string)
+    field(:is_active, :boolean, default: false)
+    field(:location, Geo.PostGIS.Geometry)
+    field(:working_hours, :map)
+    field(:dls_id, :string)
+    field(:dls_verified, :boolean)
+    field(:inserted_by, Ecto.UUID)
+    field(:updated_by, Ecto.UUID)
+    belongs_to(:legal_entity, LegalEntity, type: Ecto.UUID)
+    has_many(:addresses, DivisionAddress, foreign_key: :division_id, on_replace: :delete)
+    has_many(:equipment, Equipment, foreign_key: :division_id, where: [is_active: true])
+    has_many(:healthcare_services, HealthcareService, foreign_key: :division_id)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+56. Таблиця Адреси Підрозділу
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "division_addresses" do
+    field(:division_id, Ecto.UUID)
+    field(:zip, :string)
+    field(:area, :string)
+    field(:type, :string)
+    field(:region, :string)
+    field(:street, :string)
+    field(:country, :string)
+    field(:building, :string)
+    field(:apartment, :string)
+    field(:settlement, :string)
+    field(:street_type, :string)
+    field(:settlement_id, Ecto.UUID)
+    field(:settlement_type, :string)
+    field(:inserted_by, Ecto.UUID)
+    field(:updated_by, Ecto.UUID)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+57. Таблиця пошуку Підрозділів
+
+```
+  @primary_key false
+  embedded_schema do
+    field(:ids, Core.Ecto.CommaParamsUUID)
+    field(:name, :string)
+    field(:type, :string)
+    field(:legal_entity_id, Ecto.UUID)
+    field(:status, :string)
+  end
+```
+
+58. Локальний сервіс підрозіділів
+
+* get_division.ex
+* list_division_addresses.ex
+* list_divisions.ex
+
+59. Таблиця Акти про Розлучення
+
+```
+  @primary_key false
+  embedded_schema do
+    field(:id, UUID)
+    field(:ar_reg_date, :utc_datetime)
+    field(:ar_reg_number, :string)
+    field(:op_date, :utc_datetime)
+    field(:ar_op_name, :string)
+    field(:reg_numb, :string)
+    field(:compose_date, :string)
+    field(:compose_org, :string)
+    field(:is_restore, :integer)
+    field(:mn_old_surname, :string)
+    field(:mn_surname, :string)
+    field(:mn_name, :string)
+    field(:mn_patronymic, :string)
+    field(:mn_numident, :string)
+    field(:mn_date_birth, :string)
+    field(:mn_citizenship, :integer)
+    field(:mn_citizenship_another, :string)
+    field(:mn_doc_type, :string)
+    field(:mn_doc_name, :string)
+    field(:mn_series_numb, :string)
+    field(:mn_doc_date, :string)
+    field(:mn_doc_org_name, :string)
+    field(:mn_birth_state, :string)
+    field(:mn_birth_region, :string)
+    field(:mn_birth_district, :string)
+    field(:mn_birth_locality_type, :string)
+    field(:mn_birth_locality, :string)
+    field(:mn_state, :string)
+    field(:mn_region, :string)
+    field(:mn_district, :string)
+    field(:mn_locality_type, :string)
+    field(:mn_locality, :string)
+    field(:mn_street, :string)
+    field(:mn_house, :string)
+    field(:mn_building_part, :string)
+    field(:mn_building_part_type, :string)
+    field(:mn_apartment, :string)
+    field(:wmn_old_surname, :string)
+    field(:wmn_surname, :string)
+    field(:wmn_name, :string)
+    field(:wmn_patronymic, :string)
+    field(:wmn_numident, :string)
+    field(:wmn_date_birth, :string)
+    field(:wmn_citizenship, :integer)
+    field(:wmn_citizenship_another, :string)
+    field(:wmn_doc_type, :string)
+    field(:wmn_doc_name, :string)
+    field(:wmn_series_numb, :string)
+    field(:wmn_doc_date, :string)
+    field(:wmn_doc_org_name, :string)
+    field(:wmn_birth_state, :string)
+    field(:wmn_birth_region, :string)
+    field(:wmn_birth_district, :string)
+    field(:wmn_birth_locality_type, :string)
+    field(:wmn_birth_locality, :string)
+    field(:wmn_state, :string)
+    field(:wmn_region, :string)
+    field(:wmn_district, :string)
+    field(:wmn_locality_type, :string)
+    field(:wmn_locality, :string)
+    field(:wmn_street, :string)
+    field(:wmn_house, :string)
+    field(:wmn_building_part, :string)
+    field(:wmn_building_part_type, :string)
+    field(:wmn_apartment, :string)
+    field(:mn_settlement_id, :binary_id)
+    field(:wmn_settlement_id, :binary_id)
+    field(:persons_compare_status, :string)
+    field(:parties_compare_status, :string)
+  end
+```
+
+60. Локальний сервіс актів про розлучення
+
+* get_divorce_act.ex
+* list_divorce_acts.ex
+* update_divorce_act.ex
+
+61. Таблиця Ліцензії на Сервісне обслуговування
+
+* get_divorce_act.ex
+* list_divorce_acts.ex
+* update_divorce_act.ex
+
+62. Таблиця баз даних Запит працівника
+
+```
+  schema "employee_requests" do
+    field(:data, :map)
+    field(:status, :string)
+    field(:employee_id, Ecto.UUID)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+63. Таблиця Ролі Працівника
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "employee_roles" do
+    field(:start_date, :utc_datetime_usec)
+    field(:end_date, :utc_datetime_usec)
+    field(:status, :string)
+    field(:is_active, :boolean, default: true)
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+    belongs_to(:healthcare_service, HealthcareService, type: UUID)
+    belongs_to(:employee, Employee, type: UUID)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+64. Таблиця Пошук по ролям працівника
+
+```
+  @primary_key false
+  embedded_schema do
+    field(:employee_id, UUID)
+    field(:healthcare_service_id, UUID)
+    field(:status, :string)
+    field(:page, :integer)
+    field(:page_size, :integer)
+    field(:legal_entity_id, Ecto.UUID, virtual: true)
+  end
+```
+
+65. Таблиця Працівників
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "employees" do
+    field(:employee_type, :string)
+    field(:is_active, :boolean, default: false)
+    field(:position, :string)
+    field(:start_date, :date)
+    field(:end_date, :date)
+    field(:status, :string)
+    field(:status_reason, :string)
+    field(:updated_by, Ecto.UUID)
+    field(:inserted_by, Ecto.UUID)
+    field(:additional_info, :map)
+    field(:speciality, :map)
+    belongs_to(:party, Party, type: Ecto.UUID)
+    belongs_to(:division, Division, type: Ecto.UUID)
+    belongs_to(:legal_entity, LegalEntity, type: Ecto.UUID)
+    has_many(:party_users, PartyUser, references: :party_id, foreign_key: :party_id)
+    has_many(:roles, EmployeeRole)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+66. Таблиця пошук працівників
+
+```
+  @primary_key false
+  schema "employee_search" do
+    field(:ids, Core.Ecto.CommaParamsUUID)
+    field(:party_id, Ecto.UUID)
+    field(:division_id, Ecto.UUID)
+    field(:legal_entity_id, Ecto.UUID)
+    field(:tax_id, :string)
+    field(:no_tax_id, :boolean)
+    field(:edrpou, :string)
+    field(:employee_type, :string)
+    field(:status, :string)
+    field(:is_active, :boolean)
+    field(:verification_status, :string)
+  end
+```
+
+67. Локальний сервіс Працівників
+
+* employee_exists.ex
+* get_employee.ex
+* get_speciality_limits.ex
+* list_employee_data_history_records.ex
+* list_employees.ex
+* reorganize_declarations.ex
+* reorganize_employees.ex
+
+68. Таблиця Обладнання
+
+```
+ʼ  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "equipment" do
+    field(:is_active, :boolean, default: true)
+    field(:status, :string)
+    field(:availability_status, :string)
+    field(:type, :string)
+    field(:inventory_number, :string)
+    field(:serial_number, :string)
+    field(:error_reason, :string)
+    field(:manufacturer, :string)
+    field(:manufacture_date, :date)
+    field(:expiration_date, :date)
+    field(:model_number, :string)
+    field(:properties, {:array, :map})
+    field(:note, :string)
+    field(:lot_number, :string)
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+    belongs_to(:legal_entity, LegalEntity, type: UUID)
+    belongs_to(:division, Division, type: UUID)
+    belongs_to(:device_definition, DeviceDefinition, type: UUID)
+    belongs_to(:employee, Employee, type: UUID)
+    belongs_to(:parent, __MODULE__, type: UUID)
+    has_many(:equipment_names, EquipmentName)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+69. Таблиця Імен Обладнання
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "equipment_names" do
+    field(:type, :string)
+    field(:name, :string)
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+    belongs_to(:equipment, Equipment, type: UUID)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+70. Локальний сервіс обладнання
+
+* create_equipment.ex
+* equipment_exists.ex
+* get_equipment.ex
+* update_equipment.ex
+
+71. Таблиця баз даних Менеджер Подій
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "event_manager" do
+    field(:event_type, :string)
+    field(:entity_type, :string)
+    field(:entity_id, UUID)
+    field(:properties, :map)
+    field(:event_time, :utc_datetime_usec)
+    field(:changed_by, UUID)
+  end
+```
+
+72. Таблиця баз даних Forbidden Group
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "forbidden_groups" do
+    field(:name, :string)
+    field(:creation_reason, :string)
+    field(:deactivation_reason, :string)
+    field(:short_name, :string)
+    field(:sms_url, :string)
+    field(:is_active, :boolean)
+    field(:updated_by, UUID)
+    field(:inserted_by, UUID)
+    has_many(:forbidden_group_codes, ForbiddenGroupCode)
+    has_many(:forbidden_group_services, ForbiddenGroupService)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+73. Таблиця баз даних Коди Заборонених Груп
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "forbidden_group_codes" do
+    field(:code, :string)
+    field(:system, :string)
+    field(:creation_reason, :string)
+    field(:deactivation_reason, :string)
+    field(:is_active, :boolean)
+    field(:updated_by, UUID)
+    field(:inserted_by, UUID)
+    belongs_to(:forbidden_group, ForbiddenGroup, type: UUID)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+74. Таблиця Сервіси Заборонених Груп
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "forbidden_group_services" do
+    field(:is_active, :boolean)
+    field(:creation_reason, :string)
+    field(:deactivation_reason, :string)
+    field(:updated_by, UUID)
+    field(:inserted_by, UUID)
+    belongs_to(:forbidden_group, ForbiddenGroup, type: UUID)
+    belongs_to(:service, Service, type: UUID)
+    belongs_to(:service_group, ServiceGroup, type: UUID)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+75. Локальні сервіси заборонених груп
+
+* create_forbidden_group.ex
+* deactivate_forbidden_group_items.ex
+* get_forbidden_group_by.ex
+* update_forbidden_group.ex
+
+76. Таблиця Локальні параметри
+
+```
+  schema "global_parameters" do
+    field(:parameter, :string)
+    field(:value, :string)
+    field(:inserted_by, Ecto.UUID)
+    field(:updated_by, Ecto.UUID)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+77. Таблиця Сервіси Охорони Здоров'я
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "healthcare_services" do
+    field(:speciality_type, :string)
+    field(:providing_condition, :string)
+    field(:status, :string)
+    field(:comment, :string)
+    field(:coverage_area, {:array, UUID})
+    field(:is_active, :boolean, default: true)
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+    belongs_to(:legal_entity, LegalEntity, type: UUID)
+    belongs_to(:division, Division, type: UUID)
+    belongs_to(:license, License, type: UUID)
+    embeds_one(:category, CodeableConcept, on_replace: :delete)
+    embeds_one(:type, CodeableConcept, on_replace: :delete)
+    embeds_many(:available_time, AvailableTime, on_replace: :delete)
+    embeds_many(:not_available, RestrictedPeriod, on_replace: :delete)
+    has_one(:licensed_healthcare_service, LicensedHealthcareService)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+78. Таблиця Історія статусів Сервісів Охорони Здоров'я
+
+```
+  schema "healthcare_services_status_hstr" do
+    field(:status, :string)
+    belongs_to(:healthcare_service, HealthcareService, type: UUID)
+    timestamps(type: :utc_datetime_usec, updated_at: false)
+  end
+```
+
+79. Локальні Сервіси Охорони Здоров'я
+
+* activate_healthcare_service.ex
+* create_healthcare_service.ex
+* deactivate_healthcare_service.ex
+* get_healthcare_service.ex
+* list_healthcare_services.ex
+* update_healthcare_service.ex
+
+80. Таблиця Інгридієнтів Друга
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "ingredients" do
+    field(:dosage, :map)
+    field(:is_primary, :boolean, default: false)
+
+    belongs_to(:innm_dosage, InnmDosage, type: Ecto.UUID, foreign_key: :parent_id)
+    belongs_to(:innm, Innm, type: Ecto.UUID, foreign_key: :innm_child_id)
+
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+81. Таблиця Лікарських Засобів Друга
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "medications" do
+    field(:name, :string)
+    field(:form, :string)
+    field(:daily_dosage, :float)
+    field(:type, :string)
+    field(:mr_blank_type, :string)
+    field(:dosage_form_is_dosed, :boolean)
+    field(:is_active, :boolean, default: true)
+    field(:end_date, :date)
+    field(:inserted_by, Ecto.UUID)
+    field(:updated_by, Ecto.UUID)
+    has_many(:ingredients, InnmDosageIngredient, foreign_key: :parent_id)
+    has_many(:ingredients_medication, BrandIngredient, foreign_key: :medication_child_id)
+    has_many(:innm, through: [:ingredients, :innm])
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+82. Локальні Сервіси ДРЛЗ
+
+* deactivate_ended_innm_dosages.ex
+* get_innm_dosage.ex
+* list_innm_dosages.ex
+* list_innm_ingredients.ex
+* update_innm_dosage.ex
+
+83. Таблиця Лікарських Форм
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "innms" do
+    field(:sctid, :string)
+    field(:name, :string)
+    field(:name_original, :string)
+    field(:is_active, :boolean, default: true)
+    field(:inserted_by, Ecto.UUID)
+    field(:updated_by, Ecto.UUID)
+    has_many(:ingredients, Ingredient, foreign_key: :innm_child_id)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+84. Локальний сервіс лікарських форм
+
+* deactivate_innm.ex
+* get_innm.ex
+* list_innms.ex
+
+85. Таблиця Джобів
+
+```
+  @primary_key {:id, UUID, autogenerate: true}
+  schema "jobs" do
+    field(:name, :string)
+    field(:type, :string)
+    field(:strategy, :string)
+    field(:status, :string, default: @status_pending)
+    field(:callback, RPCCallback, default: nil)
+    field(:meta, :map)
+    field(:ended_at, :utc_datetime_usec)
+    has_many(:tasks, Task)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+86. Сервіс Blackwater Jobs
+
+    @rpc_worker.run("ehealth_jobs", Jobs.Rpc, :produce_contract_request_termination_job, [
+    @rpc_worker.run("ehealth_jobs", Jobs.Rpc, :produce_create_medication_registry_job, [params, user_id])
+    @rpc_worker.run("ehealth_jobs", Jobs.Rpc, :produce_deactivate_medication_registry_job, [params, user_id])
+    @rpc_worker.run("ehealth_jobs", Jobs.Rpc, :produce_declarations_prolongation_job, [params, user_id])
+    @rpc_worker.run("ehealth_jobs", Jobs.Rpc, :produce_declarations_termination_job, [params, user_id])
+    @rpc_worker.run("ehealth_jobs", Jobs.Rpc, :produce_edr_synchronization_job, [legal_entity])
+    @rpc_worker.run("ehealth_jobs", Jobs.Rpc, :produce_legal_entity_deactivation_job, [id, headers])
+    @rpc_worker.run("ehealth_jobs", Jobs.Rpc, :produce_legal_entity_reorganization_job, [params, headers])
+    @rpc_worker.run("ehealth_jobs", Jobs.Rpc, :produce_persons_deactivation_job, [params, user_id])
+    @rpc_worker.run("ehealth_jobs", Jobs.Rpc, :produce_persons_reset_auth_job, [ids, user_id])
+    @rpc_worker.run("ehealth_jobs", Jobs.Rpc, :produce_unverify_legal_entity_job, [license_id, user_id])
+    @rpc_worker.run("ehealth_jobs", Jobs.Rpc, :produce_update_program_medication_registry_job, [params, user_id])
+    @rpc_worker.run("ehealth_jobs", Jobs.Rpc, :produce_upload_device_definition_registry_job, [params, user_id])
+
+87. Таблиця Юридичні Особи
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "legal_entities" do
+    field(:is_active, :boolean, default: false)
+    field(:nhs_verified, :boolean, default: false)
+    field(:nhs_unverified_at, :utc_datetime_usec)
+    field(:nhs_reviewed, :boolean, default: false)
+    field(:nhs_comment, :string, default: "")
+    field(:addresses, {:array, :map})
+    field(:edrpou, :string)
+    field(:email, :string)
+    field(:kveds, {:array, :string})
+    field(:legal_form, :string)
+    field(:name, :string)
+    field(:owner_property_type, :string)
+    field(:phones, {:array, :map})
+    field(:archive, {:array, :map})
+    field(:receiver_funds_code, :string)
+    field(:website, :string)
+    field(:beneficiary, :string)
+    field(:public_name, :string)
+    field(:short_name, :string)
+    field(:status, :string)
+    field(:mis_verified, :string)
+    field(:type, :string)
+    field(:inserted_by, Ecto.UUID)
+    field(:updated_by, Ecto.UUID)
+    field(:capitation_contract_id, :id)
+    field(:created_by_mis_client_id, Ecto.UUID)
+    field(:edr_verified, :boolean)
+    field(:registration_address, :map)
+    field(:residence_address, :map)
+    field(:accreditation, :map)
+    field(:status_reason, :string)
+    field(:reason, :string)
+    has_one(:medical_service_provider, MedicalServiceProvider, on_replace: :delete, foreign_key: :legal_entity_id)
+    has_one(:merged_to_legal_entity, RelatedLegalEntity, foreign_key: :merged_from_id)
+    has_one(:employee, Employee, foreign_key: :legal_entity_id)
+    has_many(:employees, Employee, foreign_key: :legal_entity_id)
+    has_many(:divisions, Division, foreign_key: :legal_entity_id)
+    has_many(:merged_from_legal_entities, RelatedLegalEntity, foreign_key: :merged_to_id)
+    has_many(:healthcare_services, HealthcareService, foreign_key: :legal_entity_id)
+    has_many(:signed_content_history, SignedContent, foreign_key: :legal_entity_id)
+    belongs_to(:edr_data, EdrData, type: UUID)
+    has_many(:licenses, License, foreign_key: :legal_entity_id)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+88. Таблиця Запит на додання Юридичної Особи
+
+```
+  schema "legal_entity_request" do
+    field(:signed_legal_entity_request, :string)
+    field(:signed_content_encoding, :string)
+  end
+```
+
+89. Таблиця Ліцензований Сервісі Охорони Здоров'я
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "licensed_healthcare_services" do
+    field(:status, :string)
+    field(:is_active, :boolean, default: true)
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+    belongs_to(:healthcare_service, HealthcareService, type: UUID)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+90. Таблиця Ліцензій
+
+```
+  @primary_key {:id, :binary_id, autogenerate: false}
+  schema "licenses" do
+    field(:is_active, :boolean, default: true)
+    field(:is_primary, :boolean, default: false)
+    field(:license_number, :string)
+    field(:type, :string)
+    field(:issued_by, :string)
+    field(:issued_date, :date)
+    field(:issuer_status, :string)
+    field(:expiry_date, :date)
+    field(:active_from_date, :date)
+    field(:what_licensed, :string)
+    field(:order_no, :string)
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+    belongs_to(:legal_entity, LegalEntity, type: UUID)
+    has_many(:edr_data, through: [:legal_entity, :edr_data])
+    timestamps(type: :utc_datetime)
+  end
+```
+
+91. Локальний сервіс ліцензій
+
+* create_non_primary_license.ex
+* search_licenses.ex
+* update_non_primary_license.ex
+* validate_license_date.ex
+
+92. Таблиця Manual Merge Candidates
+
+```
+  embedded_schema do
+    field(:status, :string)
+    field(:decision, :string)
+    field(:assignee_id, UUID)
+    field(:person_id, UUID)
+    field(:master_person_id, UUID)
+    belongs_to(:merge_candidate, MergeCandidate)
+
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+93. Таблиця Manual Merge Requests
+
+```
+  embedded_schema do
+    field(:status, :string)
+    field(:comment, :string)
+    field(:assignee_id, Ecto.UUID)
+    belongs_to(:manual_merge_candidate, ManualMergeCandidate)
+
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+94. Таблиця Merge Candidate
+
+```
+  embedded_schema do
+    field(:status, :string)
+    field(:config, :map)
+    field(:details, :map)
+    field(:score, :float)
+    belongs_to(:person, Person, type: UUID)
+    belongs_to(:master_person, Person, type: UUID)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+95. Таблиця Свідоцтво про шлюб
+
+```
+  @primary_key false
+  embedded_schema do
+    field(:id, UUID)
+    field(:ar_reg_date, :utc_datetime)
+    field(:ar_reg_number, :string)
+    field(:op_date, :utc_datetime)
+    field(:ar_op_name, :string)
+    field(:reg_numb, :string)
+    field(:compose_date, :string)
+    field(:compose_org, :string)
+    field(:is_restore, :integer)
+    field(:husband_old_surname, :string)
+    field(:husband_surname, :string)
+    field(:husband_name, :string)
+    field(:husband_patronymic, :string)
+    field(:husband_numident, :string)
+    field(:husband_date_birth, :string)
+    field(:husband_citizenship, :integer)
+    field(:husband_citizenship_another, :string)
+    field(:husband_doc_type, :string)
+    field(:husband_doc_name, :string)
+    field(:husband_series_numb, :string)
+    field(:husband_doc_date, :string)
+    field(:husband_doc_org_name, :string)
+    field(:husband_birth_state, :string)
+    field(:husband_birth_region, :string)
+    field(:husband_birth_district, :string)
+    field(:husband_birth_locality_type, :string)
+    field(:husband_birth_locality, :string)
+    field(:husband_state, :string)
+    field(:husband_region, :string)
+    field(:husband_district, :string)
+    field(:husband_locality_type, :string)
+    field(:husband_locality, :string)
+    field(:husband_street, :string)
+    field(:husband_house, :string)
+    field(:husband_building_part, :string)
+    field(:husband_building_part_type, :string)
+    field(:husband_apartment, :string)
+    field(:wife_old_surname, :string)
+    field(:wife_surname, :string)
+    field(:wife_name, :string)
+    field(:wife_patronymic, :string)
+    field(:wife_numident, :string)
+    field(:wife_date_birth, :string)
+    field(:wife_citizenship, :integer)
+    field(:wife_citizenship_another, :string)
+    field(:wife_doc_type, :string)
+    field(:wife_doc_name, :string)
+    field(:wife_series_numb, :string)
+    field(:wife_doc_date, :string)
+    field(:wife_doc_org_name, :string)
+    field(:wife_birth_state, :string)
+    field(:wife_birth_region, :string)
+    field(:wife_birth_district, :string)
+    field(:wife_birth_locality_type, :string)
+    field(:wife_birth_locality, :string)
+    field(:wife_state, :string)
+    field(:wife_region, :string)
+    field(:wife_district, :string)
+    field(:wife_locality_type, :string)
+    field(:wife_locality, :string)
+    field(:wife_street, :string)
+    field(:wife_house, :string)
+    field(:wife_building_part, :string)
+    field(:wife_building_part_type, :string)
+    field(:wife_apartment, :string)
+    field(:husband_settlement_id, :string)
+    field(:wife_settlement_id, :string)
+    field(:persons_compare_status, :string)
+    field(:parties_compare_status, :string)
+  end
+```
+
+96. Локальні сервіси Актів про одруження
+
+* get_marriage_act.ex
+* list_marriage_acts.ex
+* update_marriage_act.ex
+
+97. 
