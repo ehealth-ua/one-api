@@ -1,0 +1,542 @@
+Аналіз структури головного сервісу ЕСОЗ — IL [MCS-005] (ehealth.api)
+
+1. Таблиця баз даних Audit Log
+
+```
+  schema "audit_log" do
+    field(:actor_id, :string)
+    field(:resource, :string)
+    field(:resource_id, :string)
+    field(:changeset, :map)
+
+    timestamps(type: :utc_datetime_usec, updated_at: false)
+  end
+```
+2. Локальний сервіс Аудит Логів
+
+* GET AUDIT LOGS
+
+3. Таблиця баз даних Методи Автентифікаційних Запитів
+
+```
+  schema "authentication_method_requests" do
+    field(:action, :string)
+    field(:person_id, UUID)
+    field(:authentication_method, :map)
+    field(:authentication_method_id, UUID)
+    field(:status, :string)
+    field(:authentication_method_current, :map)
+    field(:person_documents, {:array, :map})
+    field(:channel, :string)
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+    field(:third_person_id, UUID, virtual: true)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+4. Локальні сервіси Автентифікаційних Запитів
+
+* CHANGE AUTH METHOD BY NHS
+* CREATE AUTH METHOD REQUEST
+* UPDATE AUTH METHOD REQUEST
+* UPDATE PERSON VERIFICATION STATUS
+
+5. Таблиця баз даних Акти про народження
+
+```
+  @primary_key false
+  embedded_schema do
+    field(:id, UUID)
+    field(:ar_reg_date, :utc_datetime)
+    field(:ar_reg_number, :string)
+    field(:op_date, :utc_datetime)
+    field(:ar_op_name, :string)
+    field(:reg_numb, :string)
+    field(:compose_date, :string)
+    field(:compose_org, :string)
+    field(:is_restore, :integer)
+    field(:father_parent_rights, :integer)
+    field(:mother_parent_rights, :integer)
+    field(:child_name, :string)
+    field(:child_surname, :string)
+    field(:child_patronymic, :string)
+    field(:child_date_birth, :string)
+    field(:child_birth_state, :string)
+    field(:child_birth_region, :string)
+    field(:child_birth_district, :string)
+    field(:child_birth_locality_type, :string)
+    field(:child_birth_locality, :string)
+    field(:child_sex, :string)
+    field(:father_name, :string)
+    field(:father_surname, :string)
+    field(:father_patronymic, :string)
+    field(:father_date_birth, :string)
+    field(:father_numident, :string)
+    field(:father_state, :string)
+    field(:father_region, :string)
+    field(:father_district, :string)
+    field(:father_locality_type, :string)
+    field(:father_locality, :string)
+    field(:father_street, :string)
+    field(:father_house, :string)
+    field(:father_apartment, :string)
+    field(:mother_name, :string)
+    field(:mother_surname, :string)
+    field(:mother_patronymic, :string)
+    field(:mother_date_birth, :string)
+    field(:mother_numident, :string)
+    field(:mother_state, :string)
+    field(:mother_region, :string)
+    field(:mother_district, :string)
+    field(:mother_locality_type, :string)
+    field(:mother_locality, :string)
+    field(:mother_street, :string)
+    field(:mother_house, :string)
+    field(:mother_apartment, :string)
+    field(:certificates, {:array, :map})
+  end
+```
+
+6. Локальні сервіси Актів про народження
+
+* GET BIRTH ACT
+* LIST BIRTH ACT
+
+7. Таблиця баз даних Чорний список
+
+```
+  schema "black_list_users" do
+    field(:tax_id, :string)
+    field(:is_active, :boolean, default: true)
+    field(:updated_by, Ecto.UUID)
+    field(:inserted_by, Ecto.UUID)
+    has_many(:parties, Party, foreign_key: :tax_id, references: :tax_id)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+8. Локальні сервіси Чорного списку
+
+* CREATE BLACK LIST USER
+* DEACTIVATE BLACK LIST USER
+* GET BLACK LIST USER
+* GET BLACK LIST USER BY
+
+9. Таблиця баз даних Лікарські засоби
+
+```
+  schema "medications" do
+    field(:name, :string)
+    field(:form, :string)
+    field(:type, :string)
+    field(:code_atc, {:array, :string})
+    field(:certificate, :string)
+    field(:certificate_expired_at, :date)
+    field(:container, :map)
+    field(:manufacturer, :map)
+    field(:package_qty, :float)
+    field(:package_min_qty, :float)
+    field(:is_active, :boolean, default: true)
+    field(:daily_dosage, :float)
+    field(:max_request_dosage, :float)
+    field(:form_pharm, :string)
+    field(:end_date, :date)
+    field(:drlz_sku_id, :string)
+    field(:inserted_by, Ecto.UUID)
+    field(:updated_by, Ecto.UUID)
+    has_many(:ingredients, Ingredient, foreign_key: :parent_id)
+    has_many(:innm_dosages, through: [:ingredients, :innm_dosage])
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+10. Таблиця баз даних Пошук лікарських засобів
+
+```
+  @primary_key false
+  embedded_schema do
+    field(:innm_dosage_id, Ecto.UUID)
+    field(:innm_dosage_name, :string)
+    field(:id, Ecto.UUID)
+    field(:name, :string)
+    field(:form, :string)
+    field(:type, :string)
+    field(:is_active, :boolean)
+  end
+```
+
+11. Таблиця баз даних Інгридієнти
+
+```
+  schema "ingredients" do
+    field(:dosage, :map)
+    field(:is_primary, :boolean, default: false)
+    belongs_to(:medication, Brand, type: Ecto.UUID, foreign_key: :parent_id)
+    belongs_to(:innm_dosage, InnmDosage, type: Ecto.UUID, foreign_key: :medication_child_id)
+    belongs_to(:innm, Innm, type: Ecto.UUID, foreign_key: :innm_child_id)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+12. Локальні сервіси інгридієнтів
+
+* DEACTIVATE ENDED BRANDS
+* GET BRAND
+* LIST BRAND INGIDIENTS
+* LIST BRANDS
+
+13. Сервіси для кабінету пацієнти
+
+@rpc_worker.run("mithril_api", Mithril.Rpc, :user_request_by_id, [id]) do
+@rpc_worker.run("mithril_api", Mithril.Rpc, :upsert_user, [id, params])
+@rpc_worker.run("mithril_api", Mithril.Rpc, :upsert_user, [id, params])
+@rpc_worker.run("mithril_api", Mithril.Rpc, :upsert_user, [id, params])
+@rpc_worker.run("mithril_api", Mithril.Rpc, :create_global_user_role, [
+@rpc_worker.run("mithril_api", Mithril.Rpc, :create_access_token, [
+@rpc_worker.run("mithril_api", Mithril.Rpc, :search_users, [%{"email" => email}]) do
+@rpc_worker.run(Mithril.Rpc, :search_users, [%{"tax_id" => tax_id}])
+@rpc_worker.run("otp_verification_api", OtpVerification.Rpc, :complete, [phone_number, code]) do
+@rpc_worker.run("mithril_api", Mithril.Rpc, :user_by_id, [user_id]),
+@rpc_worker.run("mithril_api", Mithril.Rpc, :search_authentication_factors, [%{"user_id" => user_id}]) do
+@rpc_worker.run("mithril_api", Mithril.Rpc, :search_users, [%{"email" => email}]),
+
+14. Таблиця баз даних Конфігурації Композішенів
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "composition_configurations" do
+    field(:is_active, :boolean, default: true)
+    field(:type, :string)
+    field(:category, :string)
+    field(:settings, :map)
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+15. Локальні сервіси Конфігурацій Композішенів
+
+* GET COMPOSITION CONFIGURATION BY
+* LIST COMPOSITION CONFIGURATION PAGINATED
+
+16. Таблиця баз даних Запити Близьких Осіб
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "confidant_person_relationship_requests" do
+    field(:person_id, UUID)
+    field(:confidant_person_id, UUID)
+    field(:confidant_person_relationship, :map)
+    field(:action, :string)
+    field(:status, :string)
+    field(:authentication_method_current, :map)
+    field(:channel, :string)
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+    field(:authorize_with, UUID)
+    field(:legal_entity_id, UUID)
+    field(:confidant_person_relationship_id, UUID)
+    field(:documents_relationship, {:array, :map})
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+17. Локальні сервіси Запитів Близьких Осіб
+
+* approve_confidant_person_relationship_request.ex
+* cancel_pending_confidant_person_relationship_requests.ex
+* create_confidant_person_relationship_request.ex
+* create_sign_urls_for_documents.ex
+* deactivate_confidant_person_relationship_request.ex
+* get_confidant_person_relationship_request_by.ex
+* list_confidant_person_relationship_requests_paginated.ex
+* list_confidant_person_relationship_requests.ex
+* render_confidant_person_relationship_request.ex
+* resend_otp.ex
+* sign_confidant_person_relationship_request.ex
+
+18. Сервіси Blackwater Запитів Близьких Осіб
+
+* @blackwater_worker.run("mpi", MPI.Rpc, :check_confidant_person_relationship, [confidant_person_id, person_id])
+* @blackwater_worker.run("mpi", MPI.Rpc, :count_confidant_person_relationship, [params])
+* @blackwater_worker.run("mpi", MPI.Rpc, :create_confidant_person_relationship, [params])
+* @blackwater_worker.run("mpi", MPI.Rpc, :get_confidant_person_relationship_by, [params, opts]) do
+* @blackwater_worker.run("mpi", MPI.Rpc, :get_confidant_person_relationship_verification_candidate, [id, opts])
+* @blackwater_worker.run("mpi", MPI.Rpc, :get_confidant_person_relationship, [id, opts])
+* @blackwater_worker.run("mpi", MPI.Rpc, :list_confidant_person_relationship_documents, [params])
+* @blackwater_worker.run("mpi", MPI.Rpc, :list_confidant_person_relationship_verification_candidates, [params, opts])
+* @blackwater_worker.run("mpi", MPI.Rpc, :list_confidant_person_relationships, [params, opts])
+* @blackwater_worker.run("mpi", MPI.Rpc, :update_confidant_person_relationship, [id, params])
+
+19. Таблиця баз даних Запит на Контракт
+
+```
+      @derive {Jason.Encoder, except: [:__meta__, :previous_request]}
+      @primary_key {:id, :binary_id, autogenerate: true}
+      schema "contract_requests" do
+        field(unquote(@inheritance_column), :string, default: unquote(inheritance_name))
+        field(:contractor_legal_entity_id, UUID)
+        field(:contractor_owner_id, UUID)
+        field(:contractor_base, :string)
+        field(:contractor_payment_details, :map)
+        field(:contractor_divisions, {:array, UUID})
+        field(:start_date, :date)
+        field(:end_date, :date)
+        field(:nhs_legal_entity_id, UUID)
+        field(:nhs_signer_id, UUID)
+        field(:nhs_signer_base, :string)
+        field(:nhs_signed_date, :date)
+        field(:issue_city, :string)
+        field(:status, :string)
+        field(:status_reason, :string)
+        field(:nhs_payment_method, :string)
+        field(:contract_number, :string)
+        field(:contract_id, UUID)
+        field(:parent_contract_id, UUID)
+        field(:contractor_signed, :boolean)
+        field(:printout_content, :string)
+        field(:id_form, :string)
+        field(:data, :map)
+        field(:misc, :string)
+        field(:assignee_id, UUID)
+        field(:inserted_by, UUID)
+        field(:updated_by, UUID)
+        belongs_to(:previous_request, __MODULE__, type: UUID)
+        timestamps(type: :utc_datetime_usec)
+      end
+```
+
+20. Таблиця баз даних Контракт
+
+```
+      @primary_key {:id, UUID, autogenerate: false}
+      schema "contracts" do
+        field(unquote(@inheritance_column), :string, default: unquote(inheritance_name))
+        field(:start_date, :date)
+        field(:end_date, :date)
+        field(:status, :string)
+        field(:status_reason, :string)
+        field(:reason, :string)
+        field(:contractor_base, :string)
+        field(:contractor_payment_details, :map)
+        field(:nhs_payment_method, :string)
+        field(:nhs_signer_base, :string)
+        field(:issue_city, :string)
+        field(:contract_number, :string)
+        field(:contract_request_id, UUID)
+        field(:is_active, :boolean)
+        field(:is_suspended, :boolean)
+        field(:inserted_by, UUID)
+        field(:updated_by, UUID)
+        field(:id_form, :string)
+        field(:nhs_signed_date, :date)
+        field(:signed_content_location, :string)
+        belongs_to(:contractor_legal_entity, LegalEntity, type: UUID)
+        belongs_to(:contractor_owner, Employee, type: UUID)
+        belongs_to(:nhs_legal_entity, LegalEntity, type: UUID)
+        belongs_to(:nhs_signer, Employee, type: UUID)
+        belongs_to(:parent_contract, __MODULE__, type: UUID)
+        has_many(:contract_divisions, ContractDivision, foreign_key: :contract_id)
+        has_many(:divisions, through: [:contract_divisions, :division])
+        has_one(:merged_from, RelatedLegalEntity, foreign_key: :merged_from_id, references: :contractor_legal_entity_id)
+        has_many(:merged_to, RelatedLegalEntity, foreign_key: :merged_to_id, references: :contractor_legal_entity_id)
+        timestamps(type: :utc_datetime_usec)
+    end
+```
+
+21. Таблиця баз даних Контракти Підрозділів
+
+```
+  schema "contract_divisions" do
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+    # because of polymorphic Contract, it's impossible to use `belongs_to` for :contract field
+    field(:contract_id, UUID)
+    field(:is_active, :boolean)
+    belongs_to(:division, Division, type: UUID)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+22. Таблиця баз даних Пошук Контрактів
+
+```
+  @primary_key false
+  embedded_schema do
+    field(:id, UUID)
+    field(:division_id, UUID)
+    field(:contract_id, UUID)
+    field(:is_active, :boolean)
+    field(:type, :string)
+    field(:page, :integer)
+    field(:page_size, :integer)
+  end
+```
+
+23. Таблиця баз даних Контракт Працівника
+
+```
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "contract_employees" do
+    field(:staff_units, :float)
+    field(:declaration_limit, :integer)
+    field(:is_active, :boolean)
+    # TODO: Since we are returning these fields as date, there is no sense to store this data as timestamp
+    field(:start_date, :utc_datetime_usec)
+    field(:end_date, :utc_datetime_usec)
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+    belongs_to(:contract, CapitationContract, type: UUID, foreign_key: :contract_id)
+    belongs_to(:employee, Employee, type: UUID)
+    belongs_to(:division, Division, type: UUID)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+24. Таблиця баз даних Пошук Контракту Працівника
+
+```
+  @primary_key false
+  embedded_schema do
+    field(:id, UUID)
+    field(:division_id, UUID)
+    field(:employee_id, UUID)
+    field(:contract_id, UUID)
+    field(:is_active, :boolean)
+    field(:type, :string)
+    field(:page, :integer)
+    field(:page_size, :integer)
+  end
+```
+
+25. Таблиця баз даних Контракт Медичних Програм
+
+```
+  schema "contract_medical_programs" do
+    field(:is_active, :boolean)
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+    belongs_to(:contract, ReimbursementContract, type: UUID, foreign_key: :contract_id)
+    belongs_to(:medical_program, MedicalProgram, type: UUID)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+26. Таблиця баз даних Акти про смерть
+
+```
+  @primary_key false
+  embedded_schema do
+    field(:id, UUID)
+    field(:ar_reg_date, :utc_datetime)
+    field(:ar_reg_number, :string)
+    field(:op_date, :utc_datetime)
+    field(:ar_op_name, :string)
+    field(:reg_numb, :string)
+    field(:compose_date, :string)
+    field(:compose_org, :string)
+    field(:is_restore, :integer)
+    field(:name, :string)
+    field(:surname, :string)
+    field(:patronymic, :string)
+    field(:date_birth, :string)
+    field(:birth_state, :string)
+    field(:birth_region, :string)
+    field(:birth_district, :string)
+    field(:birth_locality_type, :string)
+    field(:birth_locality, :string)
+    field(:sex, :string)
+    field(:numident, :string)
+    field(:date_death, :string)
+    field(:state, :string)
+    field(:region, :string)
+    field(:district, :string)
+    field(:locality_type, :string)
+    field(:locality, :string)
+    field(:street, :string)
+    field(:house, :string)
+    field(:apartment, :string)
+    field(:doc_seizes, {:array, :map})
+  end
+```
+
+27. Локальні сервіси актів про смерть
+
+* GET DEATH ACT
+* LIST DEACTH ACT
+* UPDATE DEATH ACT
+
+28. Таблиця баз даних Запит на Декларацію
+
+```
+  schema "declaration_requests" do
+    field(:data, :map)
+    field(:data_to_be_signed, :map)
+    field(:status, :string)
+    field(:authentication_method_current, :map)
+    field(:documents, {:array, :map})
+    field(:printout_content, :string)
+    field(:declaration_id, UUID)
+    field(:mpi_id, UUID)
+    field(:overlimit, :boolean)
+    field(:channel, :string)
+    field(:declaration_number, :string)
+    field(:parent_declaration_id, UUID)
+    field(:data_legal_entity_id, UUID)
+    field(:data_employee_id, UUID)
+    field(:data_division_id, UUID)
+    field(:data_start_date_year, :integer)
+    field(:data_person_tax_id, :string)
+    field(:data_person_first_name, :string)
+    field(:data_person_last_name, :string)
+    field(:data_person_birth_date, :date)
+    field(:data_person_documents, {:array, :map})
+    field(:authorize_with, UUID)
+    field(:status_reason, :string)
+    field(:current_declaration_count, :integer)
+    field(:system_declaration_limit, :integer)
+    field(:is_shareable, :boolean, default: false)
+    field(:inserted_by, UUID)
+    field(:updated_by, UUID)
+    timestamps(type: :utc_datetime_usec)
+  end
+```
+
+29. Таблиця баз даних Запит на підпис
+
+```
+  schema "declaration_sign_request" do
+    field(:signed_declaration_request, :string)
+    field(:signed_content_encoding, :string)
+  end
+```
+
+30. Локальні сервіси Запитів Декларацій
+
+* approve.ex
+* cancel_active_declaration_requests.ex
+* creator.ex
+* documents.ex
+* generate_declaration_end_date.ex
+* generate_declaration_number.ex
+* get_declaration_request_by.ex
+* get_declaration_request.ex
+* mpi_search.ex
+* person_deduplication.ex
+* persons.ex
+* resend_otp.ex
+* sign.ex
+* update_declaration_request.ex
+
+31. Локальний сервіс декларацій
+
+* create_declaration.ex
+* get_declaration_by.ex
+* get_declaration.ex
+* get_declarations_count.ex
+* list_declarations.ex
+
+32. 
