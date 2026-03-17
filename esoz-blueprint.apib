@@ -1364,7 +1364,7 @@ This endpoint returns current diagnoses related only to active episodes. In orde
 
 # Group Administrative
 
-## Divisions [/api/divisions]
+## Divisions [/admin/divisions]
 
 ESOZ ENT ID: ENT-022
 Link to Confluence: <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17358684238/Division+ENT">Division</a>
@@ -1409,9 +1409,8 @@ This method must be used to update existing division in the system.
 Note that different legal entity types can register specific division types and address types accordingly
 More details can be found [here](https://e-health-ua.atlassian.net/wiki/x/GQB7Iw).
 
-
 + Parameters
-    + id: `d290f1ee-6c54-4b01-90e6-d701748f0851` (string)
+    + id: `d290f1ee-6c54-4b01-90e6-d701748f0851` (string,required)
 
 + Request (application/json)
     + Headers
@@ -1419,8 +1418,6 @@ More details can be found [here](https://e-health-ua.atlassian.net/wiki/x/GQB7Iw
             Authorization: Bearer c2778f3064753ea70de870a53795f5c9
             API-key: uXhEczJ56adsfh3Ri9SUkc4en
             X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
-
-    + Attributes (crud_division_post)
 
 + Response 200 (application/json)
     + Attributes (Response_OK)
@@ -1443,8 +1440,6 @@ More details can be found at: https://e-health-ua.atlassian.net/wiki/x/GQB7Iw.
             Authorization: Bearer c2778f3064753ea70de870a53795f5c9
             API-key: uXhEczJ56adsfh3Ri9SUkc4en
             X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
-
-    + Attributes (crud_division_post)
 
 + Response 200 (application/json)
     + Attributes (Response_OK)
@@ -1918,7 +1913,7 @@ Link to Confluence: <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/
         + data (Equipment_response_v2)
             - availability_status: damaged (string,required) - New equipment status
 
-## Licenses [/api/licenses]
+## Licenses [/admin/licenses]
 
 ESOZ ENT ID: ENT-036
 Link to Confluence: <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17358946428/License">License</a>
@@ -1963,14 +1958,9 @@ Primary license must be added with `Create or Update Legal Entity` method.
             API-key: uXhEczJ56adsfh3Ri9SUkc4en
             X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
 
-    + Attributes (crud_licenses_post)
-        + is_primary: false (boolean,required)
-
 + Response 201 (application/json)
     + Attributes (Response_OK)
         + data (crud_licenses_get)
-
-+ Response 200 (application/json)
 
 ### Update License [PATCH /api/licenses/{id}]
 
@@ -1991,9 +1981,6 @@ Primary license must be updated with `Create or Update Legal Entity` method.
             Authorization: Bearer c2778f3064753ea70de870a53795f5c9
             API-key: uXhEczJ56adsfh3Ri9SUkc4en
             X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
-
-    + Attributes (crud_licenses_post)
-        + is_primary: false (boolean,required)
 
 + Response 200 (application/json)
     + Attributes (Response_OK)
