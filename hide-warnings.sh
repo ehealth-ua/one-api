@@ -12,8 +12,8 @@ path = sys.argv[1]
 content = open(path).read()
 # Strip any previous patch
 content = re.sub(r'<script data-bpw>[^<]*</script>', '', content)
-# One-liner: MutationObserver removes .page__aside-element_for_notification the moment React renders it
-snippet = '<script data-bpw>new MutationObserver(function(m,o){var e=document.querySelector(".page__aside-element_for_notification");if(e){e.remove();o.disconnect();}}).observe(document.body||document.documentElement,{childList:true,subtree:true});</script>'
+# Minimal one-liner to remove the notification element and its variants
+snippet = '<script data-bpw>const r=()=>document.querySelectorAll(".page__aside-element_for_notification, .notification, .document-warnings").forEach(e=>e.remove());r();new MutationObserver(r).observe(document.documentElement,{childList:true,subtree:true});</script>'
 content = content.replace('</body>', snippet + '</body>', 1)
 open(path, 'w').write(content)
 print('Patched:', path)
