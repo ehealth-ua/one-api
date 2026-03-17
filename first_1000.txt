@@ -1,0 +1,1000 @@
+FORMAT: 1A
+HOST: https://api.ehealth.gov.ua
+
+# ESOZ
+
+**Version: 9.11 V3** 2026-01-08
+
+## General Information
+
+Electronic healthcare system of Ukraine (ESOZ) consists of central database and medical information systems (MIS).
+Central database belongs to Ukrainian state, represented by the National Healthcare Service of Ukraine (NHSU).
+
+Users of the electronic healthcare system of Ukraine are individuals and
+legal entities who are registered in the electronic health system and
+have access rights in accordance with the Procedure for the Operation of the electronic healthcare system.
+
+## Abbreviations, acronyms, explanations
+
+See <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17536909481">link to Confluence ESOZ Glossary page</a>.
+
+## Interacting with API
+
+Our API is organized around [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer).
+It has predictable, resource-oriented URLs, and uses HTTP response codes to indicate API errors.
+We use built-in HTTP features, like HTTP authentication and HTTP verbs, which are understood by off-the-shelf HTTP clients.
+
+### Verbs
+
+As per RESTful design patterns, API implements following HTTP verbs:
+
+- `HEAD` - Can be issued against any resource to get just the HTTP header info.
+- `GET` - Read resources. Should hever change resources on server (idempotency) since most of http proxies and services may reply same request multiple times.
+- `POST` - Create new resources.
+- `PUT` - Replace resources. Idempotent. (Can be used as `insert or update` method, when we want clients to don't care whenever entity is exists in our system.)
+- `PATCH` - Same as `PUT`, but replaces subset of fields instead of full entity. Should never be used as `insert of update` pattern.
+- `DELETE` - Remove resources.
+
+### Status codes
+
+Code  | Description
+----- | -----------
+`200` | Everything worked as expected.
+`201` | Created.
+`202` | Accepted.
+`400` | Bad Request. 
+`401` | Unauthorized. No valid API key provided or API key doesn't match project.
+`402` | The parameters were valid but the request failed.
+`403` | Source or destination account is disabled.
+`404` | Not Found. The requested resource doesn't exist.
+`409` | Logical error. For example, odject in current status can not be modified. 
+`415` | Incorrect ```Content-Type``` HTTP header.
+`422` | Semantic error or similar. For example, value is not included in enum of allowed values.
+`429` | Too Many Requests. Rate limit is exceeded.
+`500` `502` `503` `504` | Server Errors. Something went wrong on our end.
+
+### Field naming
+
+Fields are named in `snake_case` since it's more common for
+our stack and [20% easier to read](http://ieeexplore.ieee.org/xpl/articleDetails.jsp?tp=&arnumber=5521745).
+
+### Authentication 
+
+In general there is 3-phase authentication routine:
+
+1) Issuing Session Token (OAuth);
+2) Issuing Approval Token (ABAC);
+3) Issuing Access Token (JWT).
+
+### Request identifier
+
+Each API request has an associated request identifier.
+You can find it in `X-Request-ID` response header or inside `meta.request_id` property of returned JSON.
+
+You can also find request identifiers in the URLs of individual request logs in your Dashboard.
+If you need to contact us about a specific request, providing the request identifier will
+ensure the fastest possible resolution.
+
+All Request Id's are prefixed with a human-readable name of server that served your request.
+
+```
+X-Request-ID: flash-99spDSoim3i
+```
+
+### Content Type
+
+`Content-Type` header should be always `application/json`
+
+### Request structure
+
+Request consist with a root object that contain resource and metadata as it's childs:
+
+```
+{
+  "resource": {
+    "name": "Alex",
+    "surname": "Gray",
+    "email": "me@example.com",
+    "credentials: [
+      {"method": "passsword", "password": "notasecret"}
+    ]
+  },
+  "format_response": true,
+  "redirect_browser": true
+}
+```
+
+### Response structure
+
+Response can consist of 5 root properties:
+
+* `meta` - contains: 1) URL of the requested resource `url`;
+                     2) requested response type `type`, may be either list or object;
+                     3) HTTP status `code`;
+                     4) idempotency key (`idempotency_key`);
+                     5) request id (`request_id`).
+* `urgent` - Notifications and counters.
+* `errors` - Error description. MUST be present when status code is not 2XX, 3XX. CAN NOT be present when data is present.
+* `data` - Requested resource. MUST be present when status code is 2XX, 3XX. CAN NOT be present when error is present.
+* `paging` - Pagination data.
+* `sandbox` - Optional data provided by sandbox environment, for development purposes.
+
+```
+{
+  "meta": {
+    "url": "https://qbill.ly/transactions/",
+    "type": "list",
+    "code": "200",
+    "idempotency_key": "iXXekd88DKqo",
+    "request_id": "qudk48fFlaP"
+  },
+  "urgent": {
+    "notifications": ["Read new emails!"],
+    "unseen_payments": 10
+  },
+  "data": {
+    "type": "resource_name",
+    <...>
+  },
+  "paging": {
+    "limit": 50,
+    "cursors": {
+      "starting_after": "MTAxNTExOTQ1MjAwNzI5NDE=",
+      "ending_before": "NDMyNzQyODI3OTQw"
+    },
+    "has_more": true
+  },
+  "sandbox": {
+    "debug_varibale": "39384",
+    "live": "false"
+  }
+}
+```
+
+### Errors
+
+All errors is returned in JSON format if another `Content-Type` is not specified.
+This means that your will receive JSON for requests with HTTP 415 code when incorrect `Content-Type` is provided.
+
+#### Error Object Properties
+
+You can find all necessary information about occurred error in a response `error` property. It can have following fields:
+
+Fields | Required | Description
+--------- | ----------- | -----------
+`type` | true | General error type. You should return human-readable error message based on this field as a key. Type descriptions is listed in next section.
+`invalid` | false | Collection of validation errors for your request.
+`invalid[].entry_type` | true | Type of invalid field.
+`invalid[].entry` | false | Name or JSON path to invalid data property.
+`invalid[].rules` | false| Failed rules for invalid property. You can find supported validation rules at [Request Validators](#request-validators) table. Server may optinally skip this field, when validation rules is perefferd to stay secret or hard to extract from validator.
+`invalid[].params` | false| Optional parameters that can be used in a human-readable error message, to make it easier to understand. Usually it contains limit values for failed validator.
+`message` | false | Human readable message for API developer.
+
+Example error response:
+
+```
+{
+    "data": {
+        "error": {
+            "invalid": [
+                {
+                    "entry": "$.type",
+                    "entry_type": "json_data_property",
+                    "rules": [
+                        {
+                            "description": "Value AMB/ not found in the dictionary eHealth/episode_types",
+                            "params": [],
+                            "rule": "invalid"
+                        }
+                    ]
+                }
+            ],
+            "message": "Validation failed. You can find validators description at our API Manifest: http://esoz.docs.apiary.io/#introduction/interacting-with-api/errors.",
+            "type": "validation_failed"
+        },
+        "eta": "2019-04-23T09:13:02.415",
+        "status": "failed",
+        "status_code": 422
+    },
+    "meta": {
+        "code": 200,
+        "request_id": "806e0f81-ac97-470e-988f-6391e9abf642#28157",
+        "type": "object",
+        "url": "http://api-medical-events.me.svc.cluster.local/api/jobs/5cbed6e2ed59d30001e54b92"
+    }
+}
+```
+
+#### Error Types
+
+Parameter | Description
+--------- | -----------
+`access_denied` | Authorization not passed
+`forbidden` | User does not have permissions to access the resource
+`content_type_invalid` | Invalid HTTP request `content-type`.
+`validation_failed` | Failed validation on JSON request body or form data. 
+`request_too_large` | Request body was to large to process it.
+`request_conflict`| Request causes logical errors
+`internal error`| Error on the server
+
+#### Error Entry Types
+
+Entry Type | Description
+--------- | -----------
+`json_data_proprty` | JSON document is invalid. `entry` will contain JSON Path to invalid property.
+`form_data_field` | HTTP request field (for `form-data` requests) is invalid. 
+`query_param` | HTTP query parameter is invalid.
+`body` | Mailformed request body.
+`header` | HTTP request header is invalid.
+
+#### Validation Rules
+
+List of possible validation rules:
+
+Rule | Params | Description
+-------------- | ----------- | -----------
+`cast` | `[types]` | The field type should be in `types`.
+`required` | `[]` | The field is required and should not be `nil`.
+`format` | `[patterns]` | The field should match all regular expressions in `patterns` list.
+`inclusion` | `[enum]` | Field value should be in `enum`.
+`invalid`| `[]` | Field value is not valid according to specification
+`exclusion` | `[enum]` | Field value should NOT be in `enum`.
+`subset` | `[set]` | Field value should be subset of `set`.
+`length` | `{min:_, max:_, is:_, exclusive:true|false}` | List or string length should be equal to `is` value, less than `max` and bigger than `min` value. Params is optional, but one of them should always be present. `exclusive` is false by default.
+`number` | `{greater_than:_, less_than:_, greater_than_or_equal_to:_, less_than_or_equal_to:_, multiple_of:_}` | The field value must be a number that is greater than `greater_than` and less than `less_than`.
+`confirmation` | `[]` | The field value of field must match confirmed field (eg. `password_confirmation` should match `password`).
+`acceptance` | `[]` | The field value should be true.
+`email` | `[patterns]` | The field value must be a valid email address respectively to `patterns`.
+`phone_number` | `[patterns]` | The field value must be a valid phone number respectively to `patterns`. *Usually it means that is should be in international format (with `+3`).*
+`card_number` | `[]` | The field value should be a valid Visa or MasterCard card number. (By luhn algoryghm.)
+`metadata` | `[]` | The field must be a [valid metadata object](http://esoz.docs.apiary.io/#introduction/optional-features/metadata).
+`unique` | `[]` | The field must be a list with all it's items unique.
+`schemata` | `[]` | JSON Schema specific error core.
+`schema` | `[]` | JSON Schema specific error core.
+`dependency` | `[json_paths]` | Property expects another property to exist.
+`json` | `[]` | The field under validation must be a valid JSON string.
+`authentification_code` | `{resent: true}` | OTP or other authentification code was invalid. User should retry with re-entering it. `resent` property will tel is code was automatically resent upon failed validation.
+`date`, `datetime`, `timestamp` | `[after:_, before:_, after_or_at:_, before_or_at:_]` | Invalid datetime representation.
+`url` | `[patterns]` | Field should contain a valid URL.
+
+### Pagination
+
+You can use next search parameters to operate pagination:
+
+Arguments:
+
+- `page_number` (optional) - A number of a page in the list;
+- `page_size` (optional) -  A limit on the number of objects to be returned, between 1 and 100. Default: 50;
+
+### HTTP Redirects
+
+API uses HTTP redirection where appropriate. Clients should assume that any request may result in a redirection. Receiving an HTTP redirection is not an error and clients should follow that redirect. Redirect responses will have a Location header field which contains the URI of the resource to which the client should repeat the requests.
+
+Status codes:
+
+- `301` - Permanent redirection. The URI you used to make the request has been superseded by the one specified in the Location header field. This and all future requests to this resource should be directed to the new URI.
+- `302`, `307` - Temporary redirection. The request should be repeated verbatim to the URI specified in the Location header field but clients should continue to use the original URI for future requests.
+- `303` - The request was successfully performed, the result can be found by the redirect URI.
+Other redirection status codes may be used in accordance with the HTTP 1.1 spec.
+
+### File Uploads
+
+#### For files less than 10 MB
+
+For small files it's appropriate to send base64 encoded file contents as JSON field:
+
+```
+{
+    name: "My Name",
+    image: "sdasdpjoijhwhwe83280u2380wef=="
+}
+```
+
+#### For larger files - Multi-Stage Uploads (Network Transactions)
+
+Multi-stage process:
+
+1). User initiates uploading;
+2). Server provides the link to media storage;
+3). User upload file using provided link.
+
+## Optional Features
+
+### Rate Limits (Throttling)
+
+We throttle our APIs by default to ensure maximum performance for all developers.
+
+Rate limiting of the API is primarily considered on a per-consumer basis.
+All your projects share a same rate limit, to avoid API-consuming fraud.
+Rate limits depend on your account type.
+
+Currently free accounts is rate limited to 1000 API calls every 15 minutes,
+but this value may be adjusted at our discretion.
+
+### Idempotent Requests
+
+From a RESTful service standpoint, for an operation (or service call) to be idempotent,
+clients can make that same call repeatedly while producing the same result.
+In other words, making multiple identical requests has the same effect as
+making a single request. However, if you are working with async methods,
+new job will not be created before previous identical request is not performed.
+
+### Ordering Lists and Collections
+
+By default, all collections are ordered in ascending chronological order.
+
+# Group Authorization
+
+## User [/gen/user]
+
+Key                | Value
+-------------------|-----------
+ESOZ ENT ID        | ENT-067
+Link to Confluence | <a href="">User</a>
+
+### Get Nonce [GET /oauth/nonce]
+
+Key                | Value
+-------------------|-----------
+ESOZ API ID        | API-009-067-0001
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17571315797/DRAFT+REST+API+Get+nonce">Get Nonce</a>
+
+This WS allows to get nonce (one time JWT) for active client of the system.
+Field `client_secret` must be passed if client type = TRUSTED_PIS.
+
+Nonce payload example:
+
+```
+{
+  "aud": "mithril-login",
+  "exp": 1523439201,
+  "iat": 1523438301,
+  "iss": "EHealth",
+  "jti": "efe1f08e-d4b4-4cef-a02c-78ea4a1dda25",
+  "nbf": 1523438300,
+  "nonce": 123,
+  "sub": 123,
+  "typ": "access"
+}
+```
+
++ Request (application/json)
+    + Headers
+        X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
+
+    + Attributes (object)
+        + `client_id`: `30074b6e-fbab-4dc1-9d37-88c21dab1847` (string, required)
+        + `client_secret`: `c2778f3064753ea70de870a53795f5c9` (string, optional)
+
++ Response 200 (application/json)
+    + Attributes (`Response_OK`)
+        + data (object)
+           + token: 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJtaXRocmlsLWxvZ2luIiwiZXhwIjoxNTIzNDM5MjAxLCJpYXQiOjE1MjM0MzgzMDEsImlzcyI6IkVIZWFsdGgiLCJqdGkiOiJlZmUxZjA4ZS1kNGI0LTRjZWYtYTAyYy03OGVhNGExZGRhMjUiLCJuYmYiOjE1MjM0MzgzMDAsIm5vbmNlIjoxMjMsInN1YiI6MTIzLCJ0eXAiOiJhY2Nlc3MifQ.UZ6S92h3nAG-GKY_XUE1Rc6uR_BuqR8ufUJfMhhKtNmt7DkkQlU49qPXjL0LFddVz1E2DXi2a-BQ0FG-DHsTHA' (string, required)
+
+### Deprecated Refresh Client Secret [PATCH /api/clients/{id}/connections/{connection_id}/actions/refresh_secret]
+
+Key                | Value
+-------------------|-----------
+ESOZ API ID        | API-009-067-0002
+Scope              | connection:refresh_secret
+Auth               | yes
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17571381309/DRAFT+REST+API+Refresh+client+secret+-+Deprecated">Refresh Client Secret</a>
+
+This method is used to refresh client secret for specified client connection
+Only legal entity owner can request new client secret for his own legal entity
+
++ Parameters
+    + id: `1380df72-275a-11e7-93ae-92361f002671` (string, required)
+    + connection_id: `e5372365-d47a-467f-81d0-f35117864352` (string, required)
+
++ Request (application/json)
+    + Headers
+        Authorization: Bearer c2778f3064753ea70de870a53795f5c9
+        API-key: uXhEczJ56adsfh3Ri9SUkc4en
+        X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
+
++ Response 200 (application/json)
+    + Attributes (`Response_OK`)
+        + data (object)
+            + include `Connection`
+            + secret: `ZlFOaHBTR0d3Q0hQcDEraHVYdXBVZz09` (string, required)
+
+## User Authentication [/gen/userauth]
+
+Key                | Value
+-------------------|-----------
+ESOZ ENT ID        | ENT-068
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17478385835/oAuth">User Authentication</a>
+
+Different environments are using different hosts in endpoints:
+
+Environmnet | Host
+------------|-----
+DEMO        | https://auth-demo.ehealth.gov.ua
+PREPROD     | https://auth-preprod.ehealth.gov.ua
+PROD        | https://auth.ehealth.gov.ua
+
+In general 3 stage authentication purpose is to get active JWT Bearer which
+can be obtained using the folling example:
+
+```
+var user      = __ENV.USER;
+var data      = JSON.parse(open("./assets/" + user));
+var authorize = JSON.parse(open("./assets/authorize@" + user));
+var grant     = JSON.parse(open("./assets/grant@" + user));
+
+export function setupAuth() {
+
+   let res1 = http.post("https://auth-demo.ehealth.gov.ua/auth/login",
+       JSON.stringify(data), { headers: { 'Content-Type': 'application/json' } });
+       check(res1, { "User is entered: ": r => r.json().meta.code < 300, });
+
+   let res2 = http.post("https://auth-demo.ehealth.gov.ua/oauth/apps/authorize",
+       JSON.stringify(authorize), { headers:
+          { 'Content-Type': 'application/json',
+            'Authorization' : 'Bearer ' + res1.json().data.value } });
+       check(res2, { "User is authorized by app: ": r => r.json().meta.code < 300, });
+
+   grant.token.code = res2.json().data ? res2.json().data.value : 'error';
+   let res3 = http.post("https://auth-demo.ehealth.gov.ua/oauth/tokens",
+       JSON.stringify(grant), { headers:
+          { 'Content-Type': 'application/json',
+            'Authorization' : 'Bearer ' + res1.json().data.value } });
+       check(res3, { "User is granted: ": r => r.json().meta.code < 300, });
+
+   return { data: res3 };
+}
+```
+
+### Login [PUT /auth/login]
+
+Key                | Value
+-------------------|-----------
+ESOZ API ID        | API-009-068-0001
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17571446858/Login">Login</a>
+
+Create Session Token by Object.
+
++ Request (application/json)
+    + Attributes (object)
+        + token (object)
+            + `grant_type`: `password` (string, required) - authentication type
+            + `email`: `user@company.com` (string) - email address of ESOZ user
+            + `client_id`: `00` (string, required) - MIS identifier
+            + `scope`: `app:authorize' (string, required) - ABAС rule
+
++ Response 201 (application/json)
+    + Attributes (`Response_OK`)
+        + meta (Response__Meta)
+            + code: 201 (number)
+        + data (`Access_Token`)
+
+### Sign-in [GET /sign-in{?client_id,redirect_uri,scope,email,user_data,state}]
+
+Key                | Value
+-------------------|-----------
+ESOZ API ID        | N/A
+Link to Confluence | N/A
+
+Create Session Token by Params. You MUST redirect your users to this URL to obtain OAuth
+Code Grant (which is later exchanged to Access Token).
+
+User will see rendered login page, which structure differ by a list of requested
+scopes and security measures applied by DevOps team.
+
+For security purposes, we will set `X-Frame-Options: deny` header that will disallow opening this page in an iframe.
+
++ Parameters
+    + `client_id`: `6498d88e-97fb-47e2-85a5-99e884f888aa` (string, required) - Medical Service provider ID issued after legal_entity registration. Used to identify the context of the MSP/Pharmacy.
+    + `redirect_uri`: https://example.com/ (string, required) - URL where user will be redirected after authentification. This url will receive `code` and `state` parameters in query string.
+    + scope: `capitation_contracts:view capitation_contracts:create patients:view patients:create` (string, required) - List of scopes that is required in application business logic, separated by space. Different login forms will be shown based on scopes that you requested.
+    + email: email@example.com
+    + `user_data`: `base64_string` - Auth request signed on client side
+    + state: `eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9` (string, optional) - Randomly generated, opaque, and non-guessable string generated by client that will be transferred to client with grant code
+
++ Response 200 (text/html; charset=UTF-8)
+    + Headers
+
+### Issuing Approval Token [POST /oauth/apps/authorize]
+
+Key                | Value
+-------------------|-----------
+ESOZ API ID        | N/A
+Link to Confluence | N/A
+
++ Request (application/json)
+    + Headers
+        Authorization: Bearer 432fsdfg543252345tfgdsgdft2345 - access_token with the `app:authorize` scope
+        X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
+
+    + Attributes
+        + app (required)
+            + client_id: `client-1380df72-275a-11e7-93ae-92361f002671` (string, required) - ID of client that is granted with access to user's resources.
+            + scope: `notebooks:read notebooks:create patients:read` (string, required) - List of scopes that are granted to the client on the user's behalf.
+            + `redirect_uri`: `http://example.com/my_success_login_page` (string, required) - URL of client where user will be redirected on Approval creation.
+
++ Response 201 (application/json)
+    + Headers
+        Location: http://example.com/my_success_login_page?code=authorization_code-cTdHUE9jN29yWHo0VTAwL3lwSVRoUT09
+    + Attributes (`Response_OK`)
+        + meta (`Response__Meta`)
+            + code: 201 (number)
+        + data (`Response_OK`)
+        + urgent
+            + `redirect_uri`: `http://example.com/my_success_login_page?code=authorization_code-cTdHUE9jN29yWHo0VTAwL3lwSVRoUT09`
+
+### Issuing Grant Access Token [POST /oauth/tokens]
+
+Key                | Value
+-------------------|-----------
+ESOZ API ID        | API-009-068-0002
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17571807257/Exchange+oAuth+Code+Grant+to+Access+Token">Issuing Grant Access Token</a>
+
++ Request (application/json)
+    + Headers
+        X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
+    + Attributes (object)
+        + token (object)
+            + `client_id`: `6498d88e-97fb-47e2-85a5-99e884f888aa` (string, required) - Medical Service provider ID issued after legal_entity registration. Used to identify the context of the MSP/Pharmacy.
+            + client_secret: `msp-001-secret-key` (string, required) - Medical Information System secret key issued upon integration request. Used to identify application developer.
+            + code: 299383828 (string, required) - oAuth code grant.
+            + `grant_type`: authorization_code (string, fixed, required) - oAuth Grant Type. Currently only `authorization_code` is supported.
+            + redirect_uri: https://example.com/ (string, required) - URL where user will be redirected after authentification. This url will receive `code` and `state` parameters in query string.
+            + scope: `capitation_contracts:view capitation_contracts:create patients:view patients:create` (string, required) - List of scopes that is required in application business logic, separated by space. Different login forms will be shown based on scopes that you requested.
+
++ Response 201 (application/json)
+    + Attributes (`Response_OK`)
+        + meta (Response__Meta)
+            + code: 201 (number)
+        + data (`Access_Token`)
+
+### Reissuing Session Token [POST /oauth/tokens]
+
+Key                | Value
+-------------------|-----------
+ESOZ API ID        | API-009-068-0003
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17571315778/Use+Refresh+Token+for+Access+Token+extension">Reissuing Session Token</a>
+
++ Request (application/json)
+    + Headers
+        X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
+    + Attributes (object)
+        + token (object)
+            + `client_id`: `6498d88e-97fb-47e2-85a5-99e884f888aa` (string, required) - Medical Service provider ID issued after legal_entity registration. Used to identify the context of the MSP/Pharmacy.
+            + client_secret: `msp-001-secret-key` (string, required) - Medical Information System secret key issued upon integration request. Used to identify application developer.
+            + code: 299383828 (string, required) - oAuth code grant.
+            + `grant_type`: authorization_code (string, fixed, required) - oAuth Grant Type. Currently only `authorization_code` is supported.
+            + redirect_uri: https://example.com/ (string, required) - URL where user will be redirected after authentification. This url will receive `code` and `state` parameters in query string.
+            + scope: `capitation_contracts:view capitation_contracts:create patients:view patients:create` (string, required) - List of scopes that is required in application business logic, separated by space. Different login forms will be shown based on scopes that you requested.
+
++ Response 201 (application/json)
+    + Attributes (`Response_OK`)
+        + meta (Response__Meta)
+            + code: 201 (number)
+        + data (`Access_Token`)
+
+### Logout [POST /auth/logout]
+
+Key                | Value
+-------------------|-----------
+ESOZ API ID        | API-009-068-0004
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/18448646240/DRAFT+PIS.+Logout">Logout</a>
+
+
++ Request (application/json)
+    + Headers
+        Authorization: Bearer c2778f3064753ea70de870a53795f5c9
+        X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
+
++ Response 200 (application/json)
+    + Attributes (`Response_OK`)
+
+### Issuing Nonce Token [POST /oauth/nonce]
+
+Key                | Value
+-------------------|-----------
+ESOZ API ID        | N/A
+Link to Confluence | N/A
+
+This access point allows you to get a nonce (one-time JWT) for an
+active client of the system. The `client_secret` field must be passed if the
+`client type` = TRUSTED_PIS. An example of an encoded JWT information message in the token field:
+
+```
+{
+   "aud": "mithril-login",
+   "exp": 1523439201,
+   "iat": 1523438301,
+   "iss": "EHealth",
+   "jti": "efe1f08e-d4b4-4cef-a02c-78ea4a1dda25",
+   "nbf": 1523438300,
+   "nonce": 123,
+   "sub": 123,
+   "typ": "доступ"
+}
+```
+
++ Request (application/json)
+    + Headers
+        X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
+    + Attributes (object)
+        + `client_id`: `30074b6e-fbab-4dc1-9d37-88c21dab1847` (string, required)
+        + `client_secret`: `c2778f3064753ea70de870a53795f5c9` (string, optional)
+
+
++ Response 200 (application/json)
+    + Attributes (`Response_OK`)
+        + data (object)
+           + token: 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJtaXRocmlsLWxvZ2luIiwiZXhwIjoxNTIzNDM5MjAxLCJpYXQiOjE1MjM0MzgzMDEsImlzcyI6IkVIZWFsdGgiLCJqdGkiOiJlZmUxZjA4ZS1kNGI0LTRjZWYtYTAyYy03OGVhNGExZGRhMjUiLCJuYmYiOjE1MjM0MzgzMDAsIm5vbmNlIjoxMjMsInN1YiI6MTIzLCJ0eXAiOiJhY2Nlc3MifQ.UZ6S92h3nAG-GKY_XUE1Rc6uR_BuqR8ufUJfMhhKtNmt7DkkQlU49qPXjL0LFddVz1E2DXi2a-BQ0FG-DHsTHA' (string, required)
+
+## User Role
+
+## User Black List
+
+## Client [/gen/client]
+
+Key                | Value
+-------------------|-----------
+ESOZ ENT ID        | ENT-007
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/18831213200/Client+ENT-007">Client</a>
+
+### Get Clients [GET /api/clients]
+
+Key                | Value
+-------------------|-----------
+ESOZ API ID        | API-009-007-0001
+Scope              | client:read
+Auth               | yes
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17571381320/DRAFT+REST+API+Get+clients">Get Clients</a>
+
+This service returns list of clients filtered by context depending on client type:
+
+* Mithril Admin - receives all client records without context
+* MSP - receives only its own client
+* MIS - receives only its own client
+
++ Request (application/json)
+    + Headers
+        Authorization: Bearer c2778f3064753ea70de870a53795f5c9
+        API-key: uXhEczJ56adsfh3Ri9SUkc4en
+        X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
+
++ Response 200 (application/json)
+    + Attributes (`Response_Collection_V2`)
+        + data (array[`Client`])
+
+### Get Client Details [GET /api/clients/{id}]
+
+Key                | Value
+-------------------|-----------
+ESOZ API ID        | API-009-007-0002
+Scope              | client:read
+Auth               | yes
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17571708960/DRAFT+REST+API+Get+client+details">Get Client Details</a>
+
+This service returns client details.
+
+Service will return authorization error (403) if the requested client doesn't correspond with context.
+
++ Parameters
+    + id: `1380df72-275a-11e7-93ae-92361f002671` (string, required)
+
++ Request (application/json)
+    + Headers
+        Authorization: Bearer c2778f3064753ea70de870a53795f5c9
+        API-key: uXhEczJ56adsfh3Ri9SUkc4en
+        X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
+
++ Response 200 (application/json)
+    + Attributes (`Response_OK`)
+        + data (`Client`)
+            + client_type_name: MSP (string, optional)
+
+## Connection [/gen/connection]
+
+Key                | Value
+-------------------|-----------
+ESOZ ENT ID        | ENT-011
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/18832949290/Connection+ENT-011">Connection</a>
+
+### Get Client Connections [GET /api/clients/{id}/connections]
+
+Key                | Value
+-------------------|-----------
+ESOZ API ID        | API-009-011-0001
+Scope              | connection:read
+Auth               | yes
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17571381331/DRAFT+REST+API+Get+client+connections">Get Client Connections</a>
+
+Service returns list of connections for specified client
+
+Service will return authorization error (403) if the requested client doesn't correspond with context
+
++ Request (application/json)
+    + Headers
+        Authorization: Bearer c2778f3064753ea70de870a53795f5c9
+        API-key: uXhEczJ56adsfh3Ri9SUkc4en
+        X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
+
++ Response 200 (application/json)
+    + Attributes (`Response_Collection_V2`)
+        + data (array[`Connection`])
+
+### Get Client Connection Details [GET /api/clients/{id}/connections/{connection_id}]
+
+Key                | Value
+-------------------|-----------
+ESOZ API ID        | API-009-011-0002
+Scope              | connection:read
+Auth               | yes
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17571610696/DRAFT+REST+API+Get+client+connection+details">Get Client Connection Details</a>
+
++ Parameters
+    + id: `1380df72-275a-11e7-93ae-92361f002671` (string, required)
+    + connection_id: `e5372365-d47a-467f-81d0-f35117864352` (string, required)
+
++ Request (application/json)
+    + Headers
+        Authorization: Bearer c2778f3064753ea70de870a53795f5c9
+        API-key: uXhEczJ56adsfh3Ri9SUkc4en
+        X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
+
++ Response 200 (application/json)
+    + Attributes (`Response_OK`)
+        + data (`Connection`)
+
+### Update Client Connection [PATCH /api/clients/{id}/connections/{connection_id}]
+
+Key                | Value
+-------------------|-----------
+ESOZ API ID        | API-009-011-0003
+Scope              | connection:write
+Auth               | yes
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17571676232/DRAFT+REST+API+Update+client+connection">Update Client Connection</a>
+
+Only redirect uri can be updated using this method
+
++ Parameters
+    + id: `1380df72-275a-11e7-93ae-92361f002671` (string, required)
+    + connection_id: `e5372365-d47a-467f-81d0-f35117864352` (string, required)
+
++ Request (application/json)
+    + Headers
+        Authorization: Bearer c2778f3064753ea70de870a53795f5c9
+        API-key: uXhEczJ56adsfh3Ri9SUkc4en
+        X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
+
+    + Attributes (object)
+        + redirect_uri: `https://example3.com` (string, required)
+
++ Response 200 (application/json)
+    + Attributes (`Response_OK`)
+        + data (`Connection`)
+
+### Refresh Client Secret [PATCH /api/clients/{id}/connections/{connection_id}/actions/refresh_secret]
+
+Key                | Value
+-------------------|-----------
+ESOZ API ID        | API-009-011-0004
+Scope              | connection:refresh_secret
+Auth               | yes
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17571446869/DRAFT+REST+API+Refresh+client+secret">Refresh Client Secret</a>
+
+This method is used to refresh client secret for specified client connection.
+Only legal entity owner can request new client secret for his own legal entity.
+
++ Parameters
+    + id: `1380df72-275a-11e7-93ae-92361f002671` (string, required)
+    + connection_id: `e5372365-d47a-467f-81d0-f35117864352` (string, required)
+
++ Request (application/json)
+    + Headers
+        Authorization: Bearer c2778f3064753ea70de870a53795f5c9
+        API-key: uXhEczJ56adsfh3Ri9SUkc4en
+        X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
+
++ Response 200 (application/json)
+    + Attributes (`Response_OK`)
+        + data (object)
+            + include `Connection`
+            + secret: `ZlFOaHBTR0d3Q0hQcDEraHVYdXBVZz09` (string, required)
+
+### Delete Client Connection [DELETE /api/clients/{id}/connections/{connection_id}]
+
+Key                | Value
+-------------------|-----------
+ESOZ API ID        | API-009-011-0005
+Scope              | connection:delete
+Auth               | yes
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17571250278/DRAFT+REST+API+Delete+client+connection">Delete Client Connection</a>
+
+This method is used to **delete** specified client connection.
+Deleted connection can't be restored and used again.
+
++ Parameters
+    + id: `1380df72-275a-11e7-93ae-92361f002671` (string, required)
+    + connection_id: `e5372365-d47a-467f-81d0-f35117864352` (string, required)
+
++ Request (application/json)
+    + Headers
+        Authorization: Bearer c2778f3064753ea70de870a53795f5c9
+        API-key: uXhEczJ56adsfh3Ri9SUkc4en
+        X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + meta (Response__Meta, fixed-type)
+
+## Approval App [/gen/approval_app]
+
+API for adding authorized applications for ESOZ.
+
+# Group General
+
+## System Dictionary [/gen/system_dictionary]
+
+API for Services and Dictionaries.
+
+Key                | Value
+-------------------|-----------
+ESOZ ENT ID        | ENT-065
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17483006257/System+Dictionary+ENT-065">System Dictionary</a>
+
+### Deprecated Get Dictionaries [GET /api/dictionaries{?name,is_active}]
+
+Key                | Value
+-------------------|-----------
+ESOZ API ID        | API-011-065-0001
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17570889877/DRAFT+REST+API+Get+dictionaries">Get Dictionaries</a>
+
+Each dictionary is an object that contains `{key}:{value}` pairs where: `{key}` is a dictionary record and `{value}` is a dictionary record description.
+
++ Parameters
+    + `name`: `eHealth/LOINC/observation_codes` (string, optional) - dictionary name
+    + `is_active`: true (boolean, optional) - dictionary status
+
++ Request (application/json)
+    + Headers
+        X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
+
++ Response 200 (application/json)
+    + Attributes (`Response_OK`)
+        + data (array[`Dictionary`])
+
++ Response 400 (application/json)
+
+### PIS Get Dictionaries V2 [GET /api/v2/dictionaries{?name,is_active,value_code,value_description,value_is_active}]
+
+Key                | Value
+-------------------|-----------
+ESOZ API ID        | API-011-065-0005
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/19541983233/REST+API+PIS+Get+Dictionaries+V2">PIS Get Dictionaries V2</a>
+
+Each dictionary is an object that contains not only a code and description of a value,
+but also a status of the value. In addition, it can represent hierarchical dictionaries with subordinate (child) values
+
+NOTE:
+
+On all envoronments this endpoint DOESN'T require authentication with `address:read` scope.
+
++ Parameters
+    + `name`: `eHealth/ICF/classifiers` (string, optional) - dictionary name
+    + `is_active`: true (boolean, optional) - dictionary status
+    + `value_code`: `b1142` (string, optional) - code of the dictionary value
+    + `value_description`: `Орієнтація в особі` (string, optional) - description of the dictionary value
+    + `value_is_active`: true (string, optional) - status of the dictionary value
+
++ Response 200 (application/json)
+    + Attributes (`Response__Process_OK`)
+        + data (array[`Dictionary_v2`])
+            + (object)
+                + include `Dictionary_v2`
+                + name: `eHealth/ICPC2/condition_codes` (string, required) - Unique dictionary name
+                + description: `Коди станів за ICPC2` (string, required) - dictionary description for a user
+                + values (array, required)
+                    + (Dictionary_value)
+                        + code: `D88` (string, required) - code of the dictionary value
+                        + description: `Апендицит` (string, required) - description of the code
+
+### MIS Get Dictionaries V2 [GET /api/v2/dictionaries{?name,is_active,value_code,value_description,value_is_active}]
+
+Key                | Value
+-------------------|-----------
+ESOZ API ID        | API-011-065-0002
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17570627706/REST+API+Get+dictionary+v.2">MIS Get Dictionaries V2</a>
+
+Each dictionary is an object that contains not only a code and description of a value,
+but also a status of the value. In addition, it can represent hierarchical dictionaries with subordinate (child) values
+
+NOTE:
+
+On all envoronments this endpoint requires authentication with `address:read` scope.
+
++ Parameters
+    + `name`: `eHealth/ICF/classifiers` (string, optional) - dictionary name
+    + `is_active`: true (boolean, optional) - dictionary status
+    + `value_code`: `b1142` (string, optional) - code of the dictionary value
+    + `value_description`: `Орієнтація в особі` (string, optional) - description of the dictionary value
+    + `value_is_active`: true (string, optional) - status of the dictionary value
+
++ Request (application/json)
+    + Headers
+        X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
+
++ Response 200 (application/json)
+    + Attributes (`Response_OK`)
+        + data (array[`Dictionary_v2`])
+            + (object)
+                + include `Dictionary_v2`
+                + name: `eHealth/ICPC2/condition_codes` (string, required) - Unique dictionary name
+                + description: `Коди станів за ICPC2` (string, required) - dictionary description for a user
+                + values (array, required)
+                    + (Dictionary_value)
+                        + code: `D88` (string, required) - code of the dictionary value
+                        + description: `Апендицит` (string, required) - description of the code
+
++ Response 400 (application/json)
+
+### Trembita Get Dictionaries [GET /dictionaries{?name,is_active,value_code}]
+
+Key                | Value
+-------------------|-----------
+ESOZ API ID        | API-048-065-7003
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/19029196829/TREMBITA+REST+API+Get+Dictionaries">Trembita Get Dictionaries</a>
+
++ Parameters
+    + `name`: `eHealth/assistive_devices` (string, optional) - Назва довідника
+    + `is_active`: true (boolean, optional) - Статус довідника
+    + `value_code`: `04` (string, optional) - Код значення довідника
+
++ Response 200 (application/json)
+    + Attributes (`Response_TIL_GetDictionaries`)
+        + data (array)
+             + object (`TIL_GetDictionary`)
+                 + labels (array)
+                     + SYSTEM
+                     + EXTERNAL
+                 + is_active: true
+                 + values (array)
+                     + (`TIL_ChildValues`)
+                         + code: `04_06`
+                         + description: `Допоміжні засоби для лікування кровообігу`
+                         + is_active: true
+                         + child_values (array)
+                     + (`TIL_ChildValues`)
+                         + code: `04_33`
+                         + description: `Допоміжні засоби, призначені для збереження цілісності тканин`
+                         + is_active: true
+                         + child_values (array)
+                              + (`TIL_ChildValues`)
+                                  + code: `04_33_03`
+                                  + description: `Подушки для сидіння та підстилки для збереження цілісності тканин`
+                                  + is_active: true
+                                  + child_values (array)
+                              + (`TIL_ChildValues`)
+                                  + code: `04_33_06`
+                                  + description: `Допоміжні засоби для збереження цілісності тканин у лежачому положенні`
+                                  + is_active: true
+                                  + child_values (array)
+                     + (`TIL_ChildValues`)
+                         + code: `04_48`
+                         + description: `Обладнання для тренування руху, сили і балансу`
+                         + is_active: true
+                         + child_values (array)
+                              + (`TIL_ChildValues`)
+                                  + code: `04_48_07`
+                                  + description: `Допоміжні засоби для тренування патерну ходіння`
+                                  + is_active: true
+                                  + child_values (array)
+                              + (`TIL_ChildValues`)
+                                  + code: `04_48_15`
+                                  + description: `Вироби для тренування рук, вироби для тренування тулуба та вироби для тренування ніг`
+                                  + is_active: true
+                                  + child_values (array)
+                     + (`TIL_ChildValues`)
+                         + code: `22_27`
+                         + description: `Допоміжні засоби для подавання сигналів тривоги, індикації, нагадування та сигналізації`
+                         + is_active: true
+                         + child_values (array)
+                              + (`TIL_ChildValues`)
+                                  + code: `22_27_04`

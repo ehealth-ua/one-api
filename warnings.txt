@@ -1,0 +1,126 @@
+Line 2529: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"
+Line 4665: Ignoring unrecognized block "<!-- #Party -->".
+Line 4669: Ignoring unrecognized block "<!-- + last_name: Іванов (string) -->".
+Line 4670: Ignoring unrecognized block "+ second_name: Миколайович (string)".
+Line 6319: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"
+Line 7466: sub-types of primitive types should not have nested members, ignoring unrecognized block "- MALE".
+Line 7466: sub-types of primitive types should not have nested members, ignoring unrecognized block "- FEMALE".
+Line 7575: sub-types of primitive types should not have nested members, ignoring unrecognized block "- MALE".
+Line 7575: sub-types of primitive types should not have nested members, ignoring unrecognized block "- FEMALE".
+Line 7605: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"
+Line 8004: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"
+Line 8468: sub-types of primitive types should not have nested members, ignoring unrecognized block "- MALE".
+Line 8468: sub-types of primitive types should not have nested members, ignoring unrecognized block "- FEMALE".
+Line 8502: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"
+Line 8600: sub-types of primitive types should not have nested members, ignoring unrecognized block "- MALE".
+Line 8600: sub-types of primitive types should not have nested members, ignoring unrecognized block "- FEMALE".
+Line 8689: sub-types of primitive types should not have nested members, ignoring unrecognized block "- MALE".
+Line 8689: sub-types of primitive types should not have nested members, ignoring unrecognized block "- FEMALE".
+Line 9734: sub-types of primitive types should not have nested members, ignoring unrecognized block "- MALE".
+Line 9734: sub-types of primitive types should not have nested members, ignoring unrecognized block "- FEMALE".
+Line 10708: Action is missing parameter definitions: id.
+Line 10929: Action is missing parameter definitions: unique_10929, duplicate, duplicate_1.
+Line 10929: Action "GET /api/v2/dictionaries" already defined.
+Line 10992: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"
+Line 10974: Action is missing parameter definitions: name, is_active, value_code.
+Line 11598: Ignoring unrecognized block "<!-- + Headers -->".
+Line 11599: Ignoring unrecognized block "Authorization: Bearer c2778f3064753ea70de870a53795f5c9 API-key: uXhEczJ56adsfh3Ri9SUkc4en X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4".
+Line 11624: Ignoring unrecognized block "<!-- + Headers -->".
+Line 11625: Ignoring unrecognized block "Authorization: Bearer c2778f3064753ea70de870a53795f5c9 API-key: uXhEczJ56adsfh3Ri9SUkc4en X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4".
+Line 11657: Action is missing parameter definitions: id.
+Line 12265: Action is missing parameter definitions: contract_type.
+Line 12314: Action is missing parameter definitions: contract_type, unique_12312, unique_12312.
+Line 12352: Action is missing parameter definitions: contract_type.
+Line 12383: Action is missing parameter definitions: contract_type.
+Line 12412: Action is missing parameter definitions: contract_type, id.
+Line 12611: Action is missing parameter definitions: contract_type.
+Line 12650: Action is missing parameter definitions: contract_type, unique_12643, duplicate, id, contractor_legal_entity_id, edrpou, contractor_owner_id, nhs_signer_id, issue_city, status, contract_number, medical_program_id, page, page_size.
+Line 12703: Action is missing parameter definitions: contract_type.
+Line 12744: Action is missing parameter definitions: contract_type.
+Line 12787: Action is missing parameter definitions: contract_type.
+Line 12861: Ignoring unrecognized block "+ Parameters + `contract_type` (string, required) - identifier + data (object) + include Contract_Details_Capitation".
+Line 12818: Action is missing parameter definitions: contract_type.
+Line 12887: Action is missing parameter definitions: verification_status.
+Line 13058: "Headers" is expected to be a pre-formatted code block, every of its line indented by exactly 12 spaces or 3 tabs
+Line 13310: Action is missing parameter definitions: unique_13298.
+Line 13310: Action "GET /api/employee_roles/" already defined.
+Line 13556: Ignoring unrecognized block "<!-- This method will be deprecated. Use **Reject Person Request v2**. -->".
+Line 13558: Ignoring unrecognized block "<!-- Use this method to reject previously created Person Request. -->".
+Line 13560: Ignoring unrecognized block "<!-- More detailed information - https://e-health-ua.atlassian.net/wiki/x/MYDAIw -->".
+Line 13980: Action is missing parameter definitions: legal_entity_id.
+Line 14306: Action is missing parameter definitions: id.
+Line 14799: Action is missing parameter definitions: id.
+Line 15012: Ignoring unrecognized block "+ Parameters + `page_size` (string, required) - identifier + `page` (string, required) - identifier + `birth_place` (string, required) - identifier + merge_person_id: bdadc2a7-7283-4f24-bc99-8d8d9808af80 (string) - identifier of a person who is recognized as a duplicate and subsequently deactivated + person_id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - identifier of the person who as a result of the deduplication is recognized as true and subsequently left active + updated_at: 2019-05-08T15:34:00Z (string)".
+Line 14967: Action is missing parameter definitions: birth_place, page, page_size.
+Line 15134: Action is missing parameter definitions: unique_15114, duplicate.
+Line 15134: Action "GET /sign-in" already defined.
+Line 15325: Action is missing parameter definitions: legal_entity_id, requisition.
+Line 15366: Action is missing parameter definitions: requisition, status, page, page_size.
+Line 16197: Action is missing parameter definitions: patient_id, asserted_date_from, asserted_date_to, page, page_size, type, encounter_id, episode_id.
+Line 16238: Action is missing parameter definitions: patient_id, diagnostic_report_id.
+Line 16269: Action is missing parameter definitions: patient_id, duplicate, issued_from, issued_to, page, page_size, code, encounter_id, context_episode_id, initial_episode_id.
+Line 16312: Action is missing parameter definitions: patient_id, page, page_size, code, onset_date_time_from, onset_date_time_to.
+Line 16379: Action is missing parameter definitions: date_from, date_to.
+Line 16457: Action is missing parameter definitions: patient_id, page, page_size, code, date_from, date_to.
+Line 16521: Ignoring unrecognized block "<!-- Key | Value -->".
+Line 16522: Ignoring unrecognized block "-------------------|----------- ESOZ ENT ID | ENT-043 Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17359110269/Medication+Request">Medication Request</a>".
+Line 16490: Action is missing parameter definitions: patient_id, id.
+Line 16550: Ignoring unrecognized block "<!-- + division_id: 2848a935-5fd7-48ba-b235-a9b5d475c647 (string) - Division identifier -->".
+Line 16551: Ignoring unrecognized block "+ programs (array[Qualify_Medication_request_Request_List_program_post_data], required) - Medical programs list for qualify".
+Line 16626: Action is missing parameter definitions: care_plan_id.
+Line 17131: Action is missing a response
+Line 17264: Ignoring unrecognized block "<!-- -->".
+Line 17266: Ignoring unrecognized block "<!-- Key | Value -->".
+Line 17267: Ignoring unrecognized block "-------------------|----------- ESOZ ENT ID | ENT-042".
+Line 17269: Ignoring unrecognized block "<!-- Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17359241296/Medication+Dispense">Medication Dispense</a> -->".
+Line 17271: Ignoring unrecognized block "<!-- Medication Dispense - Indicates that a medication product has been dispensed for -->".
+Line 17272: Ignoring unrecognized block "a named person/patientDispense of medication is possible only under Medication Request and during the period specified in Medication RequestMedical program - mandatory attribute for the first phase. There is no options to dispense medication without program Dispense details - several medications of different manufacturers with the same innm can be dispensed at a time. Total of medication_qty should be less or equal to medication quantity specified in Medication Request.".
+Line 17279: Action is missing parameter definitions: code.
+Line 17518: Action is missing parameter definitions: person_id.
+Line 17547: Action is missing parameter definitions: id, medication_request_id, legal_entity_id, division_id, status, dispensed_from, dispensed_to, care_plan_id, page, page_size.
+Line 17651: Ignoring unrecognized block "<!-- -->".
+Line 17653: Ignoring unrecognized block "<!-- Key | Value -->".
+Line 17654: Ignoring unrecognized block "-------------------|----------- ESOZ ENT ID | ENT-044".
+Line 17656: Ignoring unrecognized block "<!-- Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17358782570/Medication+Request+Request">Medication Request Requests</a> -->".
+Line 17658: Ignoring unrecognized block "<!-- Medication request Request is a life-cycle entity that is used to perform operations on Medication requests. -->".
+Line 17659: Ignoring unrecognized block "After Medication request Request is signed it will be automatically moved to Medication requests.".
+Line 17678: Ignoring unrecognized block "<!-- -->".
+Line 17679: Ignoring unrecognized block "+ Attributes (object) + medication_request_request (object) + include Medication_request_Request_Qualify_post_data".
+Line 17683: Ignoring unrecognized block "<!-- + programs (array[Qualify_Medication_request_Request_List_program_post_data], required) - Medical programs list for qualify -->".
+Line 17790: Action is missing parameter definitions: care_plan_id.
+Line 17945: Ignoring unrecognized block "<!-- -->".
+Line 17947: Ignoring unrecognized block "<!-- Key | Value -->".
+Line 17948: Ignoring unrecognized block "-------------------|----------- ESOZ ENT ID | ENT-045 Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/18699747489/Medication+Statement+ENT-045">Medication Statement</a>".
+Line 17972: Ignoring unrecognized block "<!-- -->".
+Line 17973: Ignoring unrecognized block "+ data (Medication_Statement_Response)".
+Line 17975: Action is missing parameter definitions: patient_id, duplicate, asserted_date_from, asserted_date_to, page, page_size, medication_code, encounter_id, episode_id.
+Line 18101: Action is missing parameter definitions: patient_id, encounter_id, diagnostic_report_id, episode_id, code, issued_from, issued_to, page, page_size.
+Line 18182: Action is missing parameter definitions: patient_id, status, episode_id, code, service_request_id, recorded_by, managing_organization_id.
+Line 18254: Action is missing a response
+Line 18267: Action is missing parameter definitions: patient_id, id.
+Line 18300: Action is missing parameter definitions: patient_id, id, status, episode_id, encounter_id, code, based_on, recorded_by, managing_organization_id, device_id.
+Line 18342: Action is missing parameter definitions: person_id, id.
+Line 18479: Ignoring unrecognized block "<!-- + Response 200 (application/json) -->".
+Line 18480: Ignoring unrecognized block "+ Attributes (Response_Collection)".
+Line 18482: Ignoring unrecognized block "<!-- + data (array[Risk_Assessment_Response]) -->".
+Line 18486: Ignoring unrecognized block "<!-- Key | Value -->".
+Line 18487: Ignoring unrecognized block "-------------------|----------- ESOZ ENT ID | ENT-062 Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17479991344/Service+Request">Service Request</a>".
+Line 18450: Action is missing a response
+Line 18450: Action is missing parameter definitions: patient_id, code, asserted_date_from, asserted_date_to, page, page_size, encounter_id, episode_id.
+Line 18741: Action is missing parameter definitions: patient_id, service_request_id.
+Line 18785: Action is missing parameter definitions: patient_id, service_request_id.
+Line 19093: Action is missing parameter definitions: parent_id.
+Line 19117: Action is missing parameter definitions: patient_id, service_request_id.
+Line 19149: Action is missing parameter definitions: parent_id, service_request_id.
+Line 19190: Action is missing parameter definitions: id.
+Line 19390: Action is missing parameter definitions: patient_id, episode_id.
+Line 19546: Action is missing parameter definitions: patient_id, episode_id, date_from, date_to, page, page_size.
+Line 19796: Action is missing parameter definitions: period_from, period_to.
+Line 19911: Ignoring unrecognized block "+ Parameters".
+Line 19919: Action is missing parameter definitions: patient_id, id.
+Line 20047: Ignoring unrecognized block "+ Parameters + `page_size` (string, required) - identifier + `page` (string, required) - identifier + `date` (string, required) - identifier + `type` (string, required) - identifier + `encounter_id` (string, required) - identifier + `patient_id` (string, required) - identifier".
+Line 20062: Action is missing parameter definitions: patient_id, patient_id, encounter_id, type, date, page, page_size.
+Line 20431: Action "GET /api/persons/{person_id}/compositions/{composition_id}/medication_requests/" already defined.
+Line 20566: Action is missing a response
+Line 20566: Action is missing parameter definitions: patient_id.
+Line 20609: Action is missing parameter definitions: patient_id, type, status, registered_by, collected_from, collected_to, container_identifier, container_type, parent, request, encounter, page, page_size.

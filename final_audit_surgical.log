@@ -1,0 +1,3 @@
+[33mWarning at line 2529: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"[0m
+[33mWarning at line 6317: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"[0m
+[33mWarning at line 10668: Action is missing parameter definitions: id.[0m

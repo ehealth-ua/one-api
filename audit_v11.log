@@ -1,0 +1,6 @@
+[33mWarning at line 2534: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"[0m
+[33mWarning at line 4692: Ignoring unrecognized block "<!-- #Party -->".[0m
+[33mWarning at line 4697: Ignoring unrecognized block "<!-- + last_name: Іванов (string) -->".[0m
+[33mWarning at line 4698: Ignoring unrecognized block "<!-- + second_name: Миколайович (string) -->".[0m
+[33mWarning at line 6352: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"[0m
+[33mWarning at line 10737: Action is missing parameter definitions: id.[0m

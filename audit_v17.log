@@ -1,0 +1,336 @@
+[33mWarning at line 2534: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"[0m
+[33mWarning at line 4692: Ignoring unrecognized block "<!-- #Party -->".[0m
+[33mWarning at line 4697: Ignoring unrecognized block "<!-- + last_name: Іванов (string) -->".[0m
+[33mWarning at line 4698: Ignoring unrecognized block "<!-- + second_name: Миколайович (string) -->".[0m
+[33mWarning at line 6352: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"[0m
+[33mWarning at line 10392: Action is missing parameter definitions: id, connection_id.[0m
+[33mWarning at line 10486: Action is missing parameter definitions: client_id, redirect_uri, scope, email, user_data, state.[0m
+[33mWarning at line 10689: Action is missing parameter definitions: id.[0m
+[33mWarning at line 10717: Action is missing parameter definitions: id.[0m
+[33mWarning at line 10736: Action is missing parameter definitions: id, connection_id.[0m
+[33mWarning at line 10758: Action is missing parameter definitions: id, connection_id.[0m
+[33mWarning at line 10782: Action is missing parameter definitions: id, connection_id.[0m
+[33mWarning at line 10803: Action is missing parameter definitions: id, connection_id.[0m
+[33mWarning at line 10838: Action is missing parameter definitions: name, is_active.[0m
+[33mWarning at line 10862: Action is missing parameter definitions: name, is_active, value_code, value_description, value_is_active.[0m
+[33mWarning at line 10893: Action is missing parameter definitions: name, is_active, value_code.[0m
+[33mWarning at line 10945: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"[0m
+[33mWarning at line 10927: Action is missing parameter definitions: name, is_active, value_code.[0m
+[33mWarning at line 11014: Action is missing parameter definitions: region_id, region, name, koatuu, page, page_size.[0m
+[33mWarning at line 11038: Action is missing parameter definitions: name, koatuu, page, page_size.[0m
+[33mWarning at line 11056: Action is missing parameter definitions: name, koatuu, page, page_size.[0m
+[33mWarning at line 11080: Action is missing parameter definitions: name, koatuu, page, page_size.[0m
+[33mWarning at line 11096: Action is missing parameter definitions: name, region, district, koatuu, page, page_size.[0m
+[33mWarning at line 11120: Action is missing parameter definitions: id.[0m
+[33mWarning at line 11141: Action is missing parameter definitions: settlement_id, name, type, page, page_size.[0m
+[33mWarning at line 11178: Action is missing parameter definitions: id.[0m
+[33mWarning at line 11300: Action is missing parameter definitions: id, name, is_active, mr_blank_type, type, page, page_size.[0m
+[33mWarning at line 11355: Action is missing parameter definitions: medical_program_id, page, page_size.[0m
+[33mWarning at line 11394: Action is missing parameter definitions: code, name, page, page_size.[0m
+[33mWarning at line 11434: Action is missing parameter definitions: patient_id.[0m
+[33mWarning at line 11500: Ignoring unrecognized block "<!-- + Headers -->".[0m
+[33mWarning at line 11502: Ignoring unrecognized block "<!-- Authorization: Bearer c2778f3064753ea70de870a53795f5c9 -->".[0m
+[33mWarning at line 11503: Ignoring unrecognized block "<!-- API-key: uXhEczJ56adsfh3Ri9SUkc4en -->".[0m
+[33mWarning at line 11504: Ignoring unrecognized block "<!-- X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4 -->".[0m
+[33mWarning at line 11489: Action is missing parameter definitions: id.[0m
+[33mWarning at line 11527: Ignoring unrecognized block "<!-- + Headers -->".[0m
+[33mWarning at line 11529: Ignoring unrecognized block "<!-- Authorization: Bearer c2778f3064753ea70de870a53795f5c9 -->".[0m
+[33mWarning at line 11530: Ignoring unrecognized block "<!-- API-key: uXhEczJ56adsfh3Ri9SUkc4en -->".[0m
+[33mWarning at line 11531: Ignoring unrecognized block "<!-- X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4 -->".[0m
+[33mWarning at line 11538: Action is missing parameter definitions: id.[0m
+[33mWarning at line 11560: Action is missing parameter definitions: id.[0m
+[33mWarning at line 11584: Action is missing parameter definitions: id.[0m
+[33mWarning at line 11614: Action is missing parameter definitions: edrpou, legal_entity_id, settlement_id, type, status, nhs_verified, page, page_size.[0m
+[33mWarning at line 11655: Action is missing parameter definitions: id.[0m
+[33mWarning at line 11774: Action is missing parameter definitions: id.[0m
+[33mWarning at line 11793: Action is missing parameter definitions: id.[0m
+[33mWarning at line 11812: Action is missing parameter definitions: id.[0m
+[33mWarning at line 11918: Action is missing parameter definitions: division_id, device_definition_id, type, status, model_number, manufacturer, availability_status, recorder, inventory_number, serial_number, name, created_from, created_to, page, page_size.[0m
+[33mWarning at line 11955: Action is missing parameter definitions: id.[0m
+[33mWarning at line 11977: Action is missing parameter definitions: id.[0m
+[33mWarning at line 12002: Action is missing parameter definitions: id.[0m
+[33mWarning at line 12035: Action is missing parameter definitions: id, license_number, type, is_primary, page, page_size.[0m
+[33mWarning at line 12126: Action is missing parameter definitions: contract_type, id, contractor_legal_entity_id, edrpou, contractor_owner_id, nhs_signer_id, is_suspended, status, contract_number, date_from_start_date, date_to_start_date, date_from_end_date, date_to_end_date, medical_program_id, page, page_size.[0m
+[33mWarning at line 12164: Action is missing parameter definitions: contract_type, unique_12312, id, unique_12312.[0m
+[33mWarning at line 12194: Action is missing parameter definitions: contract_type, id.[0m
+[33mWarning at line 12215: Action is missing parameter definitions: contract_type.[0m
+[33mWarning at line 12235: Action is missing parameter definitions: contract_type, id.[0m
+[33mWarning at line 12422: Action is missing parameter definitions: contract_type, id.[0m
+[33mWarning at line 12452: Action is missing parameter definitions: contract_type, duplicate, id, contractor_legal_entity_id, edrpou, contractor_owner_id, nhs_signer_id, issue_city, status, contract_number, medical_program_id, page, page_size.[0m
+[33mWarning at line 12488: Action is missing parameter definitions: contract_type, id.[0m
+[33mWarning at line 12518: Action is missing parameter definitions: contract_type, id.[0m
+[33mWarning at line 12552: Action is missing parameter definitions: contract_type, id.[0m
+[33mWarning at line 12600: Ignoring unrecognized block "<!-- + Parameters -->".[0m
+[33mWarning at line 12601: Ignoring unrecognized block "<!-- + `contract_type` (string, required) - identifier -->".[0m
+[33mWarning at line 12602: Ignoring unrecognized block "<!-- + data (object) -->".[0m
+[33mWarning at line 12603: Ignoring unrecognized block "<!-- + include Contract_Details_Capitation -->".[0m
+[33mWarning at line 12573: Action is missing parameter definitions: contract_type, id.[0m
+[33mWarning at line 12626: Action is missing parameter definitions: no_tax_id, tax_id, party_id, verification_status, edrpou, legal_entity_id, division_id, status, employee_type, page, page_size.[0m
+[33mWarning at line 12654: Action is missing parameter definitions: employee_id.[0m
+[33mWarning at line 12680: Action is missing parameter definitions: id.[0m
+[33mWarning at line 12710: Action is missing parameter definitions: depth.[0m
+[33mWarning at line 12732: Action is missing parameter definitions: depth.[0m
+[33mWarning at line 12814: Action is missing parameter definitions: id, edrpou, legal_entity_name, no_tax_id, status, page, page_size.[0m
+[33mWarning at line 12841: Action is missing parameter definitions: id.[0m
+[33mWarning at line 12864: Action is missing parameter definitions: id, action.[0m
+[33mWarning at line 12883: Action is missing parameter definitions: id.[0m
+[33mWarning at line 12936: Action is missing parameter definitions: employee_id, healthcare_service_id, status, page, page_size.[0m
+[33mWarning at line 12959: Action is missing parameter definitions: id, unique_13298.[0m
+[33mWarning at line 12977: Action is missing parameter definitions: id.[0m
+[33mWarning at line 13087: Action is missing parameter definitions: id.[0m
+[33mWarning at line 13180: Ignoring unrecognized block "<!-- This method will be deprecated. Use **Reject Person Request v2**. -->".[0m
+[33mWarning at line 13182: Ignoring unrecognized block "<!-- Use this method to reject previously created Person Request. -->".[0m
+[33mWarning at line 13184: Ignoring unrecognized block "<!-- More detailed information - https://e-health-ua.atlassian.net/wiki/x/MYDAIw -->".[0m
+[33mWarning at line 13186: Ignoring unrecognized block "<!-- + Parameters -->".[0m
+[33mWarning at line 13187: Ignoring unrecognized block "+ id: eeebb86d-5cba-43c9-885b-6482ecaf826b (string)".[0m
+[33mWarning at line 13142: Action is missing parameter definitions: id.[0m
+[33mWarning at line 13219: Action is missing parameter definitions: id.[0m
+[33mWarning at line 13250: Action is missing parameter definitions: id.[0m
+[33mWarning at line 13377: Action is missing parameter definitions: id.[0m
+[33mWarning at line 13433: Action is missing parameter definitions: id.[0m
+[33mWarning at line 13462: Action is missing parameter definitions: id.[0m
+[33mWarning at line 13504: Action is missing parameter definitions: id.[0m
+[33mWarning at line 13546: Action is missing parameter definitions: legal_entity_id, status, page, page_size.[0m
+[33mWarning at line 13568: Action is missing parameter definitions: id.[0m
+[33mWarning at line 13604: Action is missing parameter definitions: id.[0m
+[33mWarning at line 13633: Action is missing parameter definitions: employee_id, legal_entity_id, status, declaration_number, page, page_size, reason.[0m
+[33mWarning at line 13665: Action is missing parameter definitions: id.[0m
+[33mWarning at line 13693: Action is missing parameter definitions: id.[0m
+[33mWarning at line 13713: Action is missing parameter definitions: id.[0m
+[33mWarning at line 13752: Action is missing parameter definitions: status, start_date_from, start_date_to, end_date_from, end_date_to, page, page_size.[0m
+[33mWarning at line 13782: Action is missing parameter definitions: id.[0m
+[33mWarning at line 13803: Action is missing parameter definitions: id.[0m
+[33mWarning at line 13897: Action is missing parameter definitions: id.[0m
+[33mWarning at line 13951: Action is missing parameter definitions: id.[0m
+[33mWarning at line 13987: Action is missing parameter definitions: id.[0m
+[33mWarning at line 14015: Action is missing parameter definitions: id.[0m
+[33mWarning at line 14064: Action is missing parameter definitions: employee_id, legal_entity_id, status, channel, page, page_size.[0m
+[33mWarning at line 14102: Action is missing parameter definitions: id.[0m
+[33mWarning at line 14145: Action is missing parameter definitions: status, start_date_from, start_date_to, end_date_from, end_date_to, page, page_size, channel.[0m
+[33mWarning at line 14177: Action is missing parameter definitions: id.[0m
+[33mWarning at line 14203: Action is missing parameter definitions: id.[0m
+[33mWarning at line 14225: Action is missing parameter definitions: id.[0m
+[33mWarning at line 14243: Action is missing parameter definitions: id.[0m
+[33mWarning at line 14273: Action is missing parameter definitions: id.[0m
+[33mWarning at line 14367: Ignoring unrecognized block "<!-- + Parameters -->".[0m
+[33mWarning at line 14368: Ignoring unrecognized block "<!-- + `page_size` (string, required) - identifier -->".[0m
+[33mWarning at line 14369: Ignoring unrecognized block "<!-- + `page` (string, required) - identifier -->".[0m
+[33mWarning at line 14370: Ignoring unrecognized block "<!-- + `birth_place` (string, required) - identifier -->".[0m
+[33mWarning at line 14371: Ignoring unrecognized block "+ merge_person_id: bdadc2a7-7283-4f24-bc99-8d8d9808af80 (string) - identifier of a person who is recognized as a duplicate and subsequently deactivated
+                        + person_id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - identifier of the person who as a result of the deduplication is recognized as true and subsequently left active
+                        + updated_at: 2019-05-08T15:34:00Z (string)".[0m
+[33mWarning at line 14335: Action is missing parameter definitions: first_name, last_name, second_name, birth_date, tax_id, phone_number, birth_place, birth_certificate, page, page_size.[0m
+[33mWarning at line 14384: Action is missing parameter definitions: id, status, page, page_size.[0m
+[33mWarning at line 14429: Action is missing parameter definitions: id.[0m
+[33mWarning at line 14449: Action is missing parameter definitions: client_id, redirect_uri, scope, user_data.[0m
+[33mWarning at line 14466: Action is missing parameter definitions: duplicate, client_id, redirect_uri, scope, user_data, state.[0m
+[33mWarning at line 14556: Action is missing parameter definitions: patient_id.[0m
+[33mWarning at line 14590: Action is missing parameter definitions: patient_id, id.[0m
+[33mWarning at line 14619: Action is missing parameter definitions: patient_id, legal_entity_id, period_date, encounter_id, requisition, based_on, part_of, managing_organization_id, status, page, page_size.[0m
+[33mWarning at line 14651: Action is missing parameter definitions: requisition, status, page, page_size.[0m
+[33mWarning at line 14684: Action is missing parameter definitions: patient_id, id.[0m
+[33mWarning at line 14721: Action is missing parameter definitions: patient_id, id.[0m
+[33mWarning at line 14761: Action is missing parameter definitions: patient_id.[0m
+[33mWarning at line 14788: Action is missing parameter definitions: patient_id, id.[0m
+[33mWarning at line 14828: Action is missing parameter definitions: patient_id, care_plan_id.[0m
+[33mWarning at line 14882: Action is missing parameter definitions: patient_id, care_plan_id.[0m
+[33mWarning at line 14918: Action is missing parameter definitions: patient_id, care_plan_id, id.[0m
+[33mWarning at line 14943: Action is missing parameter definitions: patient_id, care_plan_id, author, kind, status, page, page_size.[0m
+[33mWarning at line 14977: Action is missing parameter definitions: patient_id, care_plan_id, id.[0m
+[33mWarning at line 15033: Action is missing parameter definitions: patient_id, care_plan_id, id.[0m
+[33mWarning at line 15096: Action is missing parameter definitions: patient_id, care_plan_id, id.[0m
+[33mWarning at line 15165: Action is missing parameter definitions: patient_id, care_plan_id.[0m
+[33mWarning at line 15216: Action is missing parameter definitions: patient_id, clinical_impression_id.[0m
+[33mWarning at line 15238: Action is missing parameter definitions: patient_id, encounter_id, episode_id, code, status, page, page_size.[0m
+[33mWarning at line 15270: Action is missing parameter definitions: patient_id, page, page_size, code, onset_date_from, onset_date_to.[0m
+[33mWarning at line 15296: Action is missing parameter definitions: patient_id, id.[0m
+[33mWarning at line 15326: Action is missing parameter definitions: patient_id, device_id.[0m
+[33mWarning at line 15348: Action is missing parameter definitions: patient_id, asserted_date_from, asserted_date_to, page, page_size, type, encounter_id, episode_id.[0m
+[33mWarning at line 15384: Action is missing parameter definitions: patient_id, diagnostic_report_id.[0m
+[33mWarning at line 15414: Action is missing parameter definitions: patient_id, duplicate, issued_from, issued_to, page, page_size, code, encounter_id, context_episode_id, initial_episode_id.[0m
+[33mWarning at line 15452: Action is missing parameter definitions: patient_id, page, page_size, code, onset_date_time_from, onset_date_time_to.[0m
+[33mWarning at line 15485: Action is missing parameter definitions: patient_id, id.[0m
+[33mWarning at line 15514: Action is missing parameter definitions: patient_id, status, episode_id, type, class, performer_speciality, date_from, date_to.[0m
+[33mWarning at line 15540: Action is missing parameter definitions: patient_id, encounter_id.[0m
+[33mWarning at line 15568: Action is missing parameter definitions: patient_id, page, page_size, code, date_from, date_to.[0m
+[33mWarning at line 15625: Ignoring unrecognized block "<!-- Key                | Value -->".[0m
+[33mWarning at line 15626: Ignoring unrecognized block "<!-- -------------------|----------- -->".[0m
+[33mWarning at line 15627: Ignoring unrecognized block "<!-- ESOZ ENT ID        | ENT-043 -->".[0m
+[33mWarning at line 15628: Ignoring unrecognized block "<!-- Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17359110269/Medication+Request">Medication Request</a> -->".[0m
+[33mWarning at line 15595: Action is missing parameter definitions: patient_id, id.[0m
+[33mWarning at line 15644: Ignoring unrecognized block "<!-- + division_id: 2848a935-5fd7-48ba-b235-a9b5d475c647 (string) - Division identifier -->".[0m
+[33mWarning at line 15645: Ignoring unrecognized block "<!-- + programs (array[Qualify_Medication_request_Request_List_program_post_data], required) - Medical programs list for qualify -->".[0m
+[33mWarning at line 15630: Action is missing parameter definitions: id.[0m
+[33mWarning at line 15662: Action is missing parameter definitions: person_id, legal_entity_id, employee_id, status, request_number, created_from, created_to, medication_id, intent, care_plan_id, encounter_id, episode_id, page, page_size, medical_program_id, started_at_from, started_at_to, ended_at_from, ended_at_to, dispense_valid_from_start, dispense_valid_from_end, dispense_valid_to_start, dispense_valid_to_end.[0m
+[33mWarning at line 15704: Action is missing parameter definitions: care_plan_id, legal_entity_id, employee_id, person_id, status, request_number, created_from, created_to, medication_id, intent, encounter_id, page, page_size, medical_program_id, started_at_from, started_at_to, ended_at_from, ended_at_to, dispense_valid_from_start, dispense_valid_from_end, dispense_valid_to_start, dispense_valid_to_end.[0m
+[33mWarning at line 15744: Action is missing parameter definitions: person_id, id.[0m
+[33mWarning at line 15768: Action is missing parameter definitions: id.[0m
+[33mWarning at line 15799: Action is missing parameter definitions: id.[0m
+[33mWarning at line 15830: Action is missing parameter definitions: id.[0m
+[33mWarning at line 15850: Action is missing parameter definitions: person_id, id.[0m
+[33mWarning at line 15871: Action is missing parameter definitions: id.[0m
+[33mWarning at line 15894: Action is missing parameter definitions: id.[0m
+[33mWarning at line 15917: Action is missing parameter definitions: id.[0m
+[33mWarning at line 15942: Action is missing parameter definitions: id.[0m
+[33mWarning at line 15966: Action is missing parameter definitions: id.[0m
+[33mWarning at line 15990: Action is missing parameter definitions: id.[0m
+[33mWarning at line 16013: Action is missing parameter definitions: person_id, composition_id, id.[0m
+[33mWarning at line 16061: Action is missing a response[0m
+[33mWarning at line 16061: Action is missing parameter definitions: legal_entity_id, employee_id, person_id, status, request_number, created_from, created_to, medication_id, intent, care_plan_id, encounter_id, page, page_size.[0m
+[33mWarning at line 16090: Action is missing parameter definitions: id.[0m
+[33mWarning at line 16119: Action is missing parameter definitions: id.[0m
+[33mWarning at line 16146: Action is missing parameter definitions: id.[0m
+[33mWarning at line 16188: Ignoring unrecognized block "<!--  -->".[0m
+[33mWarning at line 16190: Ignoring unrecognized block "<!-- Key                | Value -->".[0m
+[33mWarning at line 16191: Ignoring unrecognized block "<!-- -------------------|----------- -->".[0m
+[33mWarning at line 16192: Ignoring unrecognized block "<!-- ESOZ ENT ID        | ENT-042 -->".[0m
+[33mWarning at line 16194: Ignoring unrecognized block "<!-- Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17359241296/Medication+Dispense">Medication Dispense</a> -->".[0m
+[33mWarning at line 16196: Ignoring unrecognized block "<!-- Medication Dispense - Indicates that a medication product has been dispensed for -->".[0m
+[33mWarning at line 16197: Ignoring unrecognized block "<!-- a named person/patientDispense of medication is possible only under Medication -->".[0m
+[33mWarning at line 16198: Ignoring unrecognized block "<!-- Request and during the period specified in Medication RequestMedical program - mandatory -->".[0m
+[33mWarning at line 16199: Ignoring unrecognized block "<!-- attribute for the first phase. There is no options to dispense medication without -->".[0m
+[33mWarning at line 16200: Ignoring unrecognized block "<!-- program Dispense details - several medications of different manufacturers -->".[0m
+[33mWarning at line 16201: Ignoring unrecognized block "with the same innm can be dispensed at a time. Total of medication_qty should
+be less or equal to medication quantity specified in Medication Request.".[0m
+[33mWarning at line 16167: Action is missing parameter definitions: id.[0m
+[33mWarning at line 16204: Action is missing parameter definitions: code.[0m
+[33mWarning at line 16251: Action is missing parameter definitions: id.[0m
+[33mWarning at line 16276: Action is missing parameter definitions: id.[0m
+[33mWarning at line 16295: Action is missing parameter definitions: id, medication_request_id, legal_entity_id, division_id, status, dispensed_from, dispensed_to, care_plan_id, page, page_size.[0m
+[33mWarning at line 16330: Action is missing parameter definitions: id.[0m
+[33mWarning at line 16349: Action is missing parameter definitions: id.[0m
+[33mWarning at line 16371: Action is missing parameter definitions: person_id, id, status.[0m
+[33mWarning at line 16400: Action is missing parameter definitions: person_id, id.[0m
+[33mWarning at line 16420: Action is missing parameter definitions: id, medication_request_id, legal_entity_id, division_id, status, dispensed_from, dispensed_to, care_plan_id, page, page_size.[0m
+[33mWarning at line 16478: Action is missing parameter definitions: id.[0m
+[33mWarning at line 16523: Ignoring unrecognized block "<!--  -->".[0m
+[33mWarning at line 16525: Ignoring unrecognized block "<!-- Key                | Value -->".[0m
+[33mWarning at line 16526: Ignoring unrecognized block "<!-- -------------------|----------- -->".[0m
+[33mWarning at line 16527: Ignoring unrecognized block "<!-- ESOZ ENT ID        | ENT-044 -->".[0m
+[33mWarning at line 16529: Ignoring unrecognized block "<!-- Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17358782570/Medication+Request+Request">Medication Request Requests</a> -->".[0m
+[33mWarning at line 16531: Ignoring unrecognized block "<!-- Medication request Request is a life-cycle entity that is used to perform operations on Medication requests. -->".[0m
+[33mWarning at line 16532: Ignoring unrecognized block "<!-- After Medication request Request is signed it will be automatically moved to Medication requests. -->".[0m
+[33mWarning at line 16501: Action is missing parameter definitions: id.[0m
+[33mWarning at line 16552: Ignoring unrecognized block "<!--  -->".[0m
+[33mWarning at line 16553: Ignoring unrecognized block "<!-- + Attributes (object) -->".[0m
+[33mWarning at line 16555: Ignoring unrecognized block "<!-- + medication_request_request (object) -->".[0m
+[33mWarning at line 16556: Ignoring unrecognized block "<!-- + include Medication_request_Request_Qualify_post_data -->".[0m
+[33mWarning at line 16558: Ignoring unrecognized block "<!-- + programs (array[Qualify_Medication_request_Request_List_program_post_data], required) - Medical programs list for qualify -->".[0m
+[33mWarning at line 16620: Action is missing parameter definitions: person_id, legal_entity_id, employee_id, episode_id, care_plan_id, activity_id, encounter_id, status, intent, page, page_size.[0m
+[33mWarning at line 16650: Action is missing parameter definitions: care_plan_id, employee_id, person_id, status, intent, encounter_id, page, page_size.[0m
+[33mWarning at line 16678: Action is missing parameter definitions: person_id, id.[0m
+[33mWarning at line 16699: Action is missing parameter definitions: id.[0m
+[33mWarning at line 16751: Ignoring unrecognized block "<!--  -->".[0m
+[33mWarning at line 16753: Ignoring unrecognized block "<!-- Key                | Value -->".[0m
+[33mWarning at line 16754: Ignoring unrecognized block "<!-- -------------------|----------- -->".[0m
+[33mWarning at line 16755: Ignoring unrecognized block "<!-- ESOZ ENT ID        | ENT-045 -->".[0m
+[33mWarning at line 16756: Ignoring unrecognized block "<!-- Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/18699747489/Medication+Statement+ENT-045">Medication Statement</a> -->".[0m
+[33mWarning at line 16731: Action is missing parameter definitions: id.[0m
+[33mWarning at line 16778: Ignoring unrecognized block "<!--  -->".[0m
+[33mWarning at line 16779: Ignoring unrecognized block "<!-- + data (Medication_Statement_Response) -->".[0m
+[33mWarning at line 16758: Action is missing parameter definitions: patient_id, medication_statement_id.[0m
+[33mWarning at line 16781: Action is missing parameter definitions: patient_id, duplicate, asserted_date_from, asserted_date_to, page, page_size, medication_code, encounter_id, episode_id.[0m
+[33mWarning at line 16819: Action is missing parameter definitions: patient_id, page, page_size, code, issued_from, issued_to.[0m
+[33mWarning at line 16845: Action is missing parameter definitions: patient_id, id.[0m
+[33mWarning at line 16868: Action is missing parameter definitions: patient_id, observation_id.[0m
+[33mWarning at line 16890: Action is missing parameter definitions: patient_id, encounter_id, diagnostic_report_id, episode_id, code, issued_from, issued_to, page, page_size.[0m
+[33mWarning at line 16927: Action is missing parameter definitions: patient_id, procedure_id.[0m
+[33mWarning at line 16949: Action is missing parameter definitions: patient_id, status, episode_id, code, service_request_id, recorded_by, managing_organization_id.[0m
+[33mWarning at line 16978: Action is missing parameter definitions: patient_id.[0m
+[33mWarning at line 17003: Action is missing a response[0m
+[33mWarning at line 17016: Action is missing parameter definitions: patient_id, id.[0m
+[33mWarning at line 17048: Action is missing parameter definitions: patient_id, id, status, episode_id, encounter_id, code, based_on, recorded_by, managing_organization_id, device_id.[0m
+[33mWarning at line 17080: Action is missing parameter definitions: person_id, id.[0m
+[33mWarning at line 17150: Action is missing parameter definitions: patient_id, risk_assessment_id.[0m
+[33mWarning at line 17196: Ignoring unrecognized block "<!-- + Response 200 (application/json) -->".[0m
+[33mWarning at line 17197: Ignoring unrecognized block "<!-- + Attributes (Response_Collection) -->".[0m
+[33mWarning at line 17199: Ignoring unrecognized block "<!-- + data (array[Risk_Assessment_Response]) -->".[0m
+[33mWarning at line 17203: Ignoring unrecognized block "<!-- Key                | Value -->".[0m
+[33mWarning at line 17204: Ignoring unrecognized block "<!-- -------------------|----------- -->".[0m
+[33mWarning at line 17205: Ignoring unrecognized block "<!-- ESOZ ENT ID        | ENT-062 -->".[0m
+[33mWarning at line 17206: Ignoring unrecognized block "<!-- Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17479991344/Service+Request">Service Request</a> -->".[0m
+[33mWarning at line 17172: Action is missing a response[0m
+[33mWarning at line 17172: Action is missing parameter definitions: patient_id, code, asserted_date_from, asserted_date_to, page, page_size, encounter_id, episode_id.[0m
+[33mWarning at line 17208: Action is missing parameter definitions: patient_id.[0m
+[33mWarning at line 17260: Action is missing parameter definitions: patient_id.[0m
+[33mWarning at line 17287: Action is missing parameter definitions: patient_id, episode_id.[0m
+[33mWarning at line 17319: Action is missing parameter definitions: patient_id.[0m
+[33mWarning at line 17347: Action is missing parameter definitions: patient_id, episode_id, service_request_id.[0m
+[33mWarning at line 17381: Action is missing parameter definitions: patient_id, service_request_id.[0m
+[33mWarning at line 17412: Action is missing parameter definitions: patient_id, service_request_id.[0m
+[33mWarning at line 17445: Action is missing parameter definitions: patient_id, service_request_id.[0m
+[33mWarning at line 17472: Action is missing parameter definitions: patient_id, service_request_id.[0m
+[33mWarning at line 17527: Action is missing parameter definitions: service_request_id.[0m
+[33mWarning at line 17562: Action is missing parameter definitions: service_request_id.[0m
+[33mWarning at line 17591: Action is missing parameter definitions: service_request_id.[0m
+[33mWarning at line 17619: Action is missing parameter definitions: service_request_id.[0m
+[33mWarning at line 17645: Action is missing parameter definitions: service_request_id.[0m
+[33mWarning at line 17679: Action is missing parameter definitions: specimen_id.[0m
+[33mWarning at line 17707: Action is missing parameter definitions: parent_id.[0m
+[33mWarning at line 17730: Action is missing parameter definitions: patient_id, service_request_id.[0m
+[33mWarning at line 17761: Action is missing parameter definitions: parent_id, service_request_id.[0m
+[33mWarning at line 17801: Action is missing parameter definitions: id.[0m
+[33mWarning at line 17831: Action is missing parameter definitions: patient_id, period_from, period_to, status, page, page_size.[0m
+[33mWarning at line 17855: Action is missing parameter definitions: patient_id, episode_id.[0m
+[33mWarning at line 17877: Action is missing parameter definitions: patient_id.[0m
+[33mWarning at line 17896: Action is missing parameter definitions: patient_id, episode_id.[0m
+[33mWarning at line 17933: Action is missing parameter definitions: patient_id, episode_id.[0m
+[33mWarning at line 17968: Action is missing parameter definitions: patient_id, episode_id.[0m
+[33mWarning at line 18020: Action is missing parameter definitions: patient_id, clinical_impression_id.[0m
+[33mWarning at line 18043: Action is missing parameter definitions: patient_id, condition_id.[0m
+[33mWarning at line 18065: Action is missing parameter definitions: patient_id, device_id.[0m
+[33mWarning at line 18088: Action is missing parameter definitions: patient_id, diagnostic_report_id.[0m
+[33mWarning at line 18113: Action is missing parameter definitions: patient_id, episode_id, date_from, date_to, page, page_size.[0m
+[33mWarning at line 18140: Action is missing parameter definitions: patient_id, immunization_id.[0m
+[33mWarning at line 18163: Action is missing parameter definitions: patient_id, medication_administration_id.[0m
+[33mWarning at line 18185: Action is missing parameter definitions: patient_id, medication_statement_id.[0m
+[33mWarning at line 18208: Action is missing parameter definitions: patient_id, observation_id.[0m
+[33mWarning at line 18230: Action is missing parameter definitions: patient_id, procedure_id.[0m
+[33mWarning at line 18253: Action is missing parameter definitions: patient_id, risk_assessment_id.[0m
+[33mWarning at line 18275: Action is missing parameter definitions: patient_id, device_association_id.[0m
+[33mWarning at line 18298: Action is missing parameter definitions: patient_id, detected_issue_id.[0m
+[33mWarning at line 18321: Action is missing parameter definitions: patient_id, period_from, period_to, diagnoses_group_id, managing_organization_id, page, page_size.[0m
+[33mWarning at line 18344: Action is missing parameter definitions: patient_id, period_from, period_to, page, page_size.[0m
+[33mWarning at line 18373: Action is missing parameter definitions: patient_id.[0m
+[33mWarning at line 18398: Action is missing parameter definitions: patient_id.[0m
+[33mWarning at line 18434: Ignoring unrecognized block "<!-- + Parameters -->".[0m
+[33mWarning at line 18422: Action is missing parameter definitions: patient_id.[0m
+[33mWarning at line 18442: Action is missing parameter definitions: patient_id, id.[0m
+[33mWarning at line 18463: Action is missing parameter definitions: patient_id, composition_id.[0m
+[33mWarning at line 18484: Action is missing parameter definitions: patient_id, id.[0m
+[33mWarning at line 18533: Ignoring unrecognized block "<!-- + Parameters -->".[0m
+[33mWarning at line 18534: Ignoring unrecognized block "<!-- + `page_size` (string, required) - identifier -->".[0m
+[33mWarning at line 18535: Ignoring unrecognized block "<!-- + `page` (string, required) - identifier -->".[0m
+[33mWarning at line 18536: Ignoring unrecognized block "<!-- + `date` (string, required) - identifier -->".[0m
+[33mWarning at line 18537: Ignoring unrecognized block "+ `type` (string, required) - identifier
+        + `encounter_id` (string, required) - identifier
+        + `patient_id` (string, required) - identifier".[0m
+[33mWarning at line 18513: Action is missing parameter definitions: patient_id, id.[0m
+[33mWarning at line 18548: Action is missing parameter definitions: patient_id, patient_id, encounter_id, type, date, page, page_size.[0m
+[33mWarning at line 18576: Action is missing parameter definitions: patient_id, id.[0m
+[33mWarning at line 18600: Action is missing parameter definitions: patient_id, id, device_dispense_id.[0m
+[33mWarning at line 18622: Action is missing parameter definitions: patient_id, id, device_request_id.[0m
+[33mWarning at line 18646: Action is missing parameter definitions: type, category, page, page_size.[0m
+[33mWarning at line 18672: Action is missing parameter definitions: patient_id, id, episode_id.[0m
+[33mWarning at line 18695: Action is missing parameter definitions: patient_id, id, diagnostic_report_id.[0m
+[33mWarning at line 18718: Action is missing parameter definitions: patient_id, id, encounter_id.[0m
+[33mWarning at line 18741: Action is missing parameter definitions: patient_id, id, care_plan_id.[0m
+[33mWarning at line 18764: Action is missing parameter definitions: patient_id, id, procedure_id.[0m
+[33mWarning at line 18783: Action is missing parameter definitions: patient_id, id, condition_id.[0m
+[33mWarning at line 18802: Action is missing parameter definitions: patient_id, id, observation_id.[0m
+[33mWarning at line 18821: Action is missing parameter definitions: patient_id, id, immunization_id.[0m
+[33mWarning at line 18844: Action is missing parameter definitions: patient_id, id, service_request_id.[0m
+[33mWarning at line 18868: Action is missing parameter definitions: person_id, composition_id, id.[0m
+[33mWarning at line 18891: Action is missing parameter definitions: person_id, composition_id, id.[0m
+[33mWarning at line 18911: Action is missing parameter definitions: patient_id, id, clinical_impression_id.[0m
+[33mWarning at line 18941: Action is missing parameter definitions: patient_id.[0m
+[33mWarning at line 18964: Action is missing a response[0m
+[33mWarning at line 18964: Action is missing parameter definitions: patient_id.[0m
+[33mWarning at line 19002: Action is missing parameter definitions: patient_id, type, status, registered_by, collected_from, collected_to, container_identifier, container_type, parent, request, encounter, page, page_size.[0m
+[33mWarning at line 19037: Action is missing parameter definitions: patient_id, id.[0m
+[33mWarning at line 19061: Action is missing parameter definitions: accession_identifier.[0m
+[33mWarning at line 19090: Action is missing parameter definitions: patient_id, id.[0m
+[33mWarning at line 19117: Action is missing parameter definitions: patient_id, id.[0m
+[33mWarning at line 19148: Action is missing parameter definitions: patient_id, id.[0m
+[33mWarning at line 19176: Action is missing parameter definitions: patient_id, id.[0m
+[33mWarning at line 19203: Action is missing parameter definitions: patient_id, id.[0m

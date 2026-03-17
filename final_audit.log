@@ -1,0 +1,147 @@
+[33mWarning at line 415: Enum element "rule" should include members.[0m
+[33mWarning at line 2529: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"[0m
+[33mWarning at line 4337: Enum element "status" should include members.[0m
+[33mWarning at line 4393: Enum element "status" should include members.[0m
+[33mWarning at line 4582: Invalid value format "'10.34'" for type "number".[0m
+[33mWarning at line 4663: Ignoring unrecognized block "#Party".[0m
+[33mWarning at line 5169: Type attribute "required" is not allowed for a value of type "object"[0m
+[33mWarning at line 5185: Type attribute "required" is not allowed for a value of type "object"[0m
+[33mWarning at line 5254: No name specified: "(Coding)"[0m
+[33mWarning at line 5278: Type attribute "required" is not allowed for a value of type "object"[0m
+[33mWarning at line 6317: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"[0m
+[33mWarning at line 7026: Type attribute "required" is not allowed for a value of type "object"[0m
+[33mWarning at line 7062: Type attribute "required" is not allowed for a value of type "object"[0m
+[33mWarning at line 7460: Enum element "gender" should include members.[0m
+[33mWarning at line 7482: Enum element "gender" should include members.[0m
+[33mWarning at line 7505: Enum element "gender" should include members.[0m
+[33mWarning at line 7529: Enum element "gender" should include members.[0m
+[33mWarning at line 7553: Enum element "gender" should include members.[0m
+[33mWarning at line 7579: Enum element "gender" should include members.[0m
+[33mWarning at line 7975: Enum element "status" should include members.[0m
+[33mWarning at line 8362: Enum element "gender" should include members.[0m
+[33mWarning at line 8392: Enum element "gender" should include members.[0m
+[33mWarning at line 8422: Enum element "gender" should include members.[0m
+[33mWarning at line 8452: Enum element "gender" should include members.[0m
+[33mWarning at line 8505: Enum element "gender" should include members.[0m
+[33mWarning at line 8542: Enum element "gender" should include members.[0m
+[33mWarning at line 8627: Enum element "gender" should include members.[0m
+[33mWarning at line 9357: Enum element "status" should include members.[0m
+[33mWarning at line 9478: Enum element "gender" should include members.[0m
+[33mWarning at line 9662: Enum element "gender" should include members.[0m
+[33mWarning at line 9702: Enum element "gender" should include members.[0m
+[33mWarning at line 9726: sub-types of primitive types should not have nested members, ignoring unrecognized block "- family doctor".[0m
+[33mWarning at line 10670: Action is missing parameter definitions: id.[0m
+[33mWarning at line 10889: Action is missing parameter definitions: duplicate, duplicate_1.[0m
+[33mWarning at line 10889: Action "GET /api/v2/dictionaries" already defined.[0m
+[33mWarning at line 10948: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"[0m
+[33mWarning at line 11514: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.[0m
+[33mWarning at line 11553: Ignoring unrecognized block "+ Headers
+        Authorization: Bearer c2778f3064753ea70de870a53795f5c9
+        API-key: uXhEczJ56adsfh3Ri9SUkc4en
+        X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4".[0m
+[33mWarning at line 11579: Ignoring unrecognized block "+ Headers
+        Authorization: Bearer c2778f3064753ea70de870a53795f5c9
+        API-key: uXhEczJ56adsfh3Ri9SUkc4en
+        X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4".[0m
+[33mWarning at line 11681: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.[0m
+[33mWarning at line 11686: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.[0m
+[33mWarning at line 12238: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.[0m
+[33mWarning at line 12218: Action is missing parameter definitions: contract_type.[0m
+[33mWarning at line 12265: Action is missing parameter definitions: contract_type.[0m
+[33mWarning at line 12265: Action "GET /api/contracts/{contract_type}/" already defined.[0m
+[33mWarning at line 12302: Action is missing parameter definitions: contract_type.[0m
+[33mWarning at line 12360: Action is missing parameter definitions: contract_type, id.[0m
+[33mWarning at line 12552: Action is missing parameter definitions: contract_type.[0m
+[33mWarning at line 12611: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.[0m
+[33mWarning at line 12590: Action is missing parameter definitions: contract_type, duplicate.[0m
+[33mWarning at line 12590: Action "GET /api/contract_requests/{contract_type}/" already defined.[0m
+[33mWarning at line 12639: Action is missing parameter definitions: contract_type.[0m
+[33mWarning at line 12678: Action is missing parameter definitions: contract_type.[0m
+[33mWarning at line 12720: Action is missing parameter definitions: contract_type.[0m
+[33mWarning at line 12750: Action is missing parameter definitions: contract_type.[0m
+[33mWarning at line 12838: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.[0m
+[33mWarning at line 12816: Action is missing parameter definitions: verification_status.[0m
+[33mWarning at line 12942: Enum element "status" should include members.[0m
+[33mWarning at line 13065: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.[0m
+[33mWarning at line 13233: Action "GET /api/employee_roles/" already defined.[0m
+[33mWarning at line 13479: Ignoring unrecognized block "This method will be deprecated. Use **Reject Person Request v2**.".[0m
+[33mWarning at line 13481: Ignoring unrecognized block "Use this method to reject previously created Person Request.".[0m
+[33mWarning at line 13483: Ignoring unrecognized block "More detailed information - https://e-health-ua.atlassian.net/wiki/x/MYDAIw".[0m
+[33mWarning at line 13917: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.[0m
+[33mWarning at line 13903: Action is missing parameter definitions: legal_entity_id.[0m
+[33mWarning at line 14225: Action is missing parameter definitions: id.[0m
+[33mWarning at line 14570: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.[0m
+[33mWarning at line 14577: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.[0m
+[33mWarning at line 14713: Action is missing parameter definitions: id.[0m
+[33mWarning at line 14880: Action is missing parameter definitions: birth_place, page, page_size.[0m
+[33mWarning at line 15040: Action is missing parameter definitions: duplicate.[0m
+[33mWarning at line 15040: Action "GET /sign-in" already defined.[0m
+[33mWarning at line 15228: Action is missing parameter definitions: legal_entity_id, requisition.[0m
+[33mWarning at line 15655: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.[0m
+[33mWarning at line 16095: Action is missing parameter definitions: patient_id, encounter_id, episode_id.[0m
+[33mWarning at line 16151: Action is missing parameter definitions: patient_id, duplicate, encounter_id, context_episode_id, initial_episode_id.[0m
+[33mWarning at line 16151: Action "GET /api/patients/{patient_id}/summary/diagnostic_reports/" already defined.[0m
+[33mWarning at line 16241: Action is missing parameter definitions: date_from, date_to.[0m
+[33mWarning at line 16315: Action is missing parameter definitions: code.[0m
+[33mWarning at line 16367: Ignoring unrecognized block "Key                | Value
+-------------------|-----------
+ESOZ ENT ID        | ENT-043
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17359110269/Medication+Request">Medication Request</a>".[0m
+[33mWarning at line 16434: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.[0m
+[33mWarning at line 16492: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.[0m
+[33mWarning at line 16471: Action is missing parameter definitions: care_plan_id.[0m
+[33mWarning at line 16985: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.[0m
+[33mWarning at line 16972: Action is missing a response[0m
+[33mWarning at line 17102: Ignoring unrecognized block "Key                | Value
+-------------------|-----------
+ESOZ ENT ID        | ENT-042
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17359241296/Medication+Dispense">Medication Dispense</a>".[0m
+[33mWarning at line 17107: Ignoring unrecognized block "Medication Dispense - Indicates that a medication product has been dispensed for
+a named person/patientDispense of medication is possible only under Medication
+Request and during the period specified in Medication RequestMedical program - mandatory
+attribute for the first phase. There is no options to dispense medication without
+program Dispense details - several medications of different manufacturers
+with the same innm can be dispensed at a time. Total of medication_qty should
+be less or equal to medication quantity specified in Medication Request.".[0m
+[33mWarning at line 17354: Action is missing parameter definitions: person_id.[0m
+[33mWarning at line 17487: Ignoring unrecognized block "Key                | Value
+-------------------|-----------
+ESOZ ENT ID        | ENT-044
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17358782570/Medication+Request+Request">Medication Request Requests</a>".[0m
+[33mWarning at line 17492: Ignoring unrecognized block "Medication request Request is a life-cycle entity that is used to perform operations on Medication requests.
+After Medication request Request is signed it will be automatically moved to Medication requests.".[0m
+[33mWarning at line 17602: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.[0m
+[33mWarning at line 17643: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.[0m
+[33mWarning at line 17623: Action is missing parameter definitions: care_plan_id.[0m
+[33mWarning at line 17776: Ignoring unrecognized block "Key                | Value
+-------------------|-----------
+ESOZ ENT ID        | ENT-045
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/18699747489/Medication+Statement+ENT-045">Medication Statement</a>".[0m
+[33mWarning at line 17804: Action is missing parameter definitions: patient_id, duplicate, encounter_id, episode_id.[0m
+[33mWarning at line 17804: Action "GET /api/patients/{patient_id}/summary/medication_statements/" already defined.[0m
+[33mWarning at line 17911: Action is missing parameter definitions: patient_id.[0m
+[33mWarning at line 17973: Action is missing parameter definitions: episode_id, service_request_id, recorded_by, managing_organization_id.[0m
+[33mWarning at line 18034: Action is missing a response[0m
+[33mWarning at line 18045: Action is missing parameter definitions: patient_id.[0m
+[33mWarning at line 18076: Action is missing parameter definitions: id, recorded_by.[0m
+[33mWarning at line 18108: Action is missing parameter definitions: person_id, id.[0m
+[33mWarning at line 18242: Ignoring unrecognized block "Key                | Value
+-------------------|-----------
+ESOZ ENT ID        | ENT-062
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17479991344/Service+Request">Service Request</a>".[0m
+[33mWarning at line 18214: Action is missing parameter definitions: patient_id, encounter_id, episode_id.[0m
+[33mWarning at line 18497: Action is missing parameter definitions: patient_id, service_request_id.[0m
+[33mWarning at line 18539: Action is missing parameter definitions: patient_id, service_request_id.[0m
+[33mWarning at line 18845: Action is missing parameter definitions: parent_id.[0m
+[33mWarning at line 18868: Action is missing parameter definitions: patient_id, service_request_id.[0m
+[33mWarning at line 18898: Action is missing parameter definitions: parent_id, service_request_id.[0m
+[33mWarning at line 18937: Action is missing parameter definitions: id.[0m
+[33mWarning at line 19136: Action is missing parameter definitions: patient_id, episode_id.[0m
+[33mWarning at line 19287: Action is missing parameter definitions: episode_id, date_from, date_to, page, page_size.[0m
+[33mWarning at line 19531: Action is missing parameter definitions: period_from, period_to.[0m
+[33mWarning at line 19651: Action is missing parameter definitions: id.[0m
+[33mWarning at line 19785: Action is missing parameter definitions: patient_id, patient_id, date.[0m
+[33mWarning at line 20147: Action "GET /api/persons/{person_id}/compositions/{composition_id}/medication_requests/" already defined.[0m
+[33mWarning at line 20280: Action is missing a response[0m
+[33mWarning at line 20280: Action is missing parameter definitions: patient_id.[0m
+[33mWarning at line 20295: Action is missing parameter definitions: patient_id.[0m

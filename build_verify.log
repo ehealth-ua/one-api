@@ -1,0 +1,122 @@
+[33mWarning at line 415: Enum element "rule" should include members.[0m
+[33mWarning at line 2529: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"[0m
+[33mWarning at line 4337: Enum element "status" should include members.[0m
+[33mWarning at line 4395: Enum element "status" should include members.[0m
+[33mWarning at line 4667: Ignoring unrecognized block "<!-- #Party -->".[0m
+[33mWarning at line 6321: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"[0m
+[33mWarning at line 7464: Enum element "gender" should include members.[0m
+[33mWarning at line 7488: Enum element "gender" should include members.[0m
+[33mWarning at line 7513: Enum element "gender" should include members.[0m
+[33mWarning at line 7539: Enum element "gender" should include members.[0m
+[33mWarning at line 7565: Enum element "gender" should include members.[0m
+[33mWarning at line 7593: Enum element "gender" should include members.[0m
+[33mWarning at line 7991: Enum element "status" should include members.[0m
+[33mWarning at line 8380: Enum element "gender" should include members.[0m
+[33mWarning at line 8412: Enum element "gender" should include members.[0m
+[33mWarning at line 8444: Enum element "gender" should include members.[0m
+[33mWarning at line 8476: Enum element "gender" should include members.[0m
+[33mWarning at line 8531: Enum element "gender" should include members.[0m
+[33mWarning at line 8570: Enum element "gender" should include members.[0m
+[33mWarning at line 8657: Enum element "gender" should include members.[0m
+[33mWarning at line 9389: Enum element "status" should include members.[0m
+[33mWarning at line 9512: Enum element "gender" should include members.[0m
+[33mWarning at line 9698: Enum element "gender" should include members.[0m
+[33mWarning at line 9740: Enum element "gender" should include members.[0m
+[33mWarning at line 10710: Action is missing parameter definitions: id.[0m
+[33mWarning at line 10930: Action is missing parameter definitions: duplicate, duplicate_1.[0m
+[33mWarning at line 10930: Action "GET /api/v2/dictionaries" already defined.[0m
+[33mWarning at line 10991: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"[0m
+[33mWarning at line 11597: Ignoring unrecognized block "<!-- + Headers -->".[0m
+[33mWarning at line 11598: Ignoring unrecognized block "Authorization: Bearer c2778f3064753ea70de870a53795f5c9
+            API-key: uXhEczJ56adsfh3Ri9SUkc4en
+            X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4".[0m
+[33mWarning at line 11623: Ignoring unrecognized block "<!-- + Headers -->".[0m
+[33mWarning at line 11624: Ignoring unrecognized block "Authorization: Bearer c2778f3064753ea70de870a53795f5c9
+            API-key: uXhEczJ56adsfh3Ri9SUkc4en
+            X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4".[0m
+[33mWarning at line 12264: Action is missing parameter definitions: contract_type.[0m
+[33mWarning at line 12313: Action is missing parameter definitions: contract_type.[0m
+[33mWarning at line 12313: Action "GET /api/contracts/{contract_type}/" already defined.[0m
+[33mWarning at line 12351: Action is missing parameter definitions: contract_type.[0m
+[33mWarning at line 12382: Action is missing parameter definitions: contract_type.[0m
+[33mWarning at line 12411: Action is missing parameter definitions: contract_type, id.[0m
+[33mWarning at line 12605: Action is missing parameter definitions: contract_type.[0m
+[33mWarning at line 12644: Action is missing parameter definitions: contract_type, duplicate.[0m
+[33mWarning at line 12644: Action "GET /api/contract_requests/{contract_type}/" already defined.[0m
+[33mWarning at line 12696: Action is missing parameter definitions: contract_type.[0m
+[33mWarning at line 12736: Action is missing parameter definitions: contract_type.[0m
+[33mWarning at line 12779: Action is missing parameter definitions: contract_type.[0m
+[33mWarning at line 12810: Action is missing parameter definitions: contract_type.[0m
+[33mWarning at line 12877: Action is missing parameter definitions: verification_status.[0m
+[33mWarning at line 13005: Enum element "status" should include members.[0m
+[33mWarning at line 13299: Action "GET /api/employee_roles/" already defined.[0m
+[33mWarning at line 13545: Ignoring unrecognized block "<!-- This method will be deprecated. Use **Reject Person Request v2**. -->".[0m
+[33mWarning at line 13547: Ignoring unrecognized block "<!-- Use this method to reject previously created Person Request. -->".[0m
+[33mWarning at line 13549: Ignoring unrecognized block "<!-- More detailed information - https://e-health-ua.atlassian.net/wiki/x/MYDAIw -->".[0m
+[33mWarning at line 13969: Action is missing parameter definitions: legal_entity_id.[0m
+[33mWarning at line 14293: Action is missing parameter definitions: id.[0m
+[33mWarning at line 14784: Action is missing parameter definitions: id.[0m
+[33mWarning at line 14952: Action is missing parameter definitions: birth_place, page, page_size.[0m
+[33mWarning at line 15115: Action is missing parameter definitions: duplicate.[0m
+[33mWarning at line 15115: Action "GET /sign-in" already defined.[0m
+[33mWarning at line 15304: Action is missing parameter definitions: legal_entity_id, requisition.[0m
+[33mWarning at line 16174: Action is missing parameter definitions: patient_id, asserted_date_from, asserted_date_to, page, page_size, type, encounter_id, episode_id.[0m
+[33mWarning at line 16233: Action is missing parameter definitions: patient_id, duplicate, issued_from, issued_to, page, page_size, code, encounter_id, context_episode_id, initial_episode_id.[0m
+[33mWarning at line 16328: Action is missing parameter definitions: date_from, date_to.[0m
+[33mWarning at line 16404: Action is missing parameter definitions: patient_id, page, page_size, code, date_from, date_to.[0m
+[33mWarning at line 16457: Ignoring unrecognized block "<!-- Key                | Value -->".[0m
+[33mWarning at line 16458: Ignoring unrecognized block "-------------------|-----------
+ESOZ ENT ID        | ENT-043
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17359110269/Medication+Request">Medication Request</a>".[0m
+[33mWarning at line 16562: Action is missing parameter definitions: care_plan_id.[0m
+[33mWarning at line 17065: Action is missing a response[0m
+[33mWarning at line 17198: Ignoring unrecognized block "<!-- Key                | Value -->".[0m
+[33mWarning at line 17199: Ignoring unrecognized block "-------------------|-----------
+ESOZ ENT ID        | ENT-042
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17359241296/Medication+Dispense">Medication Dispense</a>".[0m
+[33mWarning at line 17203: Ignoring unrecognized block "<!-- Medication Dispense - Indicates that a medication product has been dispensed for -->".[0m
+[33mWarning at line 17204: Ignoring unrecognized block "a named person/patientDispense of medication is possible only under Medication
+Request and during the period specified in Medication RequestMedical program - mandatory
+attribute for the first phase. There is no options to dispense medication without
+program Dispense details - several medications of different manufacturers
+with the same innm can be dispensed at a time. Total of medication_qty should
+be less or equal to medication quantity specified in Medication Request.".[0m
+[33mWarning at line 17450: Action is missing parameter definitions: person_id.[0m
+[33mWarning at line 17584: Ignoring unrecognized block "<!-- Key                | Value -->".[0m
+[33mWarning at line 17585: Ignoring unrecognized block "-------------------|-----------
+ESOZ ENT ID        | ENT-044
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17358782570/Medication+Request+Request">Medication Request Requests</a>".[0m
+[33mWarning at line 17589: Ignoring unrecognized block "<!-- Medication request Request is a life-cycle entity that is used to perform operations on Medication requests. -->".[0m
+[33mWarning at line 17590: Ignoring unrecognized block "After Medication request Request is signed it will be automatically moved to Medication requests.".[0m
+[33mWarning at line 17721: Action is missing parameter definitions: care_plan_id.[0m
+[33mWarning at line 17876: Ignoring unrecognized block "<!-- Key                | Value -->".[0m
+[33mWarning at line 17877: Ignoring unrecognized block "-------------------|-----------
+ESOZ ENT ID        | ENT-045
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/18699747489/Medication+Statement+ENT-045">Medication Statement</a>".[0m
+[33mWarning at line 17904: Action is missing parameter definitions: patient_id, duplicate, asserted_date_from, asserted_date_to, page, page_size, medication_code, encounter_id, episode_id.[0m
+[33mWarning at line 18015: Action is missing parameter definitions: patient_id, encounter_id, diagnostic_report_id, episode_id, code, issued_from, issued_to, page, page_size.[0m
+[33mWarning at line 18078: Action is missing parameter definitions: patient_id, status, episode_id, code, service_request_id, recorded_by, managing_organization_id.[0m
+[33mWarning at line 18143: Action is missing a response[0m
+[33mWarning at line 18156: Action is missing parameter definitions: patient_id, id.[0m
+[33mWarning at line 18188: Action is missing parameter definitions: patient_id, id, status, episode_id, encounter_id, code, based_on, recorded_by, managing_organization_id, device_id.[0m
+[33mWarning at line 18222: Action is missing parameter definitions: person_id, id.[0m
+[33mWarning at line 18361: Ignoring unrecognized block "<!-- Key                | Value -->".[0m
+[33mWarning at line 18362: Ignoring unrecognized block "-------------------|-----------
+ESOZ ENT ID        | ENT-062
+Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/pages/17479991344/Service+Request">Service Request</a>".[0m
+[33mWarning at line 18330: Action is missing parameter definitions: patient_id, code, asserted_date_from, asserted_date_to, page, page_size, encounter_id, episode_id.[0m
+[33mWarning at line 18616: Action is missing parameter definitions: patient_id, service_request_id.[0m
+[33mWarning at line 18660: Action is missing parameter definitions: patient_id, service_request_id.[0m
+[33mWarning at line 18968: Action is missing parameter definitions: parent_id.[0m
+[33mWarning at line 18992: Action is missing parameter definitions: patient_id, service_request_id.[0m
+[33mWarning at line 19024: Action is missing parameter definitions: parent_id, service_request_id.[0m
+[33mWarning at line 19065: Action is missing parameter definitions: id.[0m
+[33mWarning at line 19265: Action is missing parameter definitions: patient_id, episode_id.[0m
+[33mWarning at line 19418: Action is missing parameter definitions: patient_id, episode_id, date_from, date_to, page, page_size.[0m
+[33mWarning at line 19667: Action is missing parameter definitions: period_from, period_to.[0m
+[33mWarning at line 19789: Action is missing parameter definitions: patient_id, id.[0m
+[33mWarning at line 19924: Action is missing parameter definitions: patient_id, patient_id, encounter_id, type, date, page, page_size.[0m
+[33mWarning at line 20289: Action "GET /api/persons/{person_id}/compositions/{composition_id}/medication_requests/" already defined.[0m
+[33mWarning at line 20422: Action is missing a response[0m
+[33mWarning at line 20422: Action is missing parameter definitions: patient_id.[0m
+[33mWarning at line 20440: Action is missing parameter definitions: patient_id, type, status, registered_by, collected_from, collected_to, container_identifier, container_type, parent, request, encounter, page, page_size.[0m
