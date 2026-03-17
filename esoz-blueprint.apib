@@ -9917,7 +9917,7 @@ http code| processing method | Client recommendations
 + end : `2018-08-02T11:00:00.000Z`(string,optional) - End time with inclusive boundary,if not ongoing
 
 ### Quantity
-+ value : `13,5` (number,required)
++ value : `13.5` (number,required)
 + comparator : `>` (string,optional)
 + unit : kg (string,optional) - for future use
 + system : `eHealth/ucum/units` (string,required)
@@ -11320,7 +11320,7 @@ http code| processing method | Client recommendations
     + rate_quantity (Simple_Quantity)
 
 ### Simple_Quantity
-+ value: `13,5` (number,required)
++ value: `13.5` (number,required)
 + unit: mg (string,optional)
 + system: `eHealth/ucum/units` (string,optional)
 + code: mg (string,optional)
@@ -11590,7 +11590,7 @@ http code| processing method | Client recommendations
                     + code: default (string) - `dictionary -  device_properties`
         - One Of
             - value_quantity (object)
-                + value : `13,5` (number,required)
+                + value : `13.5` (number,required)
                 + comparator : `>` (string,optional)
                 + unit : kg (string,optional)
                 + system : `eHealth/ucum/units` (string,required)
@@ -11604,7 +11604,7 @@ http code| processing method | Client recommendations
             - value_boolean: true (boolean)
             - value_range (object)
                 + low (object,required)
-                    + value : `13,5` (number,required)
+                    + value : `13.5` (number,required)
                     + comparator : `>` (string,optional)
                     + unit : kg (string,optional)
                     + system : `eHealth/ucum/units` (string,required)
@@ -12019,7 +12019,7 @@ http code| processing method | Client recommendations
     + (object)
         + low (Quantity,optional)
         + high (Quantity,optional)
-            + value: `27,5` (number,required)
+            + value: `27.5` (number,required)
             + comparator: `<` (string,required)
         + type (Codeable_Concept,optional)
             +  coding (array)
@@ -12090,7 +12090,7 @@ http code| processing method | Client recommendations
             + (object)
                 + low (Quantity,optional)
                 + high (Quantity,optional)
-                    + value: `27,5` (number,required)
+                    + value: `27.5` (number,required)
                     + comparator: `<` (string,required)
                 + type (Codeable_Concept,optional)
                     +  coding (array)
@@ -12216,7 +12216,7 @@ http code| processing method | Client recommendations
     + (object)
         + low (Quantity,optional)
         + high (Quantity,optional)
-            + value: `27,5` (number,required)
+            + value: `27.5` (number,required)
             + comparator: `<` (string,required)
         + type (Codeable_Concept,optional)
             +  coding (array)
@@ -12287,7 +12287,7 @@ http code| processing method | Client recommendations
             + (object)
                 + low (Quantity,optional)
                 + high (Quantity,optional)
-                    + value: `27,5` (number,required)
+                    + value: `27.5` (number,required)
                     + comparator: `<` (string,required)
                 + type (Codeable_Concept,optional)
                     +  coding (array)
@@ -12444,7 +12444,7 @@ http code| processing method | Client recommendations
     + (object)
         + low (Quantity,optional)
         + high (Quantity,optional)
-            + value: `27,5` (number,required)
+            + value: `27.5` (number,required)
             + comparator: `<` (string,required)
         + type (Codeable_Concept,optional)
             +  coding (array)
@@ -13536,7 +13536,7 @@ http code| processing method | Client recommendations
 ### Medication_Dispense_Detail_Response
 + medication (Medication_Short,required) - Identifier of brand medications
 + program_medication_id: `64c06ebc-0266-4645-85f0-7a6900d7dfbe` (string,optional) - Program participant id
-+ medication_qty: '10.34' (number,required) - qnty of medication_unit (count/ml/g/mg) which provides to the patient
++ medication_qty: 10.34 (number,required) - qnty of medication_unit (count/ml/g/mg) which provides to the patient
 + sell_price: 18.65 (number,optional) - pharmacy's price for one nondivisible medication_unit (pill/ampoule/container/bottle/vial/aerosol)
 + sell_amount: 186.5 (number,optional) - total pharmacy's price for the requested medication quantity
 + discount_amount: 150 (number,optional) - pharmacy's expected price of dicsount for the requested medication quantity
