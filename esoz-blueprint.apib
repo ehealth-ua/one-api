@@ -375,7 +375,7 @@ By default, all collections are ordered in ascending chronological order.
 ### Response__Meta
 + code: 200 (number) - HTTP response code.
 + url: https://example.com/resource (string) - URL to requested resource.
-+ type (string) - Type of data that is located in data attribute.
++ type (enum) - Type of data that is located in data attribute.
     - object (string) - data attribute is a JSON object.
     - list (string) - data attribute is a list.
 + request_id: 6617aeec-15e2-4d6f-b9bd-53559c358f97#17810 (string) - [Request ID](https://esoz.docs.apiary.io/#introduction/interacting-with-api/request-id). Send it with X-Request-ID header.
@@ -412,7 +412,7 @@ By default, all collections are ordered in ascending chronological order.
                     + params (object) - Validation Parameters.
                         + values (array)
                     + raw_description: value is not allowed in enum (string) - value of error might be different
-                    + rule: required (string) - String constant that represents validation rule type. List of all types can be found in [API Manifest](https://esoz.docs.apiary.io/#introduction/interacting-with-api/errors).
+                    + rule: required (enum) - String constant that represents validation rule type. List of all types can be found in [API Manifest](https://esoz.docs.apiary.io/#introduction/interacting-with-api/errors).
                             - required
                             - inclusion
 
@@ -582,14 +582,14 @@ By default, all collections are ordered in ascending chronological order.
 + number: +380503410870 (string) - phone number in format '+38/'
 
 ### Email
-+ type: PERSONAL (enum[string], required)
++ type: PERSONAL (enum, required)
     - PERSONAL
     - PUBLIC
 + email: email@example.com (string)
 
 ### Address
 + type: RESIDENCE (string) - Dictionary ADDRESS_TYPE. 
-+ country: UA (enum[string], required)
++ country: UA (enum, required)
     - UA - Dictionary COUNTRY
 + area: Житомирська (string) - one of Ukraianian area
 + region: Бердичівський (string) - district of area
@@ -640,7 +640,7 @@ By default, all collections are ordered in ascending chronological order.
 + phones (array[Phone], required)
 + email: email@example.com (string) - division's email
 + working_hours (workinghours) - optional field, business hours by each day weekly, doesn't make any influence on business process and will be shown on portal and map.
-+ type: CLINIC (string) - Dictionary DIVISION_TYPE
++ type: CLINIC (enum) - Dictionary DIVISION_TYPE
     - CLINIC
 + legal_entity_id: c8aadb87-ecb9-41ca-9ad4-ffdfe1dd89c9 (string)
 + external_id: 3213213 (string)
@@ -675,7 +675,7 @@ By default, all collections are ordered in ascending chronological order.
 + addresses (array[Address], required)
 + phones (array[Phone], required)
 + email: email@example.com (string) - division's email
-+ type: clinic (string) - division type
++ type: clinic (enum) - division type
     - CLINIC
     - AMBULANT_CLINIC
     - FAP
@@ -696,11 +696,11 @@ By default, all collections are ordered in ascending chronological order.
 ### Division_Short_List
 + id: d290f1ee-6c54-4b01-90e6-d701748f0851 (string)
 + name: Бориспільське відділення Клініки Ноунейм (string)
-+ type: clinic (string)
++ type: clinic (enum)
     - CLINIC
     - AMBULANT_CLINIC
     - FAP
-+ status: ACTIVE (string)
++ status: ACTIVE (enum)
     - ACTIVE
     - INACTIVE
 + dls_id: 2872985 (string)
@@ -710,11 +710,11 @@ By default, all collections are ordered in ascending chronological order.
 + id: d290f1ee-6c54-4b01-90e6-d701748f0851 (string)
 + name: Бориспільське відділення Клініки Ноунейм (string)
 + legal_entity_id: d290f1ee-6c54-4b01-90e6-d701748f0851 (string)
-+ type: CLINIC (string)
++ type: CLINIC (enum)
     - CLINIC
     - AMBULANT_CLINIC
     - FAP
-+ status: ACTIVE (string)
++ status: ACTIVE (enum)
     - ACTIVE
     - INACTIVE
 + mountain_group: false (boolean)
@@ -727,7 +727,7 @@ By default, all collections are ordered in ascending chronological order.
 ### crud_division_get
 + id: d290f1ee-6c54-4b01-90e6-d701748f0851 (string)
 + include Division
-+ status: ACTIVE (string)
++ status: ACTIVE (enum)
     - ACTIVE
     - INACTIVE
 + mountain_group: false (boolean)
@@ -781,9 +781,9 @@ By default, all collections are ordered in ascending chronological order.
 + legal_form: 140 (string) - Dictionary LEGAL_FORM
 + public_name: ЦПМСД №1 (string)
 + edrpou: 5432345432 (string)
-+ status: ACTIVE (string)
-    + ACTIVE
-    + CLOSED
++ status: ACTIVE (enum)
+    - ACTIVE
+    - CLOSED
 + email: email@example.com (string)
 + phones (array[Phone], required)
 + addresses (array[Address], optional)
@@ -857,7 +857,8 @@ By default, all collections are ordered in ascending chronological order.
 + reason: на підставі наказу №1111 (string) - the legit documents which prove the relationship between legal entities
 + reason_date: 2022-02-10 (string) - the legit documents date
 + type: ACCESSION (string) - reorganization type, dictionary LEGAL_ENTITY_REORGANIZATION_TYPES
-+ is_active: true (boolean) - whether relationship between legal entities is active
++ is_active: true (enum)
+    - true - whether relationship between legal entities is active
     - Default: true
 + inserted_at: 2005-10-30 10:45 (string) - timestamp
 + inserted_by: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - user id
@@ -897,11 +898,11 @@ By default, all collections are ordered in ascending chronological order.
 + status_code: 403 (string) - processing result
 
 ### Job_Error_404
-+ error: Error description (object)
++ error (object) - Error description
     + type: Error_type (string) - Atom that represents error type.
 
 ### Job_Error_409
-+ error: Error description (object)
++ error (object) - Error description
     + message: Error description (string) - Human-readable error message.
     + type: Error_type (string) - Atom that represents error type.
 + eta: 2018-08-02T10:45:16.000Z (string) - estimated time of arrivals
@@ -991,7 +992,7 @@ By default, all collections are ordered in ascending chronological order.
         + type (Codeable_Concept)
             + coding (array)
                 + (Coding)
-                    + code: employee (string)
+                    + code: employee (enum)
                         - employee
                         - patient
 - One Of
@@ -1107,7 +1108,7 @@ By default, all collections are ordered in ascending chronological order.
                     + (Coding)
                         + code: procedure (string)
 + received_time: 2023-04-20T19:14:13Z (string) - The time when Specimen was received for processing
-+ status: available (string) - status of the Specimen according to specimen_statuses
++ status: available (enum) - status of the Specimen according to specimen_statuses
     - available
     - unavailable
 + status_reason (Codeable_Concept, optional) - in case the Specimen has unavailable status
@@ -1118,7 +1119,7 @@ By default, all collections are ordered in ascending chronological order.
 
 ### Specimen_Response
 + include Specimen_Request
-+ status: available (string) - status of the Specimen according to specimen_statuses
++ status: available (enum) - status of the Specimen according to specimen_statuses
     - available
     - unavailable
     - unsatisfactory
@@ -1178,7 +1179,7 @@ By default, all collections are ordered in ascending chronological order.
             + type (Codeable_Concept)
                 + coding (array)
                     + (Coding)
-                        + code: employee (string)
+                        + code: employee (enum)
                             - employee
                             - patient
         + display_value: Василенко Олена Павлівна (string) - This field is filled on creating and never updated after
@@ -1274,7 +1275,7 @@ By default, all collections are ordered in ascending chronological order.
 
 ### Episode_Of_Care_Base
 + id: 90a9e15b-b71b-4caf-8f2e-ff247e8a5600 (string)
-+ type  (Coding, required)
++ type  (Coding), required)
     + system : eHealth/episode_types (string)
     + code: primary_care (string)
 + status: active (string)- dictionary - eHealth/episode_statuses
@@ -1317,7 +1318,7 @@ By default, all collections are ordered in ascending chronological order.
 
 ### Episode_Of_Care_Request
 + id: 90a9e15b-b71b-4caf-8f2e-ff247e8a5600 (string)
-+ type  (Coding, required)
++ type  (Coding), required)
     + system : eHealth/episode_types (string)
     + code: primary_care (string)
 + status: active  (string) - dictionary - eHealth/episode_statuses
@@ -1342,7 +1343,7 @@ By default, all collections are ordered in ascending chronological order.
 + id: 90a9e15b-b71b-4caf-8f2e-ff247e8a5600 (string)
 + inserted_at: 2018-08-02T10:45:16.000Z (string)
 + updated_at: 2018-08-02T10:45:16.000Z (string)
-+ type  (Coding, required)
++ type  (Coding), required)
     + system : eHealth/episode_types (string)
     + code: primary_care (string) 
 + status: active  (string) - dictionary - eHealth/episode_statuses
@@ -1484,7 +1485,7 @@ By default, all collections are ordered in ascending chronological order.
                 + (Coding)
                     + code: episode (string)
 
-+ class  (Coding, required)
++ class  (Coding), required)
     + system : eHealth/encounter_classes (string)
     + code: inpatient (string) - dictionary eHealth/encounter_classes
     
@@ -1664,7 +1665,7 @@ By default, all collections are ordered in ascending chronological order.
                 + (Coding)
                     + code: episode (string)
 
-+ class  (Coding, required)
++ class  (Coding), required)
     + system : eHealth/encounter_classes (string)
     + code: inpatient (string) - dictionary eHealth/encounter_classes
 
@@ -1801,7 +1802,7 @@ By default, all collections are ordered in ascending chronological order.
             + coding (array)
                 + (Coding)
                     + code: episode (string)
-+ class  (Coding, required)
++ class  (Coding), required)
     + system : eHealth/encounter_classes (string)
     + code: inpatient (string) - dictionary eHealth/encounter_classes
 + type (Codeable_Concept, required)
@@ -1841,7 +1842,7 @@ By default, all collections are ordered in ascending chronological order.
         + type (Codeable_Concept)
             + coding (array)
                 + (Coding)
-                    + code: employee (string)
+                    + code: employee (enum)
                         - employee
                         - patient
 + implicated(Reference_request, optional) - device which caused an issue in the subject
@@ -1923,7 +1924,7 @@ By default, all collections are ordered in ascending chronological order.
             + type (Codeable_Concept)
                 + coding (array)
                     + (Coding)
-                        + code: condition (string)
+                        + code: condition (enum)
                             - condition
                             - observation
                             - diagnostic_report
@@ -1940,15 +1941,15 @@ By default, all collections are ordered in ascending chronological order.
         + identifier (object)
             + type (object)
                 + coding (array, required)
-                    + object
+                    + (object)
                         + system: eHealth/resources (string)
-                        + code: device_definition (string)
+                        + code: device_definition (enum)
                             - device_definition
                             - device
             + value: b4a6d991-0bf7-476f-b3cf-bec83f044b1b (string)
     + device_code (object)
         + coding (array, optional)
-            + object
+            + (object)
                 + system: device_definition_classification_type (string)
                 + code: 30221 (string)
 + quantity (object)
@@ -1977,6 +1978,7 @@ By default, all collections are ordered in ascending chronological order.
 + note: Some notes (string)
 
 # ## Clinical Impression
+
 ### Clinical_Impression_EncounterPCG_Request
 + id: 90a9e15b-b71b-4caf-8f2e-ff247e8a5600 (string)
 + status: completed (string)
@@ -2025,7 +2027,7 @@ By default, all collections are ordered in ascending chronological order.
                 + type (Codeable_Concept)
                     + coding (array)
                         + (Coding)
-                            + code: condition (string)
+                            + code: condition (enum)
                                 - observaton
         + basis: Some basis (string)                    
 + supporting_info (array, optional)
@@ -2034,7 +2036,7 @@ By default, all collections are ordered in ascending chronological order.
             + type (Codeable_Concept)
                 + coding (array)
                     + (Coding)
-                        + code: episode_of_care (string)
+                        + code: episode_of_care (enum)
                             - procedure
                             - diagnostic_report
                             - encounter
@@ -2047,7 +2049,7 @@ By default, all collections are ordered in ascending chronological order.
 
 ### Procedure_EncounterPCG_Request
 + id: 90a9e15b-b71b-4caf-8f2e-ff247e8a5600 (string) - Unique procedure identifier 
-+ status : completed (string) - Status for provided procedure
++ status : completed (enum) - Status for provided procedure
     - completed
     - entered_in_error
 + status_reason (Codeable_Concept, optional) - Reason why current status was set to procedure. Is mandatory for entered_in_error
@@ -2090,14 +2092,14 @@ By default, all collections are ordered in ascending chronological order.
         + identifier (object)
             + type (object)
                 + coding (array, optional)
-                    + object
+                    + (object)
                         + system: eHealth/resources (string)
                         + code: employee (string)
                 + text: Галина Олександрівна (string)
             + value: 97d57238-ffbe-4335-92ea-28d4de117ea2 (string)
     - report_origin (object) - if primary_source=false
         + coding (array, optional)
-            + object
+            + (object)
                 + system: eHealth/report_origins (string)
                 + code: mother (string)
         + text: зі слів пацієнта (string)
@@ -2169,6 +2171,7 @@ By default, all collections are ordered in ascending chronological order.
                         + code: device (string) 
 
 # ## Diagnostic Report
+
 ### Diagnostic_Report_Base_request
 + id: 90a9e15b-b71b-4caf-8f2e-ff247e8a5600 (string)
 + based_on (Reference_request, optional)
@@ -2248,7 +2251,7 @@ By default, all collections are ordered in ascending chronological order.
                 + identifier (object)
                     + type (object)
                         + coding (array, optional)
-                            + object
+                            + (object)
                                 + system: eHealth/resources (string)
                                 + code: employee (string)
                         + text: Галина Олександрівна (string)
@@ -2256,7 +2259,7 @@ By default, all collections are ordered in ascending chronological order.
             - text: Галина Олександрівна (string)
     - report_origin (object) - if primary_source=false
         + coding (array, optional)
-            + object
+            + (object)
                 + system: eHealth/report_origins (string)
                 + code: mother (string)
         + text: зі слів пацієнта (string)
@@ -2266,7 +2269,7 @@ By default, all collections are ordered in ascending chronological order.
             + identifier (object)
                 + type (object)
                     + coding (array, optional)
-                        + object
+                        + (object)
                             + system: eHealth/resources (string)
                             + code: employee (string)
                 + value: 97d57238-ffbe-4335-92ea-28d4de117ea2 (string)
@@ -2282,7 +2285,7 @@ By default, all collections are ordered in ascending chronological order.
                 + coding (array)
                     + (Coding)
                         + code: Procedure|Medication administration (string)
-+ status : completed (string) - Status for provided medication administration
++ status : completed (enum) - Status for provided medication administration
     - completed
     - entered_in_error
 + category (Codeable_Concept, required) - Type of medication usage
@@ -2359,6 +2362,7 @@ By default, all collections are ordered in ascending chronological order.
 + denominator (Simple_Quantity, required)
 
 # ## Medication Statement
+
 ### Medication_Statement_Request
 + id: 80a9e15b-b71b-4caf-8f2e-ff247e8a5600 (string)
 + based_on (Reference_request, optional)
@@ -2381,14 +2385,14 @@ By default, all collections are ordered in ascending chronological order.
         + identifier (object)
             + type (object)
                 + coding (array, optional)
-                    + object
+                    + (object)
                         + system: eHealth/resources (string)
                         + code: employee (string)
                 + text (string)
             + value: 97d57238-ffbe-4335-92ea-28d4de117ea2 (string)                        
     - report_origin (object)
         + coding (array, optional)
-            + object
+            + (object)
                 + system: eHealth/report_origins (string)
                 + code: patient (string)
         + text: зі слів пацієнта (string)
@@ -2412,7 +2416,7 @@ By default, all collections are ordered in ascending chronological order.
                 + coding (array)
                     + (Coding)
                         + code: Procedure|Medication administration (string)
-+ status : completed (string) - Status for provided medication administration
++ status : completed (enum) - Status for provided medication administration
     - completed
     - entered_in_error
 + status_reason (Codeable_Concept, optional)
@@ -2473,6 +2477,7 @@ By default, all collections are ordered in ascending chronological order.
 
 
 # ## Risk_Assesment
+
 ### Risk_Assessment_Request
 + id: 70a9e15b-b71b-4caf-8f2e-ff247e8a5600 (string) 
 + status: preliminary (string)
@@ -2499,14 +2504,14 @@ By default, all collections are ordered in ascending chronological order.
         + identifier (object)
             + type (object)
                 + coding (array, optional)
-                    + object
+                    + (object)
                         + system: eHealth/resources (string)
                         + code: employee (string)
                 + text: Галина Олександрівна (string)
             + value: 97d57238-ffbe-4335-92ea-28d4de117ea2 (string)
     - report_origin (object) - if primary_source=false
         + coding (array, optional)
-            + object
+            + (object)
                 + system: eHealth/report_origins (string)
                 + code: mother (string)
         + text: зі слів пацієнта (string)
@@ -2524,14 +2529,14 @@ By default, all collections are ordered in ascending chronological order.
         + identifier (object)
             + type (object)
                 + coding (array, optional)
-                    + object
+                    + (object)
                         + system: eHealth/resources (string)
                         + code: condition (string)
                 + text (string)
             + value: 97d57238-ffbe-4335-92ea-28d4de117ea2 (string)
     - reason_codes (object)
         + coding (array, optional)
-            + object
+            + (object)
                 + system: eHealth/risk_assessment_reasons (string)
                 + code: default_risk_assessment_reason (string)
         + text: причина хвороби (string)        
@@ -2568,6 +2573,7 @@ By default, all collections are ordered in ascending chronological order.
 + updated_at: 2018-08-02T10:55:00.000Z (string)
 
 # ## Device
+
 ### Device_Request
 + id: 90a9e15b-b71b-4caf-8f2e-ff247e8a5600 (string)
 + identifier(array, optional)
@@ -2584,8 +2590,8 @@ By default, all collections are ordered in ascending chronological order.
                 + (Coding)
                     + code: device_definition (string)
 + name(array, required) 
-    + object
-        + type: user_friendly (string) - Device name type. Dictionary device_name_type
+    + (object)
+        + type: user_friendly (enum) - Device name type. Dictionary device_name_type
             - user_friendly
             - registered
             - patient_reported    
@@ -2611,7 +2617,7 @@ By default, all collections are ordered in ascending chronological order.
                 + (Coding)
                     + code: encounter (string)
 + property(array, optional)
-    + object
+    + (object)
         + code (Codeable_Concept, required)
             + coding (array)
                 + (Coding)
@@ -2690,14 +2696,14 @@ By default, all collections are ordered in ascending chronological order.
         + identifier (object)
             + type (object)
                 + coding (array, optional)
-                    + object
+                    + (object)
                         + system: eHealth/resources (string)
                         + code: employee (string)
                 + text: Галина Олександрівна (string)
             + value: 97d57238-ffbe-4335-92ea-28d4de117ea2 (string)
     - report_origin (object) - if primary_source=false
         + coding (array, optional)
-            + object
+            + (object)
                 + system: eHealth/immunization_report_origins (string)
                 + code: mother (string)
         + text: зі слів пацієнта (string)
@@ -2729,13 +2735,13 @@ By default, all collections are ordered in ascending chronological order.
         - reasons (array, optional)
             + (object)
                 + coding (array, optional)
-                    + object
+                    + (object)
                         + system: eHealth/reason_explanations (string)
                         + code: immunization_by_calendar (string)
                 + text: Планове за календарем щеплень (string)
         - reasons_not_given (object) - Why immunization did not occurr
             + coding (array, optional)
-                + object
+                + (object)
                     + system: eHealth/reason_not_given_explanations (string)
                     + code: lack_of_injection_supply (string)
             + text: відсутність ін'єкційних матеріалів (string)
@@ -2791,14 +2797,14 @@ By default, all collections are ordered in ascending chronological order.
         + identifier (object)
             + type (object)
                 + coding (array, optional)
-                    + object
+                    + (object)
                         + system: eHealth/resources (string)
                         + code: employee (string)
                 + text: Галина Олександрівна (string)
             + value: 97d57238-ffbe-4335-92ea-28d4de117ea2 (string)
     - report_origin (object) - if primary_source=false
         + coding (array, optional)
-            + object
+            + (object)
                 + system: eHealth/immunization_report_origins (string)
                 + code: mother (string)
         + text: зі слів пацієнта (string)
@@ -2829,13 +2835,13 @@ By default, all collections are ordered in ascending chronological order.
     - One Of
         - reasons (object)
             + coding (array, optional)
-                + object
+                + (object)
                     + system: eHealth/reason_explanations (string)
                     + code: immunization_by_calendar (string)
             + text: Планове за календарем щеплень (string)
         - reasons_not_given (object) - Why immunization did not occurr
             + coding (array, optional)
-                + object
+                + (object)
                     + system: eHealth/reason_not_given_explanations (string)
                     + code: lack_of_injection_supply (string)
             + text: відсутність ін'єкційних матеріалів (string)
@@ -2872,6 +2878,7 @@ By default, all collections are ordered in ascending chronological order.
 
 
 # ## Allergy_Intolerance
+
 ### Allergy_Intolerance_Request
 + id: 90a9e15b-b71b-4caf-8f2e-ff247e8a5600 (string) 
 + clinical_status : active (string) - dictionary - eHealth/allergy_intolerance_clinical_statuses
@@ -2901,14 +2908,14 @@ By default, all collections are ordered in ascending chronological order.
         + identifier (object)
             + type (object)
                 + coding (array, optional)
-                    + object
+                    + (object)
                         + system: eHealth/resources (string)
                         + code: employee (string)
                 + text (string)
             + value: 97d57238-ffbe-4335-92ea-28d4de117ea2 (string)                        
     - report_origin (object)
         + coding (array, optional)
-            + object
+            + (object)
                 + system: eHealth/report_origins (string)
                 + code: patient (string)
         + text: зі слів пацієнта (string)
@@ -2946,14 +2953,14 @@ By default, all collections are ordered in ascending chronological order.
         + identifier (object)
             + type (object)
                 + coding (array, optional)
-                    + object
+                    + (object)
                         + system: eHealth/resources (string)
                         + code: employee (string)
                 + text (string)
             + value: 97d57238-ffbe-4335-92ea-28d4de117ea2 (string)                        
     - report_origin (object)
         + coding (array, optional)
-            + object
+            + (object)
                 + system: eHealth/report_origins (string)
                 + code: patient (string)
         + text: зі слів пацієнта (string)
@@ -2993,14 +3000,14 @@ By default, all collections are ordered in ascending chronological order.
         + identifier (object)
             + type (object)
                 + coding (array, optional)
-                    + object
+                    + (object)
                         + system: eHealth/resources (string)
                         + code: employee (string)
                 + text: Галина Олександрівна (string)
             + value: 97d57238-ffbe-4335-92ea-28d4de117ea2 (string)
     - report_origin (object) - if primary_source=false
         + coding (array, optional)
-            + object
+            + (object)
                 + system: eHealth/report_origins (string)
                 + code: mother (string)
         + text: зі слів пацієнта (string)
@@ -3516,6 +3523,7 @@ By default, all collections are ordered in ascending chronological order.
                     + code: equipment (string) 
 
 # ## Condition
+
 ### Condition_Request
 + id: 90a9e15b-b71b-4caf-8f2e-ff247e8a5600 (string)
 + primary_source: false (boolean)
@@ -3524,14 +3532,14 @@ By default, all collections are ordered in ascending chronological order.
         + identifier (object)
             + type (object)
                 + coding (array, optional)
-                    + object
+                    + (object)
                         + system: eHealth/resources (string)
                         + code: employee (string)
                 + text (string)
             + value: 97d57238-ffbe-4335-92ea-28d4de117ea2 (string)                        
     - report_origin (object)
         + coding (array, optional)
-            + object
+            + (object)
                 + system: eHealth/report_origins (string)
                 + code: patient (string)
         + text: зі слів пацієнта (string)
@@ -3592,14 +3600,14 @@ By default, all collections are ordered in ascending chronological order.
         + identifier (object)
             + type (object)
                 + coding (array, optional)
-                    + object
+                    + (object)
                         + system: eHealth/resources (string)
                         + code: employee (string)
                 + text (string)
             + value: 97d57238-ffbe-4335-92ea-28d4de117ea2 (string)                        
     - report_origin (object)
         + coding (array, optional)
-            + object
+            + (object)
                 + system: eHealth/report_origins (string)
                 + code: patient (string)
         + text: зі слів пацієнта (string)
@@ -3691,7 +3699,7 @@ By default, all collections are ordered in ascending chronological order.
 ### Qualify_Medication_request_Request_Responce
 + program_id: 59781de0-2e64-4359-b716-bcc05a32c10f (string) - Medical program Identifier
 + program_name : Програма "Доступні ліки"(string, required)
-+ status : INVALID (string) - Status for ability use program for this Medication request Request
++ status : INVALID (enum) - Status for ability use program for this Medication request Request
     - VALID
     - INVALID
 + rejection_reason: Innm not on the list of approved innms for program 'DOSTUPNI LIKI' ! (string) - Reason to fetch invalid status
@@ -3701,6 +3709,7 @@ By default, all collections are ordered in ascending chronological order.
 + country : UA (string) - Dictionary COUNTRY
 
 # ## medical_programs
+
 ### medical_programs_request
 + name: Доступні ліки (string) - medical program name that is used on govermental level
 + same_mnn_in_treatment_period: true (boolean) - Allow to create new medication request with the same mnn in one treatment period
@@ -3789,9 +3798,10 @@ By default, all collections are ordered in ascending chronological order.
 + mr_blank_type: F-1 (string) - Dictionary MR_BLANK_TYPES
 
 # ## Medication request
+
 ### Medication_request_Public_Response
 + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - Medication Request identifier
-+ status: ACTIVE (enum[string], required) - Medication Request status. Find available **statuses** on State Charts wiki page
++ status: ACTIVE (enum, required) - Medication Request status. Find available **statuses** on State Charts wiki page
     - ACTIVE
     - COMPLETED
     - REJECTED
@@ -3809,10 +3819,10 @@ By default, all collections are ordered in ascending chronological order.
 + person (Person_Medication_Request, required)
 + medication_info (Innm_Dosage_for_Medication_request_Responce, required)
 + medical_program (Medical_Program_Response_without_settings, required)
-+ intent: plan (string) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
++ intent: plan (enum) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
     - plan - The request represents an intention to ensure something occurs without providing an authorization for others to act.
     - order - The request represents a request/demand and authorization for action.
-+ category: community (string) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
++ category: community (enum) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
     - community - Includes requests for medications to be administered or consumed by the patient in their home
 + based_on (array,optional)
     + (Reference)
@@ -3838,7 +3848,7 @@ By default, all collections are ordered in ascending chronological order.
 + rejected_at: 2022-01-28 (string, optional, nullable) - Reject date - ISO 8601 date and time in UTC timezone.
 + rejected_by: e8e5a969-74d8-4620-8496-f5e41f2e8312 (string, optional, nullable) - Rejected user identifier
 + reject_reason: Incompatible drugs (string, optional, nullable) - Medication request reject reason
-+ reject_reason_code: PATIENT_REJECT (string, optional, nullable, nullable) - Dictionary MEDICATION_REQUEST_REJECT_REASON
++ reject_reason_code: PATIENT_REJECT (string, optional, nullable) - Dictionary MEDICATION_REQUEST_REJECT_REASON
 + block_reason: Підозра на фрод (string) - Block or unblock reason description
 + block_reason_code: BLOCK_WRONG_QTY_DRUG (string) - Block or unblock reason code Dictionary MEDICATION_REQUEST_BLOCK_REASON
 + include MR_MRR_additional_fields
@@ -3849,7 +3859,7 @@ By default, all collections are ordered in ascending chronological order.
 
 ### Medication_request_Public_Response_for_Pharmacist
 + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - Medication Request identifier
-+ status: ACTIVE (enum[string], required) - Medication Request status. Find available **statuses** on State Charts wiki page
++ status: ACTIVE (enum, required) - Medication Request status. Find available **statuses** on State Charts wiki page
     - ACTIVE
     - COMPLETED
     - REJECTED
@@ -3863,10 +3873,10 @@ By default, all collections are ordered in ascending chronological order.
 + person (Person_Medication_Request_for_Pharmacist, required)
 + medication_info (Innm_Dosage_for_Medication_request_Responce, required)
 + medical_program (Medical_Program_Response_without_settings, required)
-+ intent: plan (string) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
++ intent: plan (enum) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
     - plan - The request represents an intention to ensure something occurs without providing an authorization for others to act.
     - order - The request represents a request/demand and authorization for action.
-+ category: community (string) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
++ category: community (enum) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
     - community - Includes requests for medications to be administered or consumed by the patient in their home
 + based_on (array,optional)
     + (Reference)
@@ -3890,7 +3900,7 @@ By default, all collections are ordered in ascending chronological order.
 + dosage_instruction (array, required)
     + (Dosage_Instruction)
 + reject_reason: Incompatible drugs (string, optional, nullable) - Medication request reject reason
-+ reject_reason_code: PATIENT_REJECT (string, optional, nullable, nullable) - Dictionary MEDICATION_REQUEST_REJECT_REASON
++ reject_reason_code: PATIENT_REJECT (string, optional, nullable) - Dictionary MEDICATION_REQUEST_REJECT_REASON
 + block_reason: Підозра на фрод (string) - Block or unblock reason description
 + block_reason_code: BLOCK_WRONG_QTY_DRUG (string) - Block or unblock reason code Dictionary MEDICATION_REQUEST_BLOCK_REASON
 + include MR_MRR_additional_fields
@@ -3901,7 +3911,7 @@ By default, all collections are ordered in ascending chronological order.
 
 ### Medication_request_Public_Response_with_Medical_Program_min
 + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - Medication Request identifier
-+ status: ACTIVE (enum[string], required) - Medication Request status. Find available **statuses** on State Charts wiki page
++ status: ACTIVE (enum, required) - Medication Request status. Find available **statuses** on State Charts wiki page
     - ACTIVE
     - COMPLETED
     - REJECTED
@@ -3919,10 +3929,10 @@ By default, all collections are ordered in ascending chronological order.
 + person (Person_Medication_Request, required)
 + medication_info (Innm_Dosage_for_Medication_request_Responce, required)
 + medical_program (Medical_Program_Response_min_without_settings, required)
-+ intent: plan (string) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
++ intent: plan (enum) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
     - plan - The request represents an intention to ensure something occurs without providing an authorization for others to act.
     - order - The request represents a request/demand and authorization for action.
-+ category: community (string) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
++ category: community (enum) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
     - community - Includes requests for medications to be administered or consumed by the patient in their home
 + based_on (array,optional)
     + (Reference)
@@ -3948,7 +3958,7 @@ By default, all collections are ordered in ascending chronological order.
 + rejected_at: 2022-01-28 (string, optional, nullable) - Reject date - ISO 8601 date and time in UTC timezone.
 + rejected_by: e8e5a969-74d8-4620-8496-f5e41f2e8312 (string, optional, nullable) - Rejected user identifier
 + reject_reason: Incompatible drugs (string, optional, nullable) - Medication request reject reason
-+ reject_reason_code: PATIENT_REJECT (string, optional, nullable, nullable) - Dictionary MEDICATION_REQUEST_REJECT_REASON
++ reject_reason_code: PATIENT_REJECT (string, optional, nullable) - Dictionary MEDICATION_REQUEST_REJECT_REASON
 + block_reason: Підозра на фрод (string) - Block or unblock reason description
 + block_reason_code: BLOCK_WRONG_QTY_DRUG (string) - Block or unblock reason code Dictionary MEDICATION_REQUEST_BLOCK_REASON
 + include MR_MRR_additional_fields
@@ -3961,7 +3971,7 @@ By default, all collections are ordered in ascending chronological order.
 
 ### Medication_request_reject_Public_Response_with_Medical_Program_min
 + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - Medication Request identifier
-+ status: ACTIVE (enum[string], required) - Medication Request status. Find available **statuses** on State Charts wiki page
++ status: ACTIVE (enum, required) - Medication Request status. Find available **statuses** on State Charts wiki page
     - ACTIVE
     - COMPLETED
     - REJECTED
@@ -3979,10 +3989,10 @@ By default, all collections are ordered in ascending chronological order.
 + person (Person_Medication_Request, required)
 + medication_info (Innm_Dosage_for_Medication_request_Responce, required)
 + medical_program (Medical_Program_Response_min_without_settings, required)
-+ intent: plan (string) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
++ intent: plan (enum) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
     - plan - The request represents an intention to ensure something occurs without providing an authorization for others to act.
     - order - The request represents a request/demand and authorization for action.
-+ category: community (string) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
++ category: community (enum) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
     - community - Includes requests for medications to be administered or consumed by the patient in their home
 + based_on (array,optional)
     + (Reference)
@@ -4008,7 +4018,7 @@ By default, all collections are ordered in ascending chronological order.
 + rejected_at: 2022-01-28 (string, optional, nullable) - Reject date - ISO 8601 date and time in UTC timezone.
 + rejected_by: e8e5a969-74d8-4620-8496-f5e41f2e8312 (string, optional, nullable) - Rejected user identifier
 + reject_reason: Incompatible drugs (string, optional, nullable) - Medication request reject reason
-+ reject_reason_code: PATIENT_REJECT (string, optional, nullable, nullable) - Dictionary MEDICATION_REQUEST_REJECT_REASON
++ reject_reason_code: PATIENT_REJECT (string, optional, nullable) - Dictionary MEDICATION_REQUEST_REJECT_REASON
 + block_reason: Підозра на фрод (string) - Block or unblock reason description
 + block_reason_code: BLOCK_WRONG_QTY_DRUG (string) - Block or unblock reason code Dictionary MEDICATION_REQUEST_BLOCK_REASON
 + include MR_MRR_additional_fields
@@ -4019,7 +4029,7 @@ By default, all collections are ordered in ascending chronological order.
 
 ### Medication_request_Public_Response_with_Medical_Program_min_block_reason_required
 + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - Medication Request identifier
-+ status: ACTIVE (enum[string], required) - Medication Request status. Find available **statuses** on State Charts wiki page
++ status: ACTIVE (enum, required) - Medication Request status. Find available **statuses** on State Charts wiki page
     - ACTIVE
     - COMPLETED
     - REJECTED
@@ -4037,10 +4047,10 @@ By default, all collections are ordered in ascending chronological order.
 + person (Person_Medication_Request, required)
 + medication_info (Innm_Dosage_for_Medication_request_Responce, required)
 + medical_program (Medical_Program_Response_min_without_settings, required)
-+ intent: plan (string) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
++ intent: plan (enum) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
     - plan - The request represents an intention to ensure something occurs without providing an authorization for others to act.
     - order - The request represents a request/demand and authorization for action.
-+ category: community (string) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
++ category: community (enum) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
     - community - Includes requests for medications to be administered or consumed by the patient in their home
 + based_on (array,optional)
     + (Reference)
@@ -4066,7 +4076,7 @@ By default, all collections are ordered in ascending chronological order.
 + rejected_at: 2022-01-28 (string, optional, nullable) - Reject date - ISO 8601 date and time in UTC timezone.
 + rejected_by: e8e5a969-74d8-4620-8496-f5e41f2e8312 (string, optional, nullable) - Rejected user identifier
 + reject_reason: Incompatible drugs (string, optional, nullable) - Medication request reject reason
-+ reject_reason_code: PATIENT_REJECT (string, optional, nullable, nullable) - Dictionary MEDICATION_REQUEST_REJECT_REASON
++ reject_reason_code: PATIENT_REJECT (string, optional, nullable) - Dictionary MEDICATION_REQUEST_REJECT_REASON
 + block_reason: Підозра на фрод (string) - Block or unblock reason description
 + block_reason_code: BLOCK_WRONG_QTY_DRUG (string) - Block or unblock reason code Dictionary MEDICATION_REQUEST_BLOCK_REASON
 + include MR_MRR_additional_fields
@@ -4077,7 +4087,7 @@ By default, all collections are ordered in ascending chronological order.
 
 ### Medication_request_Public_Response_with_Medical_Program_min_for_Pharmacist
 + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - Medication Request identifier
-+ status: ACTIVE (enum[string], required) - Medication Request status. Find available **statuses** on State Charts wiki page
++ status: ACTIVE (enum, required) - Medication Request status. Find available **statuses** on State Charts wiki page
     - ACTIVE
     - COMPLETED
     - REJECTED
@@ -4091,10 +4101,10 @@ By default, all collections are ordered in ascending chronological order.
 + person (Person_Medication_Request_for_Pharmacist, required)
 + medication_info (Innm_Dosage_for_Medication_request_Responce, required)
 + medical_program (Medical_Program_Response_min_without_settings, required)
-+ intent: plan (string) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
++ intent: plan (enum) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
     - plan - The request represents an intention to ensure something occurs without providing an authorization for others to act.
     - order - The request represents a request/demand and authorization for action.
-+ category: community (string) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
++ category: community (enum) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
     - community - Includes requests for medications to be administered or consumed by the patient in their home
 + based_on (array,optional)
     + (Reference)
@@ -4118,7 +4128,7 @@ By default, all collections are ordered in ascending chronological order.
 + dosage_instruction (array, required)
     + (Dosage_Instruction)
 + reject_reason: Incompatible drugs (string, optional, nullable) - Medication request reject reason
-+ reject_reason_code: PATIENT_REJECT (string, required, nullable, nullable) - Dictionary MEDICATION_REQUEST_REJECT_REASON
++ reject_reason_code: PATIENT_REJECT (string, required, nullable) - Dictionary MEDICATION_REQUEST_REJECT_REASON
 + block_reason: Підозра на фрод (string) - Block or unblock reason description
 + block_reason_code: BLOCK_WRONG_QTY_DRUG (string) - Block or unblock reason code Dictionary MEDICATION_REQUEST_BLOCK_REASON
 + include MR_MRR_additional_fields
@@ -4130,7 +4140,7 @@ By default, all collections are ordered in ascending chronological order.
 
 ### Medication_request_Public_Response_with_Medical_Program_min_for_Pharmacist_block_reason_required
 + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - Medication Request identifier
-+ status: ACTIVE (enum[string], required) - Medication Request status. Find available **statuses** on State Charts wiki page
++ status: ACTIVE (enum, required) - Medication Request status. Find available **statuses** on State Charts wiki page
     - ACTIVE
     - COMPLETED
     - REJECTED
@@ -4144,10 +4154,10 @@ By default, all collections are ordered in ascending chronological order.
 + person (Person_Medication_Request_for_Pharmacist, required)
 + medication_info (Innm_Dosage_for_Medication_request_Responce, required)
 + medical_program (Medical_Program_Response_min_without_settings, required)
-+ intent: plan (string) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
++ intent: plan (enum) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
     - plan - The request represents an intention to ensure something occurs without providing an authorization for others to act.
     - order - The request represents a request/demand and authorization for action.
-+ category: community (string) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
++ category: community (enum) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
     - community - Includes requests for medications to be administered or consumed by the patient in their home
 + based_on (array,optional)
     + (Reference)
@@ -4182,7 +4192,7 @@ By default, all collections are ordered in ascending chronological order.
 
 ### Medication_request_Private_Response
 + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - Medication Request identifier
-+ status: ACTIVE (enum[string], required) - Medication Request status. Find available **statuses** on State Charts wiki page
++ status: ACTIVE (enum, required) - Medication Request status. Find available **statuses** on State Charts wiki page
     - ACTIVE
     - COMPLETED
     - REJECTED
@@ -4200,10 +4210,10 @@ By default, all collections are ordered in ascending chronological order.
 + person (Person_Medication_Request_Private, required)
 + medication_info (Innm_Dosage_for_Medication_request_Responce, required)
 + medical_program (Medical_Program_Response_without_settings, required)
-+ intent: plan (string) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
++ intent: plan (enum) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
     - plan - The request represents an intention to ensure something occurs without providing an authorization for others to act.
     - order - The request represents a request/demand and authorization for action.
-+ category: community (string) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
++ category: community (enum) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
     - community - Includes requests for medications to be administered or consumed by the patient in their home
 + based_on (array,optional)
     + (Reference)
@@ -4229,7 +4239,7 @@ By default, all collections are ordered in ascending chronological order.
 + rejected_at: 2022-01-28 (string, optional, nullable) - Reject date - ISO 8601 date and time in UTC timezone.
 + rejected_by: e8e5a969-74d8-4620-8496-f5e41f2e8312 (string, optional, nullable) - Rejected user identifier
 + reject_reason: Incompatible drugs (string, optional, nullable) - Medication request reject reason
-+ reject_reason_code: PATIENT_REJECT (string, optional, nullable, nullable) - Dictionary MEDICATION_REQUEST_REJECT_REASON
++ reject_reason_code: PATIENT_REJECT (string, optional, nullable) - Dictionary MEDICATION_REQUEST_REJECT_REASON
 + block_reason: Підозра на фрод (string) - Block or unblock reason description
 + block_reason_code: BLOCK_WRONG_QTY_DRUG (string) - Block or unblock reason code Dictionary MEDICATION_REQUEST_BLOCK_REASON
 + include MR_MRR_additional_fields
@@ -4240,7 +4250,7 @@ By default, all collections are ordered in ascending chronological order.
 
 ### Medication_request_Private_Response_with_Medical_Program_min
 + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - Medication Request identifier
-+ status: ACTIVE (enum[string], required) - Medication Request status. Find available **statuses** on State Charts wiki page
++ status: ACTIVE (enum, required) - Medication Request status. Find available **statuses** on State Charts wiki page
     - ACTIVE
     - COMPLETED
     - REJECTED
@@ -4258,10 +4268,10 @@ By default, all collections are ordered in ascending chronological order.
 + person (Person_Medication_Request_Private, required)
 + medication_info (Innm_Dosage_for_Medication_request_Responce, required)
 + medical_program (Medical_Program_Response_min, required)
-+ intent: plan (string) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
++ intent: plan (enum) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
     - plan - The request represents an intention to ensure something occurs without providing an authorization for others to act.
     - order - The request represents a request/demand and authorization for action.
-+ category: community (string) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
++ category: community (enum) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
     - community - Includes requests for medications to be administered or consumed by the patient in their home
 + based_on (array,optional)
     + (Reference)
@@ -4287,7 +4297,7 @@ By default, all collections are ordered in ascending chronological order.
 + rejected_at: 2022-01-28 (string, optional, nullable) - Reject date - ISO 8601 date and time in UTC timezone.
 + rejected_by: e8e5a969-74d8-4620-8496-f5e41f2e8312 (string, optional, nullable) - Rejected user identifier
 + reject_reason: Incompatible drugs (string, optional, nullable) - Medication request reject reason
-+ reject_reason_code: PATIENT_REJECT (string, required, nullable, nullable) - Dictionary MEDICATION_REQUEST_REJECT_REASON
++ reject_reason_code: PATIENT_REJECT (string, required, nullable) - Dictionary MEDICATION_REQUEST_REJECT_REASON
 + block_reason: Підозра на фрод (string) - Block or unblock reason description
 + block_reason_code: BLOCK_WRONG_QTY_DRUG (string) - Block or unblock reason code Dictionary MEDICATION_REQUEST_BLOCK_REASON
 + include MR_MRR_additional_fields
@@ -4300,7 +4310,7 @@ By default, all collections are ordered in ascending chronological order.
 + rejected_by: 2922a240-63db-404e-b730-09222bfeb2dd (string) - Rejected user identifier
 
 ### Medication_request_Reject
-+ category: community (string) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
++ category: community (enum) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
     - community - Includes requests for medications to be administered or consumed by the patient in their home
 + created_at: 2018-11-13 (string) - Medication request creation date, which is determined by the external system. Format *DATE '2017-09-07'*
 + dispense_valid_from: 2018-11-13 (string) - Start date of dispense period, which is determined by the external system. Format *DATE '2017-09-07'*
@@ -4313,7 +4323,7 @@ By default, all collections are ordered in ascending chronological order.
 + employee (Employee_Minimal, required)
 + ended_at: 2018-12-13 (string) - End date of a treatment period, which is determined by the external system. Greater or equal to **started_at**. Format *DATE '2017-10-07'*
 + id: eeebb86d-5cba-43c9-885b-6482ecaf826b (string) - Medication Request request identifier
-+ intent: plan (string) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
++ intent: plan (enum) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
     - plan - The request represents an intention to ensure something occurs without providing an authorization for others to act. "medical_program" is absent
     - order - The request represents a request/demand and authorization for action. "medical_program" is required
 + legal_entity (Legal_Entity_Short, required)
@@ -4324,9 +4334,9 @@ By default, all collections are ordered in ascending chronological order.
 + person (Person_Medication_Request, required)
 + request_number : 0000-K8K5-5MTE-352H (string) - Public medication request human readable number
 + started_at: 2018-11-13 (string) - Start date of a treatment period, which is determined by the external system. Greater or equal to **created_at**. Format *DATE '2017-09-07'*
-+ status: ACTIVE (string) - Medication Request status. Find available **statuses** on State Charts wiki page
++ status: ACTIVE (enum) - Medication Request status. Find available **statuses** on State Charts wiki page
 + medical_program (Medical_Program_Response_without_settings, required)
-+ reject_reason_code: WRONG_SIGNATURE (string) - Dictionary MEDICATION_REQUEST_REJECT_REASON
++ reject_reason_code: WRONG_SIGNATURE (enum) - Dictionary MEDICATION_REQUEST_REJECT_REASON
     - NO_REQUEST_NEEDED
     - NO_SMS
     - PATIENT_REJECT
@@ -4345,7 +4355,7 @@ By default, all collections are ordered in ascending chronological order.
 + inform_with: ce74e177-9c3b-4426-aeec-294674f2d65a (string) - Identifier of person's auth method.
 
 ### Medication_request_Reject_Response
-+ category: community (string) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
++ category: community (enum) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
     - community - Includes requests for medications to be administered or consumed by the patient in their home
 + created_at: 2017-08-17 (string) - Medication request creation date, which is determined by the external system. Format *DATE '2017-09-07'*
 + dispense_valid_from: 2017-08-17 (string) - Start date of dispense period, which is determined by the external system. Format *DATE '2017-09-07'*
@@ -4357,7 +4367,7 @@ By default, all collections are ordered in ascending chronological order.
 + employee (Employee_Minimal, required)
 + ended_at: 2017-09-16 (string) - End date of a treatment period, which is determined by the external system. Greater or equal to **started_at**. Format *DATE '2017-10-07'*
 + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - Medication Request identifier
-+ intent: plan (string) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
++ intent: plan (enum) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
     - plan - The request represents an intention to ensure something occurs without providing an authorization for others to act. "medical_program" is absent
     - order - The request represents a request/demand and authorization for action. "medical_program" is required
 + legal_entity (Legal_Entity_Short, required)
@@ -4366,7 +4376,7 @@ By default, all collections are ordered in ascending chronological order.
     + accreditation (MSP_Accreditation, optional)
 + medication_info (Innm_Dosage_for_Medication_request_Responce, required)
 + person (Person_Medication_Request, required)
-+ reject_reason_code: WRONG_SIGNATURE (string) - Dictionary MEDICATION_REQUEST_REJECT_REASON
++ reject_reason_code: WRONG_SIGNATURE (enum) - Dictionary MEDICATION_REQUEST_REJECT_REASON
     - NO_REQUEST_NEEDED
     - NO_SMS
     - PATIENT_REJECT
@@ -4391,7 +4401,7 @@ By default, all collections are ordered in ascending chronological order.
 
 ### Medication_request_Public_Response_without_block_data
 + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - Medication Request identifier
-+ status: ACTIVE (enum[string], required) - Medication Request status. Find available **statuses** on State Charts wiki page
++ status: ACTIVE (enum, required) - Medication Request status. Find available **statuses** on State Charts wiki page
     - ACTIVE
     - COMPLETED
     - REJECTED
@@ -4409,10 +4419,10 @@ By default, all collections are ordered in ascending chronological order.
 + person (Person_Medication_Request, required)
 + medication_info (Innm_Dosage_for_Medication_request_Responce, required)
 + medical_program (Medical_Program_Response_without_settings, required)
-+ intent: plan (string) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
++ intent: plan (enum) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
     - plan - The request represents an intention to ensure something occurs without providing an authorization for others to act.
     - order - The request represents a request/demand and authorization for action.
-+ category: community (string) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
++ category: community (enum) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
     - community - Includes requests for medications to be administered or consumed by the patient in their home
 + based_on (array,optional)
     + (Reference)
@@ -4438,10 +4448,11 @@ By default, all collections are ordered in ascending chronological order.
 + rejected_at: 2022-01-28 (string, optional, nullable) - Reject date - ISO 8601 date and time in UTC timezone.
 + rejected_by: e8e5a969-74d8-4620-8496-f5e41f2e8312 (string, optional, nullable) - Rejected user identifier
 + reject_reason: Incompatible drugs (string, optional, nullable) - Medication request reject reason
-+ reject_reason_code: PATIENT_REJECT (string, required, nullable, nullable) - Dictionary MEDICATION_REQUEST_REJECT_REASON
++ reject_reason_code: PATIENT_REJECT (string, required, nullable) - Dictionary MEDICATION_REQUEST_REJECT_REASON
 + include MR_MRR_additional_fields
 
 # ## Medication Dispense
+
 ### Medication_Dispense_Request
 + medication_request_id: f08ba3a3-157a-4adc-b65d-737f24f3a1f4 (string) - Key for the Medication request
 + dispensed_at: 2017-08-17 (string) - date of dispense
@@ -4587,7 +4598,7 @@ By default, all collections are ordered in ascending chronological order.
 + division (Division_Declaration, required) - Active legal entity (Pharmacy) division which provides dispense Identifier
     + working_hours (workinghours) - optional field, business hours by each day weekly, doesn't make any influence on business process and will be shown on portal and map.
     + location (Location, optional) - optional field. geographical location, if it's empty, division won't be shown on a map.
-    + status: ACTIVE (string)
+    + status: ACTIVE (enum)
         - ACTIVE
         - INACTIVE
     + mountain_group: false (boolean)
@@ -4618,7 +4629,7 @@ By default, all collections are ordered in ascending chronological order.
 + division (Division_Declaration, required) - Active legal entity (Pharmacy) division which provides dispense Identifier
     + working_hours (workinghours) - optional field, business hours by each day weekly, doesn't make any influence on business process and will be shown on portal and map.
     + location (Location, optional) - optional field. geographical location, if it's empty, division won't be shown on a map.
-    + status: ACTIVE (string)
+    + status: ACTIVE (enum)
         - ACTIVE
         - INACTIVE
     + mountain_group: false (boolean)
@@ -4646,6 +4657,7 @@ By default, all collections are ordered in ascending chronological order.
 
 
 #Party
+
 ### Party_Short
 + first_name: Петро (string)
 + last_name: Іванов (string)
@@ -4822,7 +4834,7 @@ By default, all collections are ordered in ascending chronological order.
 + public_name: Клініка Ноунейм (string)
 + type: MSP (string)
 + edrpou: 5432345432 (string)
-+ status: ACTIVE (string)
++ status: ACTIVE (enum)
     - ACTIVE
     - CLOSED
 
@@ -4833,7 +4845,7 @@ By default, all collections are ordered in ascending chronological order.
 + public_name: Клініка Ноунейм (string)
 + type: MSP (string)
 + edrpou: 5432345432 (string)
-+ status: ACTIVE (string)
++ status: ACTIVE (enum)
     - ACTIVE
     - CLOSED
 
@@ -4857,7 +4869,7 @@ By default, all collections are ordered in ascending chronological order.
 + drlz_sku_id: 0404466792737630283703997321 (string) - identifier of a product out of external DRLZ register
 
 ### MR_MRR_additional_fields
-+ priority: routine (string) - Dictionary MEDICATION_REQUEST_PRIORITY
++ priority: routine (enum) - Dictionary MEDICATION_REQUEST_PRIORITY
     - routine - The request has normal priority.
     - urgent - The request should be actioned promptly - higher priority than routine.
     - asap - The request should be actioned as soon as possible - higher priority than urgent.
@@ -4888,7 +4900,7 @@ By default, all collections are ordered in ascending chronological order.
     + as_needed_boolean: true (boolean)
     + as_needed_codeable_concept (Codeable_Concept)
         + coding (array)
-            + (Coding
+            + (Coding)
                 + system: eHealth/SNOMED/medication_as_needed_reason_codes (string)
                 + code: 144008 (string)
 + site (Codeable_Concept) - Body site to administer to
@@ -5010,6 +5022,7 @@ By default, all collections are ordered in ascending chronological order.
 + mr_blank_type: F-1 (string) - Dictionary MR_BLANK_TYPES
 
 # ## Dictionaries
+
 ### Dictionary
 + name: DOCUMENT_TYPE (string) - Unique dictionary name
 + values (object)
@@ -5042,6 +5055,7 @@ By default, all collections are ordered in ascending chronological order.
 
 
 # ## Global Parameters and Products
+
 ### Global_Parameters
 + declaration_term: 30 (string) - термін дії декларації
 + declaration_request_expiration: 30 (string) - термін дії заявки на створення декларації
@@ -5051,6 +5065,7 @@ By default, all collections are ordered in ascending chronological order.
 + billing_date: 2 (string) - дата біллінгу (1-28)
 
 # ## UAddresses
+
 ### Response_Street
 + id: d290f1ee-6c54-4b01-90e6-d701748f0851 (string) - Address ID
 + settlement_name: Новосілки (string) - City name
@@ -5132,7 +5147,7 @@ By default, all collections are ordered in ascending chronological order.
             + coding (array)
                 + (Coding)
                     + code: encounter (string)
-+ author:  (Reference_request, required)
++ author (Reference_request, required)
     + identifier (Identifier)
         + type (Codeable_Concept)
             + coding (array)
@@ -5272,16 +5287,18 @@ By default, all collections are ordered in ascending chronological order.
 + section(array[Section], optional) - Nested Section
 
 # ## Person_details
+
 ### Person_identity
 + last_name: Іванов (string) - full surname of the patient
 + first_name: І. (string) - short format of the patient's first name with the dot
 + second_name: І. (string) - short format of the patient's second name with the dot
-+ gender: MALE (string) - gender of the patient, value from the dictionary GENDER
++ gender: MALE (enum) - gender of the patient, value from the dictionary GENDER
     - MALE
     - FEMALE
 + age: 35 (number, required) - full years between inserted_at and birth date
 
 # ## Procedures
+
 ### Procedure_Request
 + id: 90a9e15b-b71b-4caf-8f2e-ff247e8a5600 (string) - Unique procedure identifier 
 + based_on (Reference_request, optional) - reference to [Service Request](https://ehealthmedicaleventsapi.docs.apiary.io/#reference/service-requests); One of (based_on OR paper_referral) is required
@@ -5291,7 +5308,7 @@ By default, all collections are ordered in ascending chronological order.
                 + (Coding)
                     + code: service_request (string)
 + paper_referral (Paper_referral, optional) - One of (based_on OR paper_referral) is required
-+ status : completed (string) - Status for provided procedure
++ status : completed (enum) - Status for provided procedure
     - completed
     - entered_in_error
 + status_reason (Codeable_Concept, optional) - Reason why current status was set to procedure. Is mandatory for entered_in_error
@@ -5322,14 +5339,14 @@ By default, all collections are ordered in ascending chronological order.
         + identifier (object)
             + type (object)
                 + coding (array, optional)
-                    + object
+                    + (object)
                         + system: eHealth/resources (string)
                         + code: employee (string)
                 + text: Галина Олександрівна (string)
             + value: 97d57238-ffbe-4335-92ea-28d4de117ea2 (string)
     - report_origin (object) - if primary_source=false
         + coding (array, optional)
-            + object
+            + (object)
                 + system: eHealth/report_origins (string)
                 + code: mother (string)
         + text: зі слів пацієнта (string)
@@ -5392,7 +5409,7 @@ By default, all collections are ordered in ascending chronological order.
                 + (Coding)
                     + code: service_request (string)
 + paper_referral (Paper_referral, optional)
-+ status : completed (string) - Status for provided procedure
++ status : completed (enum) - Status for provided procedure
     - completed
     - entered_in_error
 + status_reason (Codeable_Concept, optional) - Reason why current status was set to procedure. Is mandatory for entered_in_error
@@ -5424,14 +5441,14 @@ By default, all collections are ordered in ascending chronological order.
         + identifier (object)
             + type (object)
                 + coding (array, optional)
-                    + object
+                    + (object)
                         + system: eHealth/resources (string)
                         + code: employee (string)
                 + text: Галина Олександрівна (string)
             + value: 97d57238-ffbe-4335-92ea-28d4de117ea2 (string)
     - report_origin (object) - if primary_source=false
         + coding (array, optional)
-            + object
+            + (object)
                 + system: eHealth/report_origins (string)
                 + code: mother (string)
         + text: зі слів пацієнта (string)
@@ -5520,7 +5537,7 @@ By default, all collections are ordered in ascending chronological order.
 
 ### Procedure_Short_Response
 + id: 7075e0e2-6b57-47fd-aff7-324806efa7e5 (string) - Unique procedure identifier
-+ status : completed (string) - Status for provided procedure
++ status : completed (enum) - Status for provided procedure
     - completed
     - entered_in_error
 + status_reason (Codeable_Concept, optional) - Reason why current status was set to procedure. Is mandatory for entered_in_error
@@ -5583,11 +5600,11 @@ By default, all collections are ordered in ascending chronological order.
             + type (Codeable_Concept)
                 + coding (array)
                     + (Coding)
-                        + code: episode_of_care (string)
+                        + code: episode_of_care (enum)
                             - procedure
                             - diagnostic_report
 + note: Some notes (string)
-+ intent: order (string)
++ intent: order (enum)
     - order
 + encounter (Reference_request, required)
     + identifier (Identifier)
@@ -5617,7 +5634,7 @@ By default, all collections are ordered in ascending chronological order.
 + terms_of_service (Codeable_Concept,required)
     + coding (array)
         + (Coding)
-            + code: INPATIENT (string)
+            + code: INPATIENT (enum)
                 - INPATIENT
                 - OUTPATIENT
             + system: PROVIDING_CONDITION (string)
@@ -5643,7 +5660,7 @@ By default, all collections are ordered in ascending chronological order.
 ### Prequalify_Care_Plan_Activity_Responce
 + program_id: 59781de0-2e64-4359-b716-bcc05a32c10f (string) - Medical program identifier
 + program_name : Fee-For-Service(string, required)
-+ status : INVALID (string) - Status for ability use program for this activity
++ status : INVALID (enum) - Status for ability use program for this activity
     - VALID
     - INVALID
 + rejection_reason : Service is not included in the program (string) - Reason to fetch invalid status
@@ -5665,7 +5682,7 @@ By default, all collections are ordered in ascending chronological order.
 + detail (Care_Plan_activity_detail_base, required)
 
 ### Prequslify_Care_Plan_activity_detail_base
-+ kind: medication_request (string)
++ kind: medication_request (enum)
     - service_request
     - medication_request
     - device_request
@@ -5674,9 +5691,9 @@ By default, all collections are ordered in ascending chronological order.
          + identifier (object)
             + type (object)
                 + coding (array, optional)
-                    + object
+                    + (object)
                         + system: eHealth/resources (string)
-                        + code: medication (string)
+                        + code: medication (enum)
                             - service
                             - service_group
                             - medication
@@ -5685,7 +5702,7 @@ By default, all collections are ordered in ascending chronological order.
             + value: 97d57238-ffbe-4335-92ea-28d4de117ea3 (string)
     - product_codeable_concept (object)
         + coding (array, optional)
-            + object
+            + (object)
                 + code: 30221 (string)
                 + system: device_definition_classification_type (string)
 + reason_code (array, optional)
@@ -5700,7 +5717,7 @@ By default, all collections are ordered in ascending chronological order.
             + type (Codeable_Concept)
                 + coding (array)
                     + (Coding)
-                        + code: condition (string) - conditions/oservations/diagnostic_reports/clinical_impressions that approves diagnoses
+                        + code: condition (enum) - conditions/oservations/diagnostic_reports/clinical_impressions that approves diagnoses
                             - condition
                             - oservation
                             - diagnostic_report
@@ -5713,7 +5730,7 @@ By default, all collections are ordered in ascending chronological order.
                 + system: eHealth/care_plan_activity_goals (string)
 + quantity (object)
     + value: 13 (number, required)
-    + system: MEDICATION_UNIT (string) - Can be absent in old version of CPA, is required for kind medication_request. MEDICATION_UNIT used in activities with kind medication_request, SERVICE_UNIT - with kind service_request
+    + system: MEDICATION_UNIT (enum) - Can be absent in old version of CPA, is required for kind medication_request. MEDICATION_UNIT used in activities with kind medication_request, SERVICE_UNIT - with kind service_request
         - MEDICATION_UNIT
         - SERVICE_UNIT
         - device_unit
@@ -5735,7 +5752,7 @@ By default, all collections are ordered in ascending chronological order.
                     + code: employee (string)
 + daily_amount (object)
     + value: 13.5 (number, required)
-    + system: MEDICATION_UNIT (string) - Can be absent in old version of CPA.
+    + system: MEDICATION_UNIT (enum) - Can be absent in old version of CPA.
         - MEDICATION_UNIT
         - SERVICE_UNIT
         - device_unit
@@ -5746,7 +5763,7 @@ By default, all collections are ordered in ascending chronological order.
 
 
 ### Care_Plan_activity_detail_base
-+ kind: medication_request (string)
++ kind: medication_request (enum)
     - service_request
     - medication_request
     - device_request
@@ -5755,9 +5772,9 @@ By default, all collections are ordered in ascending chronological order.
          + identifier (object)
             + type (object)
                 + coding (array, optional)
-                    + object
+                    + (object)
                         + system: eHealth/resources (string)
-                        + code: medication (string)
+                        + code: medication (enum)
                             - service
                             - service_group
                             - medication
@@ -5766,7 +5783,7 @@ By default, all collections are ordered in ascending chronological order.
             + value: 97d57238-ffbe-4335-92ea-28d4de117ea3 (string)
     - product_codeable_concept (object)
         + coding (array, optional)
-            + object
+            + (object)
                 + code: 30221 (string)
                 + system: device_definition_classification_type (string)
 + reason_code (array, optional)
@@ -5781,7 +5798,7 @@ By default, all collections are ordered in ascending chronological order.
             + type (Codeable_Concept)
                 + coding (array)
                     + (Coding)
-                        + code: condition (string) - conditions/oservations/diagnostic_reports/clinical_impressions that approves diagnoses
+                        + code: condition (enum) - conditions/oservations/diagnostic_reports/clinical_impressions that approves diagnoses
                             - condition
                             - oservation
                             - diagnostic_report
@@ -5794,7 +5811,7 @@ By default, all collections are ordered in ascending chronological order.
                 + system: eHealth/care_plan_activity_goals (string)
 + quantity (object)
     + value: 13 (number, required)
-    + system: MEDICATION_UNIT (string) - Can be absent in old version of CPA, required if kind medication_request. MEDICATION_UNIT used in activities with kind medication_request, SERVICE_UNIT - with kind service_request
+    + system: MEDICATION_UNIT (enum) - Can be absent in old version of CPA, required if kind medication_request. MEDICATION_UNIT used in activities with kind medication_request, SERVICE_UNIT - with kind service_request
         - MEDICATION_UNIT
         - SERVICE_UNIT
         - device_unit
@@ -5867,7 +5884,7 @@ By default, all collections are ordered in ascending chronological order.
                     + code: employee (string)
 + daily_amount (object)
     + value: 6.5 (number, required)
-    + system: MEDICATION_UNIT (string) - Can be absent in old version of CPA, required if kind medication_request.
+    + system: MEDICATION_UNIT (enum) - Can be absent in old version of CPA, required if kind medication_request.
         - MEDICATION_UNIT
         - SERVICE_UNIT
         - device_unit
@@ -5892,7 +5909,7 @@ By default, all collections are ordered in ascending chronological order.
             + type (Codeable_Concept)
                 + coding (array)
                     + (Coding)
-                        + code: encounter (string)
+                        + code: encounter (enum)
                             - encounter
                             - procedure
                             - diagnostic_report
@@ -5905,7 +5922,7 @@ By default, all collections are ordered in ascending chronological order.
                 + code: some code (string)
                 + system: eHealth/care_plan_activity_outcomes (string)
 + detail (Care_Plan_activity_detail_base, required)
-    + status: scheduled (string)
+    + status: scheduled (enum)
         - scheduled
         - in_progress
         - completed
@@ -5914,12 +5931,12 @@ By default, all collections are ordered in ascending chronological order.
         + coding (array)
             + (Coding)
                 + code: some code (string)
-                + system: eHealth/care_plan_activity_cancel_reasons (string)
+                + system: eHealth/care_plan_activity_cancel_reasons (enum)
                     - eHealth/care_plan_activity_complete_reasons
                     - eHealth/care_plan_activity_cancel_reasons
     + remaining_quantity (object)
         + value: 12 (number, required)
-        + system: MEDICATION_UNIT (string) - Can be absent in old version of CPA. Same value as in quantity attribute
+        + system: MEDICATION_UNIT (enum) - Can be absent in old version of CPA. Same value as in quantity attribute
             - MEDICATION_UNIT
             - SERVICE_UNIT
             - device_unit
@@ -5936,7 +5953,7 @@ By default, all collections are ordered in ascending chronological order.
                 + (Coding)
                     + code: patient (string)
         + value: 7c3da506-804d-4550-8993-bf17f9ee0403 (string)
-+ status: active (string)
++ status: active (enum)
     - new
     - active
     - completed
@@ -5955,7 +5972,7 @@ By default, all collections are ordered in ascending chronological order.
         + status_reason (Codeable_Concept, optional)
             + coding (array)
                 + (Coding)
-                    + system: eHealth/care_plan_cancel_reasons (string)
+                    + system: eHealth/care_plan_cancel_reasons (enum)
                         - eHealth/care_plan_cancel_reasons
                         - eHealth/care_plan_complete_reasons
                     + code: some code (string)
@@ -5983,7 +6000,7 @@ By default, all collections are ordered in ascending chronological order.
                 + (Coding)
                     + code: care_plan (string)
 + period (Period, required)
-+ intent: order (string)
++ intent: order (enum)
     - order
 + encounter (Reference_request, required)
     + identifier (Identifier)
@@ -6004,7 +6021,7 @@ By default, all collections are ordered in ascending chronological order.
                 + (Coding)
                     + code: patient (string)
         + value: 7c3da506-804d-4550-8993-bf17f9ee0403 (string)
-+ status: active (string)
++ status: active (enum)
     - new
     - active
     - completed
@@ -6020,7 +6037,7 @@ By default, all collections are ordered in ascending chronological order.
 + terms_of_service (Codeable_Concept,required)
     + coding (array)
         + (Coding)
-            + code: INPATIENT (string)
+            + code: INPATIENT (enum)
                 - INPATIENT
                 - OUTPATIENT
             + system: PROVIDING_CONDITION (string)
@@ -6127,7 +6144,7 @@ By default, all collections are ordered in ascending chronological order.
             + identifier (object)
                 + type (object)
                     + coding (array, optional)
-                        + object
+                        + (object)
                             + system: eHealth/resources (string)
                             + code: employee (string)
                 + value: 97d57238-ffbe-4335-92ea-28d4de117ea2 (string)
@@ -6150,7 +6167,7 @@ By default, all collections are ordered in ascending chronological order.
             + identifier (object)
                 + type (object)
                     + coding (array, optional)
-                        + object
+                        + (object)
                             + system: eHealth/resources (string)
                             + code: employee (string)
                 + value: 97d57238-ffbe-4335-92ea-28d4de117ea2 (string)
@@ -6165,7 +6182,7 @@ By default, all collections are ordered in ascending chronological order.
             + identifier (object)
                 + type (object)
                     + coding (array, optional)
-                        + object
+                        + (object)
                             + system: eHealth/resources (string)
                             + code: employee (string)
                     + text: Галина Олександрівна (string)
@@ -6189,7 +6206,7 @@ By default, all collections are ordered in ascending chronological order.
             + identifier (object)
                 + type (object)
                     + coding (array, optional)
-                        + object
+                        + (object)
                             + system: eHealth/resources (string)
                             + code: employee (string)
                 + value: 97d57238-ffbe-4335-92ea-28d4de117ea2 (string)
@@ -6241,7 +6258,7 @@ By default, all collections are ordered in ascending chronological order.
                 + identifier (object)
                     + type (object)
                         + coding (array, optional)
-                            + object
+                            + (object)
                                 + system: eHealth/resources (string)
                                 + code: employee (string)
                     + value: 97d57238-ffbe-4335-92ea-28d4de117ea2 (string)
@@ -6249,7 +6266,7 @@ By default, all collections are ordered in ascending chronological order.
             - text: Галина Олександрівна (string)
     - report_origin (object) - if primary_source=false
         + coding (array, optional)
-            + object
+            + (object)
                 + system: eHealth/report_origins (string)
                 + code: mother (string)
         + text: зі слів пацієнта (string)
@@ -6259,7 +6276,7 @@ By default, all collections are ordered in ascending chronological order.
             + identifier (object)
                 + type (object)
                     + coding (array, optional)
-                        + object
+                        + (object)
                             + system: eHealth/resources (string)
                             + code: employee (string)
                 + value: 97d57238-ffbe-4335-92ea-28d4de117ea2 (string)
@@ -6308,14 +6325,14 @@ By default, all collections are ordered in ascending chronological order.
 - One Of
     + code (object)
         + coding (array, optional)
-            + object
+            + (object)
                 + system: device_definition_classification_type (string)
                 + code: 30221 (string)
     + code_reference  (object)
         + identifier (object)
             + type (object)
                 + coding (array, required)
-                    + object
+                    + (object)
                         + system: eHealth/resources (string)
                         + code: device_definition (string)
 + encounter (Reference_request, required)
@@ -6371,7 +6388,7 @@ By default, all collections are ordered in ascending chronological order.
             + type (Codeable_Concept)
                 + coding (array)
                     + (Coding)
-                        + code: condition (string)
+                        + code: condition (enum)
                             - condition
                             - observation
                             - diagnostic_report
@@ -6471,7 +6488,7 @@ By default, all collections are ordered in ascending chronological order.
             + type (Codeable_Concept)
                 + coding (array)
                     + (Coding)
-                        + code: condition (string)
+                        + code: condition (enum)
                             - condition
                             - observation
                             - diagnostic_report
@@ -6493,7 +6510,7 @@ By default, all collections are ordered in ascending chronological order.
 ### Qualify_Device_Request_Base
 + program_id: 59781de0-2e64-4359-b716-bcc05a32c10f (string) - Medical program Identifier
 + program_name : Доступні медичні вироби(string, required)
-+ status : INVALID (string) - Status for ability use program for this Device Request
++ status : INVALID (enum) - Status for ability use program for this Device Request
     - VALID
     - INVALID
 + rejection_reason : No appropriate participants found for this medical program (string) - Reason to fetch invalid status
@@ -6528,7 +6545,7 @@ By default, all collections are ordered in ascending chronological order.
 
 ### device_name
 + name: Тест-смужки Accu-Chek Active для глюкометра (string) - Device name
-+ type: user_friendly (string) - Device name type. Dictionary device_name_type
++ type: user_friendly (enum) - Device name type. Dictionary device_name_type
     - user_friendly
     - registered
     - patient_reported    
@@ -6654,7 +6671,7 @@ By default, all collections are ordered in ascending chronological order.
             + type (Codeable_Concept)
                 + coding (array)
                     + (Coding)
-                        + code: condition (string)
+                        + code: condition (enum)
                             - condition
                             - observation
                             - diagnostic_report
@@ -6737,7 +6754,7 @@ By default, all collections are ordered in ascending chronological order.
             + type (Codeable_Concept)
                 + coding (array)
                     + (Coding)
-                        + code: condition (string)
+                        + code: condition (enum)
                             - condition
                             - observation
                             - diagnostic_report
@@ -6871,13 +6888,13 @@ By default, all collections are ordered in ascending chronological order.
         + identifier (object)
             + type (object)
                 + coding (array, required)
-                    + object
+                    + (object)
                         + system: eHealth/resources (string)
                         + code: device_definition (string)
             + value: b4a6d991-0bf7-476f-b3cf-bec83f044b1b (string)
     + device_code (object)
         + coding (array, optional)
-            + object
+            + (object)
                 + system: device_definition_classification_type (string)
                 + code: 30221 (string)
 + program_device (Reference_request, optional) - Program device
@@ -7161,6 +7178,7 @@ By default, all collections are ordered in ascending chronological order.
 
 
 # ## Service_dictionary
+
 ### Service
 + id: d5a5d991-0bf7-476f-b3cf-bec73f044b2e (string)
 + name: Ультразвукове дослідження черевного відділу стравоходу' (string)
@@ -7215,6 +7233,7 @@ By default, all collections are ordered in ascending chronological order.
 + updated_by: 2922a240-63db-404e-b730-09222bfeb2dd (string)
 
 # ## Medication request Request
+
 ### Medication_request_Request_post_data
 + person_id: 585044f5-1272-4bca-8d41-8440eefe7d26 (string) - Person identifier
 + employee_id: d290f1ee-6c54-4b01-90e6-d701748f0851 (string) - Employee identifier with type=DOCTOR who issued Medication Request.
@@ -7226,10 +7245,10 @@ By default, all collections are ordered in ascending chronological order.
 + medication_id : 1349a693-4db1-4a3f-9ac6-8c2f9e541982 (string) - Medication, type = INNM_DOSAGE, identifier
 + medication_qty: 10.34 (number, required) - Medication quantity isuued by the doctor
 + medical_program_id: 59781de0-2e64-4359-b716-bcc05a32c10f (string) - Medical program Identifier
-+ intent: plan (string) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
++ intent: plan (enum) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
     - plan - The request represents an intention to ensure something occurs without providing an authorization for others to act.
     - order - The request represents a request/demand and authorization for action.
-+ category: community (string) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
++ category: community (enum) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
     - community - Includes requests for medications to be administered or consumed by the patient in their home
 + based_on (array,optional)
     + (Reference)
@@ -7272,10 +7291,10 @@ By default, all collections are ordered in ascending chronological order.
 + inform_with: ce74e177-9c3b-4426-aeec-294674f2d65a (string) - Identifier of person's auth method.
 + medication_info (Innm_Dosage_for_Medication_request_Responce, required)
 + medical_program (Medical_Program_Response_without_settings, required)
-+ intent: plan (string) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
++ intent: plan (enum) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
     - plan - The request represents an intention to ensure something occurs without providing an authorization for others to act.
     - order - The request represents a request/demand and authorization for action.
-+ category: community (string) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
++ category: community (enum) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
     - community - Includes requests for medications to be administered or consumed by the patient in their home
 + based_on (array,optional)
     + (Reference)
@@ -7311,7 +7330,7 @@ By default, all collections are ordered in ascending chronological order.
     + id: d290f1ee-6c54-4b01-90e6-d701748f0851 (string)
     + legal_entity_id: c8aadb87-ecb9-41ca-9ad4-ffdfe1dd89c9 (string)
     + mountain_group: false (boolean)
-    + status: ACTIVE (string)
+    + status: ACTIVE (enum)
         - ACTIVE
         - CLOSED
     + dls_id: 2872985 (string)
@@ -7321,7 +7340,7 @@ By default, all collections are ordered in ascending chronological order.
 + employee (Employee_Minimal, required)
 + ended_at: 2018-12-13 (string) - End date of a treatment period, which is determined by the external system. Greater or equal to **started_at**. Format *DATE '2017-10-07'*
 + id: fda6839c-7c17-4b45-bc18-14b1039fe702 (string) - Medication Request request identifier
-+ intent: plan (string) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
++ intent: plan (enum) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
     - plan - The request represents an intention to ensure something occurs without providing an authorization for others to act.
     - order - The request represents a request/demand and authorization for action.
 + legal_entity (Legal_Entity_Short, required)
@@ -7353,10 +7372,10 @@ By default, all collections are ordered in ascending chronological order.
 + inform_with: ce74e177-9c3b-4426-aeec-294674f2d65a (string) - Identifier of person's auth method.
 + medication_info (Innm_Dosage_for_Medication_request_Responce, required)
 + medical_program (Medical_Program_Response_without_settings, required)
-+ intent: plan (string) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
++ intent: plan (enum) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
     - plan - The request represents an intention to ensure something occurs without providing an authorization for others to act.
     - order - The request represents a request/demand and authorization for action.
-+ category: community (string) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
++ category: community (enum) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
     - community - Includes requests for medications to be administered or consumed by the patient in their home
 + based_on (array,optional)
     + (Reference)
@@ -7394,10 +7413,10 @@ By default, all collections are ordered in ascending chronological order.
 + ended_at: 2017-09-16 (string) - End date of a treatment period, which is determined by the external system. Greater or equal to **started_at**. Format *DATE '2017-10-07'*
 + medication_id : 1349a693-4db1-4a3f-9ac6-8c2f9e541982 (string) - Medication, type = INNM_DOSAGE, identifier
 + medication_qty: 10.34 (number, required) - Medication quantity isuued by the doctor
-+ intent: plan (string) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
++ intent: plan (enum) - Represents the medication request purpose. Dictionary MEDICATION_REQUEST_INTENT
     - plan - The request represents an intention to ensure something occurs without providing an authorization for others to act.
     - order - The request represents a request/demand and authorization for action.
-+ category: community (string) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
++ category: community (enum) - Type of medication usage. Dictionary MEDICATION_REQUEST_CATEGORY
     - community - Includes requests for medications to be administered or consumed by the patient in their home
 + based_on (array,optional)
     + (Reference)
@@ -7423,6 +7442,7 @@ By default, all collections are ordered in ascending chronological order.
 + include MR_MRR_additional_fields
 
 # ## Persons
+
 ### Person
 + first_name: Петро (string)
 + last_name: Іванов (string)
@@ -7438,7 +7458,7 @@ By default, all collections are ordered in ascending chronological order.
 + addresses (array[Address], required)
 + phones (array[Phone], optional)
 + authentication_methods (array[Authentication_Method], required)
-+ preferred_way_communication: email (string) - the way how a patient wants to be reached
++ preferred_way_communication: email (enum) - the way how a patient wants to be reached
     - email
     - phone
 
@@ -7458,7 +7478,7 @@ By default, all collections are ordered in ascending chronological order.
 + addresses (array[Address], required)
 + phones (array[Phone], optional)
 + authentication_methods (array[Authentication_Method_Patient_Request], required)
-+ preferred_way_communication: email (string) - the way how a patient wants to be reached
++ preferred_way_communication: email (enum) - the way how a patient wants to be reached
     - email
     - phone
     
@@ -7478,13 +7498,13 @@ By default, all collections are ordered in ascending chronological order.
 + documents (array[Document], required)
 + addresses (array[Address], required)
 + phones (array[Phone], optional)
-+ preferred_way_communication: email (string) - the way how a patient wants to be reached
++ preferred_way_communication: email (enum) - the way how a patient wants to be reached
     - email
     - phone
     
 
 ### Confidant_Person
-+ relation_type: PRIMARY (string)
++ relation_type: PRIMARY (enum)
     - PRIMARY
     - SECONDARY
 + first_name: Петро (string)
@@ -7498,7 +7518,7 @@ By default, all collections are ordered in ascending chronological order.
 + tax_id: 3126509816 (string)
 + secret: secret (string)
 + unzr: 19900101-00099 (string)
-+ preferred_way_communication: email (string) - the way how a patient wants to be reached
++ preferred_way_communication: email (enum) - the way how a patient wants to be reached
     - email
     - phone
 + documents_person (array[Document], required)
@@ -7506,7 +7526,7 @@ By default, all collections are ordered in ascending chronological order.
 + phones (array[Phone], optional)
 
 ### Confidant_Person_v2
-+ relation_type: PRIMARY (string)
++ relation_type: PRIMARY (enum)
     - PRIMARY
     - SECONDARY
 + first_name: Петро (string)
@@ -7519,7 +7539,7 @@ By default, all collections are ordered in ascending chronological order.
 + tax_id: 2659719350 (string)
 + secret: secret (string)
 + unzr: 19900101-00099 (string)
-+ preferred_way_communication: email (string) - the way how a patient wants to be reached
++ preferred_way_communication: email (enum) - the way how a patient wants to be reached
     - email
     - phone
 + documents_person (array[Document], required)
@@ -7529,7 +7549,7 @@ By default, all collections are ordered in ascending chronological order.
 
 ### Confidant_Person_v3
 + person_id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string)
-+ relation_type: PRIMARY (string)
++ relation_type: PRIMARY (enum)
     - PRIMARY
     - SECONDARY
 + documents_relationship (array[RelationshipDocument], required)
@@ -7543,7 +7563,7 @@ By default, all collections are ordered in ascending chronological order.
 + tax_id: 2659719350 (string)
 + secret: secret (string)
 + unzr: 19900101-00099 (string)
-+ preferred_way_communication: email (string) - the way how a patient wants to be reached
++ preferred_way_communication: email (enum) - the way how a patient wants to be reached
     - email
     - phone
 + documents_person (array[Document], optional)
@@ -7658,7 +7678,7 @@ By default, all collections are ordered in ascending chronological order.
 + last_name: Іванов (string)
 + second_name: Миколайович (string)
 + birth_date: 1991-08-19 (string) - ISO Datetime.
-+ gender (string)
++ gender (enum)
     - FEMALE
     - MALE
 + tax_id: 3126509816 (string)
@@ -7672,7 +7692,7 @@ By default, all collections are ordered in ascending chronological order.
 + last_name: Іванов (string)
 + second_name: Миколайович (string)
 + birth_date: 1991-08-19 (string) - ISO Datetime.
-+ gender (string)
++ gender (enum)
     - FEMALE
     - MALE
 + tax_id: 3126509816 (string)
@@ -7684,21 +7704,21 @@ By default, all collections are ordered in ascending chronological order.
 + confidant_person (array[Confidant_Person], optional) - Should be set if this Person is disabled, underage, etc
 
 ### Authentication_Method
-+ type (string)
++ type (enum)
     - OTP
     - OFFLINE
     - NA
 + phone_number: +38093*****85 (string)
 
 ### Authentication_Method_for_request
-+ type (string)
++ type (enum)
     - OTP
     - OFFLINE
 + phone_number: +38093*****81 (string)
 
 
 ### Authentication_Method_Patient_Request
-+ type (string)
++ type (enum)
     - THIRD_PERSON
     - OTP
     - OFFLINE
@@ -7710,7 +7730,7 @@ By default, all collections are ordered in ascending chronological order.
 ### Authentication_Methods_Patient_Response
 - One of
     + object()
-        + type (string)
+        + type (enum)
             - OTP
             - OFFLINE
             - NA
@@ -7719,13 +7739,13 @@ By default, all collections are ordered in ascending chronological order.
         + type: THIRD_PERSON
         + alias: husband (string)
         + authentication_reference (object)
-            + type (string)
+            + type (enum)
                 - OTP
                 - OFFLINE
             + phone_number: +38093*****91 (string)
 
 ### Authentication_Method_Patient_Response
-+ type (string)
++ type (enum)
     - OTP
     - THIRD_PERSON
     - OFFLINE
@@ -7736,7 +7756,7 @@ By default, all collections are ordered in ascending chronological order.
 ### Person_auth_methods
 
 + id: b94893f5-b66b-4431-b023-d5b5c037caef (string)
-+ type (string)
++ type (enum)
     - THIRD_PERSON
 + value: 34d4aca0-ee15-4d2d-9ab8-336e5ba1f9c7 (string) - mpi identifier of third_person. It s required for type = THIRD_PERSON
 + alias: husband (string)
@@ -7767,7 +7787,7 @@ By default, all collections are ordered in ascending chronological order.
 ### Person_auth_methods_v2
 
 + id: b84893f5-b66b-4431-b023-d5b5c037caef (string)
-+ type (string)
++ type (enum)
     - OTP
 + phone_number: +38093*****85 (string) - it's required for type = OTP
 + ended_at: 2020-01-10 18:23:34.217335 (string) - ISO Datetime
@@ -7821,7 +7841,7 @@ By default, all collections are ordered in ascending chronological order.
             + system: eHealth/justification_reason_types (string)
             + code: default (string)
     + text: Інше (string)
-+ status: active (string) - justification status
++ status: active (enum) - justification status
     - active
     - terminated
 + inserted_at: 2021-11-09T00:00:00.000Z (string) - ISO Datetime.
@@ -7924,11 +7944,12 @@ By default, all collections are ordered in ascending chronological order.
 + declaration_status: active (string) - Declaration status (default: active).
 
 # ## Merge_Candidates
+
 ### Merge_Candidate
 + id: 8aa4d353-a58f-45f6-b5ce-a89a9cc39391 (string) - Unique record identifier
 + person_id: 50320ee5-2bca-472c-a1a0-28e2e003ec2a (string) - Merge candidate identifier
 + master_person_id: cb553981-4b7f-45ec-8f73-f77faf2dcb22 (string) - Master person identifier
-+ status: NEW (string) - Record status
++ status: NEW (enum) - Record status
         - NEW
         - MERGED
 + inserted_at: 1991-08-19T00:00:00.000Z (string) - ISO Datetime.
@@ -7936,6 +7957,7 @@ By default, all collections are ordered in ascending chronological order.
 
 
 # ## DeclarationRequests
+
 ### crud_Declaration_request_get
 + id: 73FF38F0-A873-4DB4-A47A-CC0F3D7A6D6A (string)
 + data: json structure (string)
@@ -7957,23 +7979,24 @@ By default, all collections are ordered in ascending chronological order.
 + url: https://storage.ehealth.world (string)
 
 # ## Declarations
+
 ### Declaration
 + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - id of the signed document stored on the Media content storage
 + person_id: d290f1ee-6c54-4b01-90e6-d701748f0851 (string)
 + employee_id: d290f1ee-6c54-4b01-90e6-d701748f0851 (string)
 + division_id: d290f1ee-6c54-4b01-90e6-d701748f0851m (string)
 + legal_entity_id: d290f1ee-6c54-4b01-90e6-d701748f0851m (string)
-+ scope (string)
++ scope (enum)
     - family_doctor
 + start_date: 2017-03-02 (string)
 + end_date: 2017-03-02 (string)
 + signed_at: 2017-03-02T10:45:16.000Z (string)
-+ status (string)
++ status (enum)
     - active
     - closed
 
 ### crud_Declaration_patch
-+ status (string)
++ status (enum)
     - active
     - closed
 
@@ -7991,7 +8014,7 @@ By default, all collections are ordered in ascending chronological order.
     + process_disclosure_data_consent: true (boolean) - Person's evidence of information about consent to data disclosure
 + employee_id: d290f1ee-6c54-4b01-90e6-d701748f0851 (string) - Employee ID with type=DOCTOR selected from available Employees as a third contract party.
 + division_id: d290f1ee-6c54-4b01-90e6-d701748f0851 (string) - Registered Medical Service Provider Division identifier.
-+ scope (string)
++ scope (enum)
     - family_doctor
 + overlimit: false (boolean) - when doctor needs more declaration then in declaration_limit is, overlimit should be true
 
@@ -8018,7 +8041,7 @@ By default, all collections are ordered in ascending chronological order.
     + addresses (array[Address], required)
     + phones (array[Phone], optional)
     + authentication_methods (array[Authentication_Method], required)
-    + preferred_way_communication: email (string) - the way how a patient wants to be reached
+    + preferred_way_communication: email (enum) - the way how a patient wants to be reached
         - email
         - phone
     + no_tax_id: false (boolean) - fact of declining tax_id
@@ -8030,7 +8053,7 @@ By default, all collections are ordered in ascending chronological order.
     + process_disclosure_data_consent: true (boolean) - Person's evidence of information about consent to data disclosure
 + employee_id: d290f1ee-6c54-4b01-90e6-d701748f0851 (string) - Employee ID with type=DOCTOR selected from available Employees as a third contract party.
 + division_id: d290f1ee-6c54-4b01-90e6-d701748f0851 (string) - Registered Medical Service Provider Division identifier.
-+ scope (string)
++ scope (enum)
     - family_doctor
 + overlimit: false (boolean) - when doctor needs more declaration then in declaration_limit is, overlimit should be true
 
@@ -8040,7 +8063,7 @@ By default, all collections are ordered in ascending chronological order.
 + person(Person_Request, required) - Object that described a Patient. Confidant person should be set for disabled persons, underage persons, etc.
     + patient_signed: false (boolean) - Person's evidence of sign the declaration request
     + process_disclosure_data_consent: true (boolean) - Person's evidence of information about consent to data disclosure
-+ scope (string)
++ scope (enum)
     - family doctor
 + declaration_number: 0000-12H4-245D (string) - unique number of declaration.
 + declaration_id: 8311ab82-e341-4da0-8a95-235ec9885e23 (string) - presetted id for future declaration
@@ -8057,7 +8080,7 @@ By default, all collections are ordered in ascending chronological order.
     + confidant_person (array[Confidant_Person_v2], optional) - Should be set if this Person is disabled, underage, etc.
     + patient_signed: false (boolean) - Person's evidence of sign the declaration request
     + process_disclosure_data_consent: true (boolean) - Person's evidence of information about consent to data disclosure
-+ scope (string)
++ scope (enum)
     - family doctor
 + declaration_number: 0000-12H4-245D (string) - unique number of declaration.
 + declaration_id: 8311ab82-e341-4da0-8a95-235ec9885e23 (string) - presetted id for future declaration
@@ -8072,7 +8095,7 @@ By default, all collections are ordered in ascending chronological order.
 + legal_entity (Medical_Service_Provider)
     + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string)
 + division (Division_Details)
-+ scope (string)
++ scope (enum)
     - family doctor
 + overlimit: false (boolean) - when doctor needs more declaration then in declaration_limit is, overlimit should be true
 + declaration_request_id: 74a6fae6-4207-4e03-a136-f2e70c6b0c02 (string)
@@ -8093,7 +8116,7 @@ By default, all collections are ordered in ascending chronological order.
 + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - unique id of declaration
 + start_date: 2017-03-02 (string)
 + end_date: 2025-03-02 (string)
-+ status (string)
++ status (enum)
     - active
     - pending_verification
     - terminated
@@ -8106,14 +8129,14 @@ By default, all collections are ordered in ascending chronological order.
 + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - unique id of declaration
 + start_date: 2017-03-02 (string)
 + end_date: 2025-03-02 (string)
-+ status (string)
++ status (enum)
     - NEW
     - APPROVED
     - SIGNED
     - REJECTED
     - CANCELLED
 + status_reason: not relevant (string) - Dictionary DECLARATION_REQUEST_STATUS_REASON
-+ channel: MIS (string) - channel where declaration request was originated
++ channel: MIS (enum) - channel where declaration request was originated
     - MIS
     - PIS
     - CABINET
@@ -8131,11 +8154,11 @@ By default, all collections are ordered in ascending chronological order.
 + start_date: 2017-03-02 (string)
 + end_date: 2017-03-02 (string)
 + signed_at: 2017-03-02T00:00:00.000Z (string)
-+ status (string)
++ status (enum)
     - active
     - pending_verification
     - terminated
-+ scope (string)
++ scope (enum)
     - family doctor
 + declaration_request_id: 74a6fae6-4207-4e03-a136-f2e70c6b0c02 (string)
 + person_id: 5fb57a5d-1457-430e-9678-c81cec72779f (string)
@@ -8152,7 +8175,7 @@ By default, all collections are ordered in ascending chronological order.
 + start_date: 2017-03-02 (string)
 + end_date: 2017-03-02 (string)
 + signed_at: 2017-03-02T00:00:00.000Z (string)
-+ status (string)
++ status (enum)
     - active
     - pending_verification
     - terminated
@@ -8176,11 +8199,11 @@ By default, all collections are ordered in ascending chronological order.
 + employee (Employee_Declaration_Short)
 + division (Division_Short)
 + legal_entity (MSP_Details)
-+ status (string)
++ status (enum)
     - active
     - pending_verification
     - terminated
-+ scope (string)
++ scope (enum)
     - family_doctor
 + declaration_request_id: 74a6fae6-4207-4e03-a136-f2e70c6b0c02 (string)
 + inserted_at: 2017-03-02T10:45:16.000Z (string)
@@ -8200,11 +8223,11 @@ By default, all collections are ordered in ascending chronological order.
 + employee (Employee_Declaration_Short)
 + division (Division_Details_Cabinet)
 + legal_entity (MSP_Details)
-+ status (string)
++ status (enum)
     - active
     - pending_verification
     - terminated
-+ scope (string)
++ scope (enum)
     - family_doctor
 + declaration_request_id: 74a6fae6-4207-4e03-a136-f2e70c6b0c02 (string)
 + content: Declaration content (string) - HTML document that MUST be shown to a end-user and signed by hes key. - Should be defined on the client side.
@@ -8224,12 +8247,12 @@ By default, all collections are ordered in ascending chronological order.
 + employee (Employee_Declaration_Short)
 + legal_entity (MSP_Details)
 + division (Division_Details_Cabinet)
-+ status (string)
++ status (enum)
     - new
     - approved
     - signed
     - expired
-+ scope (string)
++ scope (enum)
     - family_doctor
 + declaration_id: 74a6fae6-4207-4e03-a136-f2e70c6b0c02 (string)
 + content: Declaration content (string) - HTML document that MUST be shown to a end-user and signed by hes key. - Should be defined on the client side.
@@ -8241,7 +8264,7 @@ By default, all collections are ordered in ascending chronological order.
 + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - unique id of declaration
 + declaration_number: 0000-12H4-245D (string) - unique number of declaration.
 + start_date: 2017-03-02 (string)
-+ status (string)
++ status (enum)
     - active
     - pending_verification
     - terminated
@@ -8254,7 +8277,7 @@ By default, all collections are ordered in ascending chronological order.
 + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - unique id of declaration request
 + declaration_number: 0000-12H4-245D (string) - unique number of declaration.
 + start_date: 2017-03-02 (string)
-+ status (string)
++ status (enum)
     - new
     - approved
     - signed
@@ -8274,7 +8297,7 @@ By default, all collections are ordered in ascending chronological order.
     + legal_entity (Medical_Service_Provider)
     + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string)
 + division (Division_Details)
-+ scope (string)
++ scope (enum)
     - family doctor
 + declaration_request_id: 74a6fae6-4207-4e03-a136-f2e70c6b0c02 (string)
 
@@ -8425,7 +8448,7 @@ status: APPROVED (string)
 
 ### Patient_Request_Short
 + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - unique id of declaration
-+ status: APPROVED (string)
++ status: APPROVED (enum)
     - NEW
     - APPROVED
     - SIGNED
@@ -8460,7 +8483,7 @@ status: APPROVED (string)
 + phones (array[Phone], optional)
 + authentication_methods (array, required)
     + (object)
-        + type (string)
+        + type (enum)
             - OTP
             - OFFLINE
         + phone_number: +38093*****85 (string)
@@ -8468,7 +8491,7 @@ status: APPROVED (string)
 + emergency_contact (object)
     + include Emergency_Contact
 + confidant_person (array[Confidant_Person_v2], optional) - Should be set if this Person is disabled, underage, etc.
-+ preferred_way_communication: email (string) - the way how a patient wants to be reached
++ preferred_way_communication: email (enum) - the way how a patient wants to be reached
     - email
     - phone
 
@@ -8499,7 +8522,7 @@ status: APPROVED (string)
     + include Emergency_Contact
 + confidant_person (object)
     + include Confidant_Person_PIS
-+ preferred_way_communication: email (string) - the way how a patient wants to be reached
++ preferred_way_communication: email (enum) - the way how a patient wants to be reached
     - email
     - phone
   
@@ -8527,6 +8550,7 @@ status: APPROVED (string)
 + doctor (DoctorNew)
 
 # ## DoctorsNew
+
 ### DoctorNew
 + educations (array[Education], required)  - освіта
 + qualifications (array[Qualification], optional) - підвищення кваліфікації
@@ -8569,7 +8593,7 @@ status: APPROVED (string)
 + documents (array[Document], required)
 + addresses (array[Address], required)
 + phones (array[Phone], optional)
-+ preferred_way_communication: email (string) - the way how a patient wants to be reached
++ preferred_way_communication: email (enum) - the way how a patient wants to be reached
     - email
     - phone
 + unzr: 19900101-00099 (string)
@@ -8578,6 +8602,7 @@ status: APPROVED (string)
 
 
 # ## Equipment
+
 ### Equipment_base
 + type: 23143534 (string)- code from dictionary -  EQUIPMENT_TYPE            
 + external_id: 123-ASD-#1 (string) - Identifier from external system
@@ -8628,7 +8653,7 @@ status: APPROVED (string)
 
 ### Equipment_name
 + name: Екг-апарат портативний PM10 S61-2047 (string) - Equipment name
-+ type: registered (string) - Equipment name type. Dictionary device_name_type
++ type: registered (enum) - Equipment name type. Dictionary device_name_type
     - user_friendly
     - registered
     - patient_reported
@@ -8646,7 +8671,7 @@ status: APPROVED (string)
 + division_id: 8be63914-a278-470b-b868-1af5b9087332 (string) - Division identifier
 + legal_entity_id: 483af06f-d4c6-4c9e-8d9b-680b5ef7270d (string) - Legal entity identifier
 + include Equipment_base
-+ status: ACTIVE (string)
++ status: ACTIVE (enum)
     - ACTIVE
     - INACTIVE
 + is_active: true (boolean) - Technical attribute. Indicates the availability of therecord in the system
@@ -8969,7 +8994,7 @@ status: APPROVED (string)
 + parent_contract_id: 09106b70-18b0-4726-b0ed-6bda1369fd52 (string)
 + id_form: PMD (string)
 + nhs_signed_date: 2017-04-20 (string) - Date when contract was signed by NHS
-+ type: CAPITATION (string)
++ type: CAPITATION (enum)
     - CAPITATION
     - REIMBURSEMENT
 + reason: не було виконано умов контракту (string) - additional the reason of terminated status
@@ -9265,7 +9290,7 @@ status: APPROVED (string)
 ### Response__Meta_Date
 + code: 200 (number) - HTTP response code.
 + url: https://example.com/resource (string) - URL to requested resource.
-+ type (string) - Type of data that is located in data attribute.
++ type (enum) - Type of data that is located in data attribute.
     - object (string) - data attribute is a JSON object.
     - list (string) - data attribute is a list.
 + request_id: 6617aeec-15e2-4d6f-b9bd-53559c358f97#17810 (string) - [Request ID](https://esoz.docs.apiary.io/#introduction/interacting-with-api/request-id). Send it with X-Request-ID header.
@@ -9288,7 +9313,7 @@ status: APPROVED (string)
 + employee_id: d290f1ee-6c54-4b01-90e6-d701748f0851 (string)
 + start_date: 2019-04-20T19:14:13Z (string)
 + end_date: 2017-12-20T19:14:13Z (string)
-+ status: ACTIVE (string)
++ status: ACTIVE (enum)
 + inserted_at: 2021-11-09T00:00:00.000Z (string) - ISO Datetime
 + updated_at: 2021-11-09T00:00:00.000Z (string) - ISO Datetime
 
@@ -9319,7 +9344,7 @@ status: APPROVED (string)
 + include Employee_role_base
 + start_date: 2019-04-20T19:14:13Z (string)
 + end_date: 2017-12-20T19:14:13Z (string)
-+ status: ACTIVE (string)
++ status: ACTIVE (enum)
     - ACTIVE
     - INACTIVE
 + is_active: true (boolean) - Technical attribute. Indicates the availability of therecord in the system
@@ -9335,7 +9360,7 @@ status: APPROVED (string)
 + division (DivisionName, required)
 + start_date: 2017-03-02 (string)
 + end_date: 2017-03-02 (string)
-+ status (string)
++ status (enum)
     - active
     - closed
     - terminated
@@ -9387,11 +9412,11 @@ status: APPROVED (string)
 + employee (Employee_Declaration_Short, required)
 + division (Division_Declaration, required)
 + legal_entity (MSP_Details, required)
-+ status (string)
++ status (enum)
     - terminated
     - pending_verification
     - active
-+ scope (string)
++ scope (enum)
     - family_doctor
 + declaration_request_id: 74a6fae6-4207-4e03-a136-f2e70c6b0c02
 + content: Declaration content (string) - HTML document that MUST be shown to a end-user and signed by hes key. - Should be defined on the client side.
@@ -9415,7 +9440,7 @@ status: APPROVED (string)
 + documents (array[Document], required)
 + addresses (array[Address], required)
 + phones (array[Phone], optional)
-+ preferred_way_communication: email (string) - the way how a patient wants to be reached
++ preferred_way_communication: email (enum) - the way how a patient wants to be reached
     - email
     - phone    
 
@@ -9437,11 +9462,11 @@ status: APPROVED (string)
 + employee (Employee_Declaration_Short, required)
 + division (Division_Declaration, required)
 + legal_entity (MSP_Details, required)
-+ status (string)
++ status (enum)
     - terminated
     - pending_verification
     - active
-+ scope (string)
++ scope (enum)
     - family_doctor
 + declaration_request_id: 74a6fae6-4207-4e03-a136-f2e70c6b0c02
 + content: Declaration content (string) - HTML document that MUST be shown to a end-user and signed by hes key. - Should be defined on the client side.
@@ -9455,7 +9480,7 @@ status: APPROVED (string)
 + declaration_number: 0000-12H4-245D (string) - unique number of declaration.
 + start_date: 2017-03-02 (string)
 + end_date: 2017-02-28 (string)
-+ status (string)
++ status (enum)
     - active
     - pending_verification
     - terminated
@@ -9482,7 +9507,7 @@ status: APPROVED (string)
 
 ### OTP
 + id: 7d23bebb-1cf3-4221-bf21-18aada444756 (string)
-+ status: NEW (string)
++ status: NEW (enum)
     - NEW
     - CANCELED
     - VERIFIED
@@ -9497,7 +9522,7 @@ status: APPROVED (string)
 + end_date: 2017-02-28 (string)
 + channel: PIS (string)
 + status_reason: manual_employee (string)
-+ status (string)
++ status (enum)
     - new
     - approved
     - signed
@@ -9512,11 +9537,11 @@ status: APPROVED (string)
 ### Division_Short_List_declaration_request
 + id: d290f1ee-6c54-4b01-90e6-d701748f0851 (string)
 + name: Бориспільське відділення Клініки Ноунейм (string)
-+ type: clinic (string)
++ type: clinic (enum)
     - CLINIC
     - AMBULANT_CLINIC
     - FAP
-+ status: ACTIVE (string)
++ status: ACTIVE (enum)
     - ACTIVE
     - INACTIVE
 + dls_id: 2872985 (string)
@@ -9605,7 +9630,7 @@ status: APPROVED (string)
 + phones (array[Phone], optional)
 + authentication_methods (array, required)
     + (object)
-        + type (string)
+        + type (enum)
             - OTP
             - OFFLINE
         + phone_number: +38093*****85 (string)
@@ -9613,12 +9638,12 @@ status: APPROVED (string)
 + emergency_contact (object)
     + include Emergency_Contact
 + confidant_person (array[Data_to_be_signed_ConfidantPerson], optional) - Should be set if this Person is disabled, underage, etc.
-+ preferred_way_communication: email (string) - the way how a patient wants to be reached
++ preferred_way_communication: email (enum) - the way how a patient wants to be reached
     - email
     - phone
 
 ### Data_to_be_signed_ConfidantPerson
-+ relation_type: PRIMARY (string)
++ relation_type: PRIMARY (enum)
     - PRIMARY
     - SECONDARY
 + first_name: Петро (string)
@@ -9631,7 +9656,7 @@ status: APPROVED (string)
 + tax_id: 2659719350 (string)
 + secret: secret (string)
 + unzr: 19900101-00099 (string)
-+ preferred_way_communication: email (string) - the way how a patient wants to be reached
++ preferred_way_communication: email (enum) - the way how a patient wants to be reached
     - email
     - phone
 + documents_person (array[Document], required)
@@ -9895,7 +9920,7 @@ status: APPROVED (string)
 ### Qualify_Service_Request_Responce
 + program_id: 59781de0-2e64-4359-b716-bcc05a32c10f (string) - Medical program Identifier
 + program_name : Fee-For-Service(string, required)
-+ status : INVALID (string) - Status for ability use program for this Service Request
++ status : INVALID (enum) - Status for ability use program for this Service Request
     - VALID
     - INVALID
 + rejection_reason : Service is not included in the program (string) - Reason to fetch invalid status
@@ -9966,7 +9991,7 @@ status: APPROVED (string)
             + type (Codeable_Concept)
                 + coding (array)
                     + (Coding)
-                        + code: episode_of_care (string)
+                        + code: episode_of_care (enum)
                             - episode_of_care
                             - condition
                             - observation
@@ -10093,7 +10118,7 @@ status: APPROVED (string)
             + type (Codeable_Concept)
                 + coding (array)
                     + (Coding)
-                        + code: episode_of_care (string)
+                        + code: episode_of_care (enum)
                             - episode_of_care
                             - condition
                             - observation
@@ -10199,6 +10224,7 @@ status: APPROVED (string)
         + (Coding)
             + system: eHealth/service_request_complete_reasons (string)
             + code: default (string)
+
 ## User [/gen/user]
 
 Key                | Value
@@ -10422,7 +10448,7 @@ Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ
             + code: 201 (number)
         + data (Access_Token)
 
-### Reissuing Session Token [POST /oauth/tokens]
+### Reissuing Session Token - Duplicate POST [POST /oauth/tokens?duplicate=1]
 
 Key                | Value
 -------------------|-----------
@@ -10645,7 +10671,7 @@ Only redirect uri can be updated using this method
     + Attributes Response_OK
         + data (Connection)
 
-### Refresh Client Secret [PATCH /api/clients/{id}/connections/{connection_id}/actions/refresh_secret]
+### Refresh Client Secret - Duplicate PATCH [PATCH /api/clients/{id}/connections/{connection_id}/actions/refresh_secret?duplicate=1]
 
 Key                | Value
 -------------------|-----------
@@ -10770,7 +10796,7 @@ On all envoronments this endpoint DOESN'T require authentication with address:re
                         + code: D88 (string) - code of the dictionary value
                         + description: Апендицит (string) - description of the code
 
-### MIS Get Dictionaries V2 [GET /api/v2/dictionaries{?name,is_active,value_code,value_description,value_is_active}]
+### MIS Get Dictionaries V2 - Duplicate GET [GET /api/v2/dictionaries{?duplicate_1,name,is_active,value_code,value_description,value_is_active}]
 
 Key                | Value
 -------------------|-----------
@@ -11363,8 +11389,8 @@ Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ
     + ids: d290f1ee-6c54-4b01-90e6-d701748f0851 (string)
     + name: Бориспільське відділення клініки (string)
     + legal_entity_id: d8b5f374-0f3c-46e6-baf1-21d97b4c9ff5 (string)
-    + type: CLINIC (string) - Dictionary DIVISION_TYPE
-    + status: ACTIVE (string)
+    + type: CLINIC (enum) - Dictionary DIVISION_TYPE
+    + status: ACTIVE (enum)
         - ACTIVE
         - INACTIVE
     + page: 2 (number) - Page number.
@@ -11520,12 +11546,12 @@ List consists of legal entities with parameter is_active = true.
     + edrpou: 341086 (string)
     + legal_entity_id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string)
     + settlement_id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string)
-    + type: PRIMARY_CARE (string)
+    + type: PRIMARY_CARE (enum)
         - PRIMARY_CARE
         - OUTPATIENT
         - EMERGENCY
         - PHARMACY
-    + status: ACTIVE (string)
+    + status: ACTIVE (enum)
         - ACTIVE
         - SUSPENDED
         - CLOSED
@@ -11545,7 +11571,7 @@ List consists of legal entities with parameter is_active = true.
             + (object)
                 + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string)
                 + include Legal_Entity_Response_Public_V2
-                + status: ACTIVE (string)
+                + status: ACTIVE (enum)
                     - ACTIVE
                     - CLOSED
                     - SUSPENDED
@@ -11572,7 +11598,7 @@ Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ
         + data (object)
             + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string)
             + include Legal_Entity_Response_Public_V2
-            + status: ACTIVE (string)
+            + status: ACTIVE (enum)
                 - ACTIVE
                 - CLOSED
                 - SUSPENDED
@@ -11620,7 +11646,7 @@ that describes the latest legal entity data model and can be used as documentati
         + data (object)
             + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string)
             + include Legal_Entity_Response_Public
-            + status: ACTIVE (string)
+            + status: ACTIVE (enum)
                 - ACTIVE
                 - CLOSED
                 - SUSPENDED
@@ -11639,7 +11665,7 @@ that describes the latest legal entity data model and can be used as documentati
         + data (object)
             + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string)
             + include Legal_Entity_Response_Public_V2
-            + status: ACTIVE (string)
+            + status: ACTIVE (enum)
                 - ACTIVE
                 - CLOSED
                 - SUSPENDED
@@ -11752,7 +11778,7 @@ Use this method to get the list of child legal entities which are related to cur
         + data (object)
             + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string)
             + include Legal_Entity_Response_Public_V2
-            + status: ACTIVE (string)
+            + status: ACTIVE (enum)
                 - ACTIVE
                 - CLOSED
                 - SUSPENDED
@@ -11771,7 +11797,7 @@ Use this method to get the list of child legal entities which are related to cur
         + data (object)
             + id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string)
             + include Legal_Entity_Response_Public_V2
-            + status: ACTIVE (string)
+            + status: ACTIVE (enum)
                 - ACTIVE
                 - CLOSED
                 - SUSPENDED
@@ -11828,7 +11854,7 @@ Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ
     + division_id: 8be63914-a278-470b-b868-1af5b9087332 (string) - Division identifier
     + device_definition_id: 8be63914-a278-470b-b868-1af5b9087332 (string) - Device definition identifier
     + type: 03221 (string) - Code from dictionary EQUIPMENT_TYPE
-    + status: ACTIVE (string) - Entity status
+    + status: ACTIVE (enum) - Entity status
     + model_number: PC122345 (string) - Model number
     + manufacturer: ФОП Виробник (string) - Manufacturer
     + availability_status: AVAILABLE (string) - Availability status
@@ -12038,7 +12064,7 @@ This method is designed to obtain list of contracts with filters. This method re
     + edrpou: 5432345432 (string) - contractor legal entity EDRPOU
     + contractor_owner_id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - id of legal entity owner.
     + nhs_signer_id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - id of nhs employee
-    + status: VERIFIED (string) - current contract status.
+    + status: VERIFIED (enum) - current contract status.
         - TERMINATED
         - VERIFIED
     + is_suspended: true (boolean) - wether contract is active
@@ -12213,6 +12239,7 @@ employee_id|true| id запис про медичного працівника �
 staff_units|true| штатна одиниця
 declaration_limit|true| максимальна к-сть пацієнтів, які можуть подати декларації про вибір такого лікаря за Договором
 division_id|true| місце надання медичних послуг пов'язаниз з ПМД (підмножина contractor_divisions)
+
 #### External_contractors
 Attribute |Is required| Description
 ----------|-----------|----------
@@ -12381,7 +12408,7 @@ This method is designed to obtain list of contract request with filters. This me
     + nhs_signer_id: b075f148-7f93-4fc2-b2ec-2d81b19a9b7b (string) - id of nhs employee
     + issue_city: КИЇВ (string) - contract request place
     + edrpou: 12345678 (string) - legal entity edrpou
-    + status: NEW (string) - current status on contract request.
+    + status: NEW (enum) - current status on contract request.
         - NEW
         - IN_PROCESS
         - APPROVED
@@ -12582,7 +12609,7 @@ Method returns shortened data structure. Use [**Get Employee details**](https://
     + edrpou: 38782323 (string) - filter employees by legal_entity edrpou
     + legal_entity_id: d290f1ee-6c54-4b01-90e6-d701748f0152 (string) - filter employees by legal_entity id
     + division_id: d290f1ee-6c54-4b01-90e6-d701748f0152 (string)
-    + status: APPROVED (string) - filter employees by status
+    + status: APPROVED (enum) - filter employees by status
         - APPROVED
         - STOPPED
         - ENTERED IN ERROR
@@ -12793,7 +12820,7 @@ Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ
     + edrpou: 341086 (string)
     + legal_entity_name: Лимич Медікал (string)
     + no_tax_id: true (boolean)
-    + status: NEW (string)
+    + status: NEW (enum)
         - NEW
         - REJECTED
         - APPROVED
@@ -13040,7 +13067,7 @@ More detailed information - https://e-health-ua.atlassian.net/wiki/x/KoAfIw
         + meta (Response__Meta)
             + code: 201 (number)
         + data (object)
-            + status: SIGNED (string)
+            + status: SIGNED (enum)
                 - NEW
                 - APPROVED
                 - SIGNED
@@ -13109,7 +13136,7 @@ Clients can use signed URL's to directly access [s3 storage](https://storage.ehe
         + meta (Response__Meta)
             + code: 201 (number)
         + data (object)
-            + status: SIGNED (string)
+            + status: SIGNED (enum)
                 - NEW
                 - APPROVED
                 - SIGNED
@@ -13160,7 +13187,7 @@ Use this method to reject previously created Person Request.
         + meta (Response__Meta)
             + code: 200 (number)
         + data (object)
-            + status: SIGNED (string)
+            + status: SIGNED (enum)
                 - NEW
                 - APPROVED
                 - SIGNED
@@ -13198,7 +13225,7 @@ More detailed information - https://e-health-ua.atlassian.net/wiki/x/MYDAIw
         + meta (Response__Meta)
             + code: 200 (number)
         + data (object)
-            + status: SIGNED (string)
+            + status: SIGNED (enum)
                 - NEW
                 - APPROVED
                 - SIGNED
@@ -13257,7 +13284,7 @@ Look at [**Dummy Sign Person Request**](https://uaehealthapi.docs.apiary.io/#ref
         + data (Patient_short)
 
 
-### Get Person Request by Id [PATCH /api/person_requests/{id}/actions/sign]
+### Get Person Request by Id - Duplicate PATCH [PATCH /api/person_requests/{id}/actions/sign?duplicate=1]
 
 Key                | Value
 -------------------|-----------
@@ -13284,7 +13311,7 @@ This method will be depricated. Use **Get Person Request by Id v2** instead.
         + meta (Response__Meta)
             + code: 201 (number)
         + data (object)
-            + status: SIGNED (string)
+            + status: SIGNED (enum)
                 - NEW
                 - APPROVED
                 - SIGNED
@@ -13297,7 +13324,7 @@ This method will be depricated. Use **Get Person Request by Id v2** instead.
             + patient_signed: false (boolean) - Person's evidence of sign the person request
             + process_disclosure_data_consent: true (boolean) - Person's evidence of information about consent to data disclosure
             + content: Person content (string) - HTML document that MUST be shown to a end-user and signed by his key.
-            + channel: MIS (string) - channel that invoke person request create service
+            + channel: MIS (enum) - channel that invoke person request create service
                 - MIS
             + authorize_with: cc949559-5dfe-420f-ac05-065e443b2cc6 (string)- identifier of person's auth method
         + urgent (object)
@@ -13359,7 +13386,7 @@ Link to THIRD PERSON (authentication_methods.value) must be equal to confidant_p
         + meta (Response__Meta)
             + code: 201 (number)
         + data (object)
-            + status: SIGNED (string)
+            + status: SIGNED (enum)
                 - NEW
                 - APPROVED
                 - SIGNED
@@ -13428,7 +13455,7 @@ Clients can use signed URL's to directly access [s3 storage](https://storage.ehe
         + meta (Response__Meta)
             + code: 201 (number)
         + data (object)
-            + status: SIGNED (string)
+            + status: SIGNED (enum)
                 - NEW
                 - APPROVED
                 - SIGNED
@@ -13512,7 +13539,7 @@ This method will be depricated. Use **Get Person Request by Id v2** instead.
         + meta (Response__Meta)
             + code: 201 (number)
         + data (object)
-            + status: SIGNED (string)
+            + status: SIGNED (enum)
                 - NEW
                 - APPROVED
                 - SIGNED
@@ -13525,7 +13552,7 @@ This method will be depricated. Use **Get Person Request by Id v2** instead.
             + patient_signed: false (boolean) - Person's evidence of sign the person request
             + process_disclosure_data_consent: true (boolean) - Person's evidence of information about consent to data disclosure
             + content: Person content (string) - HTML document that MUST be shown to a end-user and signed by his key.
-            + channel: MIS (string) - channel that invoke person request create service
+            + channel: MIS (enum) - channel that invoke person request create service
                 - MIS
             + authorize_with: cc949559-5dfe-420f-ac05-065e443b2cc6 (string)- identifier of person's auth method
         + urgent (object)
@@ -13553,7 +13580,7 @@ Use this method to obtain Person Request details.
         + meta (Response__Meta)
             + code: 201 (number)
         + data (object)
-            + status: SIGNED (string)
+            + status: SIGNED (enum)
                 - NEW
                 - APPROVED
                 - SIGNED
@@ -13566,7 +13593,7 @@ Use this method to obtain Person Request details.
             + patient_signed: false (boolean) - Person's evidence of sign the person request
             + process_disclosure_data_consent: true (boolean) - Person's evidence of information about consent to data disclosure
             + content: Person content (string) - HTML document that MUST be shown to a end-user and signed by his key.
-            + channel: MIS (string) - channel that invoke person request create service
+            + channel: MIS (enum) - channel that invoke person request create service
                 - MIS
             + authorize_with: cc949559-5dfe-420f-ac05-065e443b2cc6 (string)- identifier of person's auth method
         + urgent (object)
@@ -13585,7 +13612,7 @@ That is, for version: 1 use [**Get Person Request by Id**](#reference/public.-me
 More detailed information - https://e-health-ua.atlassian.net/wiki/x/BADDIw
 
 + Parameters
-    + status: APPROVED (string)
+    + status: APPROVED (enum)
         - NEW
         - APPROVED
         - SIGNED
@@ -13622,7 +13649,7 @@ More detailed information - https://e-health-ua.atlassian.net/wiki/x/N4DrJ
             X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
     
     <!--+ Attributes object
-        + type: THIRD_PERSON (string)
+        + type: THIRD_PERSON (enum)
             - OTP
             - OFFLINE
             - THIRD_PERSON
@@ -13736,7 +13763,7 @@ This method allows to receive detailed information about person Declaration by d
             + include Declaration_Details
         + urgent (object)
             + authentication_method_current (object)
-                + type: OTP (string)
+                + type: OTP (enum)
                     - OTP
                     - OFFLINE
                     - NA
@@ -13944,7 +13971,7 @@ To create declaration request based on active declaration in reorganized legal e
 
         + urgent (object)
             + authentication_method_current (object)
-                + type: OTP (string)
+                + type: OTP (enum)
                     - OTP
                     - OFFLINE
                     - NA
@@ -14140,7 +14167,7 @@ This endpoint returns declaration requests that were created through V2 and V3. 
             + declaration_number: 0000-12H4-245D (string) - unique number of declaration.
             + declaration_id: 8311ab82-e341-4da0-8a95-235ec9885e23 (string) - presetted id for future declaration
             + parent_declaration_id: 8c7753fc-a647-435f-8e43-4ff4546431f6 (string) - identifier of parent declaration  
-            + status: SIGNED (string)
+            + status: SIGNED (enum)
                 - NEW
                 - APPROVED
                 - SIGNED
@@ -14153,7 +14180,7 @@ This endpoint returns declaration requests that were created through V2 and V3. 
             + data_to_be_signed (Decl_req_data_to_be_signed, optional)
         + urgent (object)
             + authentication_method_current (object)
-                + type: OTP (string)
+                + type: OTP (enum)
                     - OTP
                     - OFFLINE
                     - NA
@@ -14183,14 +14210,14 @@ If declaration request is created by v2, the field person_id will be empty
 + Parameters
     + employee_id: d290f1ee-6c54-4b01-90e6-d701748f0851 (string) - user_id of a doctor.
     + legal_entity_id: d290f1ee-6c54-4b01-90e6-d701748f0851 (string) - MSP ID.
-    + status: active (string)
+    + status: active (enum)
         - NEW
         - APPROVED
         - SIGNED
         - REJECTED
         - CANCELLED
         - EXPIRED
-    + channel: MIS (string)
+    + channel: MIS (enum)
         - MIS
         - PIS
         - CABINET
@@ -14308,7 +14335,7 @@ If the request has been cleared of personal patient data due to security require
         + data (Declaration_request_details, required)
         + urgent (object)
             + authentication_method_current (object)
-                + type: NA (string)
+                + type: NA (enum)
                     - OTP
                     - OFFLINE
                     - NA
@@ -14421,7 +14448,7 @@ Block person has optional id.
         + meta (Response__Meta)
             + code: 201 (number)
         + data (object)
-            + status: SIGNED (string)
+            + status: SIGNED (enum)
                 - NEW
                 - APPROVED
                 - SIGNED
@@ -14435,7 +14462,7 @@ Block person has optional id.
                 + process_disclosure_data_consent: true (boolean) - Person's evidence of information about consent to data disclosure
                 + id: 53af47ba-d9eb-4a87-a2f7-4114adcf1fc4 (string)
             + authorize_with: cc949559-5dfe-420f-ac05-065e443b2cc6 (string)- identifier of person's auth method
-            + scope (string)
+            + scope (enum)
                 - family doctor
             + declaration_number: 0000-12H4-245D (string) - unique number of declaration.
             + declaration_id: 8311ab82-e341-4da0-8a95-235ec9885e23 (string) - presetted id for future declaration
@@ -14445,12 +14472,12 @@ Block person has optional id.
             + division (Division_Details)
             + content: Declaration content (string) - HTML document that MUST be shown to a  - Should be defined on the client side.end-user and signed by hes key.
             + seed: hash (string) - Hash of previous block in declarations chain or other random component that should be signed with declaration.
-            + channel: MIS (string) - channel that invoke declaration create service
+            + channel: MIS (enum) - channel that invoke declaration create service
                 - MIS
                 - CABINET
         + urgent (object)
             + authentication_method_current (object)
-                + type: OTP (string)
+                + type: OTP (enum)
                     - OTP
                     - OFFLINE
                     - NA
@@ -14776,7 +14803,7 @@ Returns care plan details by it's identifier in patient context.
         + data (Care_Plan_Show)
         + urgent (object)
             + informing_method_current (object)
-                + type: OTP (string)
+                + type: OTP (enum)
                     - OTP
                     - OFFLINE
                     - THIRD_PERSON
@@ -14950,7 +14977,7 @@ http code| processing method | Client recommendations
             + code: 202 (number)
         + data (Job)
 
-### Dummy Care Plan [POST /api/patients/{patient_id}/care_plans]
+### Dummy Care Plan - Duplicate POST [POST /api/patients/{patient_id}/care_plans?duplicate=1]
 
 + Parameters
     + patient_id: 7c3da506-804d-4550-8993-bf17f9ee0402 (string) - MPI identifier of the person.
@@ -14974,7 +15001,7 @@ http code| processing method | Client recommendations
             + code: 202 (number)
         + data (Job)
 
-### Dummy Cancel Care Plan [PATCH /api/patients/{patient_id}/care_plans/{id}/actions/cancel]
+### Dummy Cancel Care Plan - Duplicate PATCH [PATCH /api/patients/{patient_id}/care_plans/{id}/actions/cancel?duplicate=1]
 
 + Parameters
     + patient_id: 7c3da506-804d-4550-8993-bf17f9ee0402 (string) - MPI identifier of the patient.
@@ -15052,7 +15079,7 @@ This method is used to pre-qualify care plan activity in order to define whether
     + Attributes Response__Process_OK
         + urgent (object)
             + authentication_method_current (object)
-                + type: OTP (string)
+                + type: OTP (enum)
                     - OTP
                     - OFFLINE
                     - THIRD_PERSON
@@ -15167,7 +15194,7 @@ Returns all the activities related to the care plan in patient context.
     + patient_id: 7c3da506-804d-4550-8993-bf17f9ee0402 (string) - MPI identifier of the patient. 
     + care_plan_id: 9183a36b-4d45-4244-9339-63d81cd08d9c (string) - Care Plan identifier.
     + author: 9183a36b-4d45-4244-9339-63d81cd08d9c (string) - author of the activity.
-    + kind: service_request (string) - kind of the activity.
+    + kind: service_request (enum) - kind of the activity.
         - service_request
         - medication_request
         - device_request
@@ -15250,7 +15277,7 @@ http code| processing method | Client recommendations
                             + system: eHealth/care_plan_activity_cancel_reasons (string)
                 + remaining_quantity (object)
                     + value: 12 (number, required)
-                    + system: MEDICATION_UNIT (string) - Can be absent in old version of CPA. Same value as in quantity attribute
+                    + system: MEDICATION_UNIT (enum) - Can be absent in old version of CPA. Same value as in quantity attribute
                         - MEDICATION_UNIT
                         - SERVICE_UNIT
                         - device_unit
@@ -15322,7 +15349,7 @@ http code| processing method | Client recommendations
                             + system: eHealth/care_plan_activity_complete_reasons (string)
                 + remaining_quantity (object)
                     + value: 12 (number, required)
-                    + system: MEDICATION_UNIT (string) - Can be absent in old version of CPA. Same value as in quantity attribute
+                    + system: MEDICATION_UNIT (enum) - Can be absent in old version of CPA. Same value as in quantity attribute
                         - MEDICATION_UNIT
                         - SERVICE_UNIT
                         - device_unit
@@ -15336,7 +15363,7 @@ http code| processing method | Client recommendations
             + code: 202 (number)
         + data (Job)
 
-### Dummy Cancel Care Plan Activity [PATCH /api/patients/{patient_id}/care_plans/{care_plan_id}/activities/{id}/actions/cancel]
+### Dummy Cancel Care Plan Activity - Duplicate PATCH [PATCH /api/patients/{patient_id}/care_plans/{care_plan_id}/activities/{id}/actions/cancel?duplicate=1]
 
 + Parameters
     + patient_id: 7c3da506-804d-4550-8993-bf17f9ee0402 (string) - MPI identifier of the patient.
@@ -15351,7 +15378,7 @@ http code| processing method | Client recommendations
     + Attributes Care_plan_activity_show
         + detail (object)
             + include Care_Plan_activity_detail_base
-            + status: scheduled (string)
+            + status: scheduled (enum)
                 - in_progress
                 - scheduled
             + status_reason (Codeable_Concept, required)
@@ -15361,7 +15388,7 @@ http code| processing method | Client recommendations
                         + system: eHealth/care_plan_activity_cancel_reasons (string)
             + remaining_quantity (object)
                 + value: 12 (number, required)
-                + system: MEDICATION_UNIT (string) - Can be absent in old version of CPA. Same value as in quantity attribute
+                + system: MEDICATION_UNIT (enum) - Can be absent in old version of CPA. Same value as in quantity attribute
                     - MEDICATION_UNIT
                     - SERVICE_UNIT
                     - device_unit
@@ -15388,7 +15415,7 @@ http code| processing method | Client recommendations
                             + system: eHealth/care_plan_activity_cancel_reasons (string)
                 + remaining_quantity (object)
                     + value: 12 (number, required)
-                    + system: MEDICATION_UNIT (string) - Can be absent in old version of CPA. Same value as in quantity attribute
+                    + system: MEDICATION_UNIT (enum) - Can be absent in old version of CPA. Same value as in quantity attribute
                         - MEDICATION_UNIT
                         - SERVICE_UNIT
                         - device_unit
@@ -15402,7 +15429,7 @@ http code| processing method | Client recommendations
             + code: 202 (number)
         + data (Job)
 
-### Dummy Create Care Plan Activity [POST /api/patients/{patient_id}/care_plans/{care_plan_id}/activities]
+### Dummy Create Care Plan Activity - Duplicate POST [POST /api/patients/{patient_id}/care_plans/{care_plan_id}/activities?duplicate=1]
 
 + Parameters
     + patient_id: 7c3da506-804d-4550-8993-bf17f9ee0402 (string) - MPI identifier of the person.
@@ -15418,14 +15445,14 @@ http code| processing method | Client recommendations
             + include Care_Plan_activity_detail_base
             + quantity (object)
                 + value: 13 (number, required)
-                + system: MEDICATION_UNIT (string) - Can be absent in old version of CPA, is required if kind medication_request. MEDICATION_UNIT used in activities with kind medication_request, SERVICE_UNIT - with kind service_request
+                + system: MEDICATION_UNIT (enum) - Can be absent in old version of CPA, is required if kind medication_request. MEDICATION_UNIT used in activities with kind medication_request, SERVICE_UNIT - with kind service_request
                     - MEDICATION_UNIT
                     - SERVICE_UNIT
                     - device_unit
                 + code: MG (string) - Can be absent in old version of CPA, is required if kind medication_request.
             + daily_amount (object)
                 + value: 13.5 (number, required)
-                + system: MEDICATION_UNIT (string) - Can be absent in old version of CPA.
+                + system: MEDICATION_UNIT (enum) - Can be absent in old version of CPA.
                     - MEDICATION_UNIT
                     - SERVICE_UNIT
                     - device_unit
@@ -15898,7 +15925,7 @@ to get Medication Request by Id.
     + person_id: 5e661b15-a39a-4713-b18e-ba03a4a48ecc (string) - person_id of a patient.
     + legal_entity_id: d290f1ee-6c54-4b01-90e6-d701748f0851 (string) - legal entity identifier.
     + employee_id: 7124259c-eeb1-4cbb-acac-ada2162675d1 (string) - user_id of a doctor.
-    + status: ACTIVE (string). Default ACTIVE
+    + status: ACTIVE (enum). Default ACTIVE
         - ACTIVE
         - COMPLETED
         - EXPIRED
@@ -15952,7 +15979,7 @@ Use [**Get medication requests details**](https://esoz.docs.apiary.io/#reference
     + legal_entity_id: d290f1ee-6c54-4b01-90e6-d701748f0851 (string) - legal entity identifier.
     + employee_id: 7124259c-eeb1-4cbb-acac-ada2162675d1 (string) - user_id of a doctor.
     + person_id: d290f1ee-6c54-4b01-90e6-d701748f0851 (string) - person_id of a patient.
-    + status: ACTIVE (string). Default ACTIVE
+    + status: ACTIVE (enum). Default ACTIVE
         - ACTIVE
         - COMPLETED
         - EXPIRED
@@ -16389,7 +16416,7 @@ Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ
     + legal_entity_id: d290f1ee-6c54-4b01-90e6-d701748f0851 (string) - legal entity identifier.
     + employee_id: 7124259c-eeb1-4cbb-acac-ada2162675d1 (string) - user_id of a doctor.
     + person_id: 01352B970879A80E19B60C15C8E488DA26CABC3B9F7FA71684904A99DBD5ACE4 (string) - hash of person_id of a patient.
-    + status: ACTIVE (string). Default ACTIVE
+    + status: ACTIVE (enum). Default ACTIVE
         - ACTIVE
         - COMPLETED
         - EXPIRED
@@ -16923,7 +16950,7 @@ This method is used to create Medication request Request (as a part of Medicatio
             + include Medication_request_Request_Response
         + urgent (object)
             + authentication_method_current (object)
-                + type: OTP (string)
+                + type: OTP (enum)
                     - OTP
                     - OFFLINE
                     - NA
@@ -16957,7 +16984,7 @@ Use [**Get Medication request requests details**](https://uaehealthapi.docs.apia
     + care_plan_id: 8838982b-6a77-4cb5-87cd-cdb82eb55364 (string) - Unique care plan identifier.
     + activity_id: d1e07d06-d063-4d19-b9ae-88fc1c7a8682 (string) - Unique activity identifier.
     + encounter_id: 7075e0e2-6b57-47fd-aff7-324806efa7e5 (string) - Unique encounter identifier.
-    + status: NEW (string) - Status of medication request request. Default NEW
+    + status: NEW (enum) - Status of medication request request. Default NEW
         - NEW
         - SIGNED
         - EXPIRED
@@ -16994,7 +17021,7 @@ Use [**Get Medication Request Requests Details**](https://esoz.docs.apiary.io/#r
 + Parameters
     + employee_id: 7124259c-eeb1-4cbb-acac-ada2162675d1 (string) - user_id of a doctor.
     + person_id: d290f1ee-6c54-4b01-90e6-d701748f0851 (string) - person_id of a patient.
-    + status: NEW (string). Default NEW
+    + status: NEW (enum). Default NEW
         - NEW
         - SIGNED
         - EXPIRED
@@ -17597,7 +17624,7 @@ This method is used to pre-qualify service request in order to define whether th
     + Attributes Response__Process_OK
         + urgent (object)
             + authentication_method_current (object)
-                + type: OTP (string)
+                + type: OTP (enum)
                     - OTP
                     - OFFLINE
                     - THIRD_PERSON
@@ -18097,7 +18124,7 @@ This service must be used to discover service requests relaated to specified Spe
         + data (array)
             + (Service_Request_List)
                 + identity (object)
-                    + gender: MALE (string) - gender of the patient, value from the dictionary GENDER
+                    + gender: MALE (enum) - gender of the patient, value from the dictionary GENDER
                         - MALE
                         - FEMALE
                     + age: 35 (number, required) - full years between current date and birth date
@@ -19298,7 +19325,7 @@ Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ
         + data (Service_Request_Show)
 
 
-### Get Medication Request Details in Composition Context [GET /api/persons/{person_id}/compositions/{composition_id}/medication_requests/{id}]
+### Get Medication Request Details in Composition Context - Duplicate GET [GET /api/persons/{person_id}/compositions/{composition_id}/medication_requests/{id}?duplicate=1]
 
 Key                | Value
 -------------------|-----------
@@ -19506,7 +19533,7 @@ Link to Confluence | <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ
     + Attributes Response_OK
         + data (Specimen_Response)
             + identity (object)
-                + gender: MALE (string) - gender of the patient, value from the dictionary GENDER
+                + gender: MALE (enum) - gender of the patient, value from the dictionary GENDER
                     - MALE
                     - FEMALE
                 + age: 35 (number, required) - full years between inserted_at and birth date
