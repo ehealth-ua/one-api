@@ -779,7 +779,7 @@ Deleted connection can't be restored and used again.
 
 + Response 200 (application/json)
     + Attributes (object)
-        + meta (Response__Meta,fixed-type)
+        + meta (Response__Meta)
 
 # Group General
 
@@ -1138,7 +1138,7 @@ Read more about [job processing algorithms.](https://e-health-ua.atlassian.net/w
         + data (Job)
             + status: processed
             + status_code: 200
-            + links (array,required,fixed-type)
+            + links (array,required)
                 + (object)
                     + entity: encounter (string,required)
                     + href: `{host}/api/patients/3da18c10-d2ca-469e-bde5-7413201cea2/encounters/90a9e15b-b71b-4caf-8f2e-ff247e8a5600` (string,required)
@@ -1358,7 +1358,7 @@ This endpoint returns current diagnoses related only to active episodes. In orde
 
 + Response 200 (application/json)
     + Attributes (Response_Collection)
-        + data (array,required,fixed-type)
+        + data (array,required)
             + (Diagnosis_Referrence_Condition)
             + (Diagnosis_Referrence_Condition_2)
 
@@ -3521,9 +3521,9 @@ It returns:
 
 + Response 403 (application/json)
     + Attributes (Response_Error)
-        + meta (Response__Meta,fixed-type)
+        + meta (Response__Meta)
             + code: 403 (number)
-        + error (Response__Error,fixed-type)
+        + error (Response__Error)
             + type: forbidden
             + message: `Active declaration belongs to another msp` (string)
 
@@ -4306,9 +4306,9 @@ Block merged_persons will be deprecated from response and endpoint `Search Perso
 
 + Response 403 (application/json)
     + Attributes (Response_Error)
-        + meta (Response__Meta,fixed-type)
+        + meta (Response__Meta)
             + code: 403 (number)
-        + error (Response__Error,fixed-type)
+        + error (Response__Error)
             + type: too_many_results
             + message: `This API method returns only exact match results,please retry with more specific search result` (string)
 
@@ -4354,9 +4354,9 @@ This information was in response of Get `Search for a Person` before.
 
 + Response 404 (application/json)
     + Attributes (Response_Error)
-        + meta (Response__Meta,fixed-type)
+        + meta (Response__Meta)
             + code: 404 (number)
-        + error (Response__Error,fixed-type)
+        + error (Response__Error)
             + type: forbidden
             + message: `Such person not found` (string)
 
@@ -4518,7 +4518,7 @@ Look at [Dummy Care Plan](https://esoz.docs.apiary.io/#reference/medical-events/
         api-key: aFBLVTZ6Z2dON1V
         X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
     + Attributes (object)
-        + signed_data:`ew0KICAicGVyaW9kIjogew0KIC...` (string,required,fixed-type)
+        + signed_data:`ew0KICAicGVyaW9kIjogew0KIC...` (string,required)
 
 + Response 201 (application/json)
     + Attributes (Response_OK)
@@ -4622,7 +4622,7 @@ This service must be used to discover Care plans by requisition number. If nothi
     + Attributes (Response__Process_OK)
         + meta (Response__Meta)
             + code: 200 (number)
-        + data (array,fixed-type)
+        + data (array)
             + (Care_plan_summary)
                 + identity (Person_identity,required)
 
@@ -4661,7 +4661,7 @@ http code| processing method | Client recommendations
         api-key: aFBLVTZ6Z2dON1V
         X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
     + Attributes (object)
-        + signed_data:`ew0KICAicGVyaW9kIjogew0KIC...` (string,required,fixed-type)
+        + signed_data:`ew0KICAicGVyaW9kIjogew0KIC...` (string,required)
 
 + Response 201 (application/json)
     + Attributes (Response_OK)
@@ -4707,7 +4707,7 @@ http code| processing method | Client recommendations
         X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
     + Attributes (object)
         + status_reason (Codeable_Concept,required)
-            + coding (array,fixed-type)
+            + coding (array)
                 + (Coding)
                     + system: `eHealth/care_plan_complete_reasons` (string)
                     + code: `some code` (string)
@@ -4761,7 +4761,7 @@ http code| processing method | Client recommendations
         X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
     + Attributes (Care_Plan_Show)
         + status_reason (Codeable_Concept,required)
-            + coding (array,fixed-type)
+            + coding (array)
                 + (Coding)
                     + system: `eHealth/care_plan_cancel_reasons` (string)
                     + code: `some code` (string)
@@ -4807,14 +4807,14 @@ This method is used to pre-qualify care plan activity in order to define whether
                 + context (Reference_request,optional)
                     + identifier (Identifier)
                         + type (Codeable_Concept)
-                            + coding (array,fixed-type)
+                            + coding (array)
                                 + (Coding)
                                     + code: encounter (string)
         + programs (array,required) - Medical programs list for qualify
             + (Reference_request)
                 + identifier (Identifier)
                     + type (Codeable_Concept)
-                        + coding (array,fixed-type)
+                        + coding (array)
                             + (Coding)
                                 + code: medical_program (string)
 
@@ -4872,7 +4872,7 @@ Look at [Dummy Create Care Plan activity](https://esoz.docs.apiary.io/#reference
         api-key: aDGFDFGT46S5gFGD
         X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
     + Attributes (object)
-        + signed_data:`ew0KICAicGVyaW9kIjogew0KIC...` (string,required,fixed-type)
+        + signed_data:`ew0KICAicGVyaW9kIjogew0KIC...` (string,required)
 
 + Response 201 (application/json)
     + Attributes (Response_OK)
@@ -4995,18 +4995,18 @@ http code| processing method | Client recommendations
         api-key: aFBLVTZ6Z2dON1V
         X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
     + Attributes (object)
-        + signed_data:`ew0KICAicGVyaW9kIjogew0KIC...` (string,required,fixed-type)
+        + signed_data:`ew0KICAicGVyaW9kIjogew0KIC...` (string,required)
 
 + Response 201 (application/json)
     + Attributes (Response_OK)
         + meta (Response__Meta)
             + code: 201 (number)
         + data(Care_plan_activity_show)
-            + detail (object,fixed-type)
+            + detail (object)
                 + include Care_Plan_activity_detail_base
                 + status: cancelled (string,required)
-                + status_reason (Codeable_Concept,required,fixed-type)
-                    + coding (array,fixed-type)
+                + status_reason (Codeable_Concept,required)
+                    + coding (array)
                         + (Coding)
                             + code: `some code` (string)
                             + system: `eHealth/care_plan_activity_cancel_reasons` (string,required)
@@ -5054,15 +5054,15 @@ http code| processing method | Client recommendations
         api-key: aFBLVTZ6Z2dON1V
         X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
     + Attributes (object)
-        + outcome_codeable_concept (array,required,fixed-type)
+        + outcome_codeable_concept (array,required)
             + (Codeable_Concept)
-                + coding (array,fixed-type)
+                + coding (array)
                     + (Coding)
                         + code: `some code` (string)
                         + system: `eHealth/care_plan_activity_outcomes` (string,required)
-        + detail (object,required,fixed-type)
-            + status_reason (Codeable_Concept,required,fixed-type)
-                + coding (array,fixed-type)
+        + detail (object,required)
+            + status_reason (Codeable_Concept,required)
+                + coding (array)
                     + (Coding)
                         + code: `some code` (string)
                         + system: `eHealth/care_plan_activity_complete_reasons` (string,required)
@@ -5072,11 +5072,11 @@ http code| processing method | Client recommendations
         + meta (Response__Meta)
             + code: 201 (number)
         + data(Care_plan_activity_show)
-            + detail (object,fixed-type)
+            + detail (object)
                 + include Care_Plan_activity_detail_base
                 + status: completed (string,required)
-                + status_reason (Codeable_Concept,required,fixed-type)
-                    + coding (array,fixed-type)
+                + status_reason (Codeable_Concept,required)
+                    + coding (array)
                         + (Coding)
                             + code: `some code` (string)
                             + system: `eHealth/care_plan_activity_complete_reasons` (string,required)
@@ -5109,13 +5109,13 @@ http code| processing method | Client recommendations
         api-key: aFBLVTZ6Z2dON1V
         X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4
     + Attributes (Care_plan_activity_show)
-        + detail (object,fixed-type)
+        + detail (object)
             + include Care_Plan_activity_detail_base
             + status: scheduled (enum,required)
                 - in_progress
                 - scheduled
-            + status_reason (Codeable_Concept,required,fixed-type)
-                + coding (array,fixed-type)
+            + status_reason (Codeable_Concept,required)
+                + coding (array)
                     + (Coding)
                         + code: `some code` (string)
                         + system: `eHealth/care_plan_activity_cancel_reasons` (string,required)
@@ -5138,11 +5138,11 @@ http code| processing method | Client recommendations
         + meta (Response__Meta)
             + code: 201 (number)
         + data(Care_plan_activity_show)
-            + detail (object,fixed-type)
+            + detail (object)
                 + include Care_Plan_activity_detail_base
                 + status: cancelled (string,required)
-                + status_reason (Codeable_Concept,required,fixed-type)
-                    + coding (array,fixed-type)
+                + status_reason (Codeable_Concept,required)
+                    + coding (array)
                         + (Coding)
                             + code: `some code` (string)
                             + system: `eHealth/care_plan_activity_cancel_reasons` (string,required)
@@ -5251,7 +5251,7 @@ Link to Confluence: <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/
 
 + Response 200 (application/json)
     + Attributes (Response_Collection)
-        + data (array[Clinical_Impression_Show],fixed-type)
+        + data (array[Clinical_Impression_Show])
 
 ## Condition [/me/condition]
 
@@ -5280,7 +5280,7 @@ Link to Confluence: <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/
 
 + Response 200 (application/json)
     + Attributes (Response_Collection)
-        + data (array[Condition_Response],fixed-type)
+        + data (array[Condition_Response])
 
 ### Get Condition by Id (Summary) [GET /api/patients/{patient_id}/summary/conditions/{id}]
 
@@ -5300,7 +5300,7 @@ Link to Confluence: <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/
 
 + Response 200 (application/json)
     + Attributes (Response_OK)
-        + data (Condition_Response,fixed-type)
+        + data (Condition_Response)
 
 ## Device [/me/device]
 
@@ -5348,7 +5348,7 @@ Link to Confluence: <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/
 
 + Response 200 (application/json)
     + Attributes (Response_Collection)
-        + data (array[Device_Response],fixed-type)
+        + data (array[Device_Response])
 
 ## Diagnostic Report [/me/diagnostic_report]
 
@@ -5396,7 +5396,7 @@ Link to Confluence: <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/
 
 + Response 200 (application/json)
     + Attributes (Response_Collection)
-        + data (array[Diagnostic_Report_Response],fixed-type)
+        + data (array[Diagnostic_Report_Response])
 
 ## Allergy Intollerance [/me/allergy_intollerance]
 
@@ -5425,7 +5425,7 @@ Link to Confluence: <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/
 
 + Response 200 (application/json)
     + Attributes (Response_Collection)
-        + data (array[Allergy_Intolerance_Response],fixed-type)
+        + data (array[Allergy_Intolerance_Response])
 
 ### Get Allergy Intolerance by Id (Summary) [GET /api/patients/{patient_id}/summary/allergy_intolerances/{id}]
 
@@ -5445,7 +5445,7 @@ Link to Confluence: <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/
 
 + Response 200 (application/json)
     + Attributes (Response_OK)
-        + data (Allergy_Intolerance_Response,fixed-type)
+        + data (Allergy_Intolerance_Response)
 
 ## Encounter [/me/encounter]
 
@@ -5534,7 +5534,7 @@ Link to Confluence: <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/
 
 + Response 200 (application/json)
     + Attributes (Response_Collection)
-        + data (array[Immunization_Response],fixed-type)
+        + data (array[Immunization_Response])
 
 ### Get Immunization by Id (Summary) [GET /api/patients/{patient_id}/summary/immunizations/{id}]
 
@@ -5554,7 +5554,7 @@ Link to Confluence: <a href="https://e-health-ua.atlassian.net/wiki/spaces/ESOZ/
 
 + Response 200 (application/json)
     + Attributes (Response_OK)
-        + data (Immunization_Response,fixed-type)
+        + data (Immunization_Response)
 
 ## Medication Request [/me/medication_request]
 
@@ -10655,7 +10655,7 @@ http code| processing method | Client recommendations
 + recorder (Reference_request,required) - The employee who registered the issue
     + identifier (Identifier,optional)
         + type (Codeable_Concept,required)
-            + coding (array,required,fixed-type)
+            + coding (array,required)
                 + (Coding)
                     + code: employee (string)
 + author (Reference_request,required) - The employee or person who identified the issue
@@ -10669,7 +10669,7 @@ http code| processing method | Client recommendations
 + implicated (Reference_request,optional) - device which caused an issue in the subject
     + identifier (Identifier,optional)
         + type (Codeable_Concept,required)
-            + coding (array,required,fixed-type)
+            + coding (array,required)
                 + (Coding)
                     + code: device (string)   
 + detail: `some description` (string,optional)
@@ -10682,7 +10682,7 @@ http code| processing method | Client recommendations
 + based_on (Reference_request,optional) - another Detected Issue on which this is based on
     + identifier (Identifier,optional)
         + type (Codeable_Concept,required)
-            + coding (array,required,fixed-type)
+            + coding (array,required)
                 + (Coding)
                     + code: detected_issue (string)
 
@@ -10711,7 +10711,7 @@ http code| processing method | Client recommendations
 + recorder (Reference_request,required)
     + identifier (Identifier,optional)
         + type (Codeable_Concept,required)
-            + coding (array,required,fixed-type)
+            + coding (array,required)
                 + (Coding)
                     + code: employee (string)
 
@@ -10903,7 +10903,7 @@ http code| processing method | Client recommendations
 + recorded_by (Reference_request,required) - employee who submit procedure to e-Health
     + identifier (Identifier,optional)
         + type (Codeable_Concept,required)
-            + coding (array,required,fixed-type)
+            + coding (array,required)
                 + (Coding)
                     + code: employee (string)
 + primary_source: true (boolean,required) - source of procedure information. True - the procedure is done by current doctor,false - according to someone description.
@@ -11024,14 +11024,14 @@ http code| processing method | Client recommendations
 + recorded_by (Reference_request,required)
     + identifier (Identifier,optional)
         + type (Codeable_Concept,required)
-            + coding (array,required,fixed-type)
+            + coding (array,required)
                 + (Coding)
                     + code: employee (string)
 + specimens (array,optional)
     + (Reference_request)
         + identifier (Identifier,optional)
             + type (Codeable_Concept,required)
-                + coding (array,required,fixed-type)
+                + coding (array,required)
                     + (Coding)
                         + code: specimen (string)
 + used_references (array,optional) - Items used in the report.
@@ -11402,7 +11402,7 @@ http code| processing method | Client recommendations
 + definition (Reference_request,optional)
     + identifier (Identifier,optional)
         + type (Codeable_Concept,required)
-            + coding (array,required,fixed-type)
+            + coding (array,required)
                 + (Coding)
                     + code: device_definition (string)
 + name (array,required) 
@@ -11417,13 +11417,13 @@ http code| processing method | Client recommendations
 + parent (Reference_request,optional)
     + identifier (Identifier,optional)
         + type (Codeable_Concept,required)
-            + coding (array,required,fixed-type)
+            + coding (array,required)
                 + (Coding)
                     + code: device (string)
 + recorder (Reference_request,required)
     + identifier (Identifier,optional)
         + type (Codeable_Concept,required)
-            + coding (array,required,fixed-type)
+            + coding (array,required)
                 + (Coding)
                     + code: employee (string)
 + context (Reference_request,required)
@@ -14135,7 +14135,7 @@ http code| processing method | Client recommendations
 + recorded_by (Reference_request,required) - employee who submit procedure to e-Health
     + identifier (Identifier,optional)
         + type (Codeable_Concept,required)
-            + coding (array,required,fixed-type)
+            + coding (array,required)
                 + (Coding)
                     + code: employee (string)
 + primary_source: true (boolean,required) - source of procedure information. True - the procedure is done by current doctor,false - according to someone description.
@@ -14236,7 +14236,7 @@ http code| processing method | Client recommendations
 + recorded_by (Reference_response,required) - employee who submit procedure to e-Health
     + identifier (Identifier,optional)
         + type (Codeable_Concept,required)
-            + coding (array,required,fixed-type)
+            + coding (array,required)
                 + (Coding)
                     + code: employee (string)
     + display_value: `Шевченко Олесь Вікторович` (string,required) - This field is filled on creating and never updated after
@@ -14884,7 +14884,7 @@ http code| processing method | Client recommendations
 + recorded_by (Reference_response,required)
     + identifier (Identifier,optional)
         + type (Codeable_Concept,required)
-            + coding (array,required,fixed-type)
+            + coding (array,required)
                 + (Coding)
                     + code: employee (string)
     + display_value: `Опанасенко Олексій Володимирович` (string,required) - This field is filled on creating and never updated after
@@ -14892,7 +14892,7 @@ http code| processing method | Client recommendations
     + (Reference_response)
         + identifier (Identifier,optional)
             + type (Codeable_Concept,required)
-                + coding (array,required,fixed-type)
+                + coding (array,required)
                     + (Coding)
                         + code: specimen (string)
 + used_references (array,optional) - Items used in the report.
@@ -15090,7 +15090,7 @@ http code| processing method | Client recommendations
 + recorded_by (Reference_response,required)
     + identifier (Identifier,optional)
         + type (Codeable_Concept,required)
-            + coding (array,required,fixed-type)
+            + coding (array,required)
                 + (Coding)
                     + code: employee (string)
     + display_value: `Опанасенко Олексій Володимирович` (string,required) - This field is filled on creating and never updated after                
@@ -17482,19 +17482,19 @@ status: APPROVED (string,required)
 + definition (Reference_response,optional)
     + identifier (Identifier,optional)
         + type (Codeable_Concept,required)
-            + coding (array,required,fixed-type)
+            + coding (array,required)
                 + (Coding)
                     + code: device_definition (string)
 + parent (Reference_response,optional)
     + identifier (Identifier,optional)
         + type (Codeable_Concept,required)
-            + coding (array,required,fixed-type)
+            + coding (array,required)
                 + (Coding)
                     + code: device (string)
 + recorder (Reference_response,required)
     + identifier (Identifier,optional)
         + type (Codeable_Concept,required)
-            + coding (array,required,fixed-type)
+            + coding (array,required)
                 + (Coding)
                     + code: employee (string)
 + context (Reference_response,required)
@@ -18694,14 +18694,14 @@ status: APPROVED (string,required)
     + (Reference_response)
         + identifier (Identifier,optional)
             + type (Codeable_Concept,required)
-                + coding (array,required,fixed-type)
+                + coding (array,required)
                     + (Coding)
                         + code: specimen (string)
 + focus (array,optional) - what the service request is about,when it is not about the subject of record
     + (Reference_response)
         + identifier (Identifier,optional)
             + type (Codeable_Concept,required)
-                + coding (array,required,fixed-type)
+                + coding (array,required)
                     + (Coding)
                         + code: specimen (string)
 + inform_with (object,optional)
@@ -18830,14 +18830,14 @@ status: APPROVED (string,required)
     + (Reference_request)
         + identifier (Identifier,optional)
             + type (Codeable_Concept,required)
-                + coding (array,required,fixed-type)
+                + coding (array,required)
                     + (Coding)
                         + code: specimen (string)
 + focus (array,optional) - what the service request is about,when it is not about the subject of record
     + (Reference_request)
         + identifier (Identifier,optional)
             + type (Codeable_Concept,required)
-                + coding (array,required,fixed-type)
+                + coding (array,required)
                     + (Coding)
                         + code: specimen (string)
 + inform_with (object,optional)
@@ -18957,14 +18957,14 @@ status: APPROVED (string,required)
     + (Reference_request)
         + identifier (Identifier,optional)
             + type (Codeable_Concept,required)
-                + coding (array,required,fixed-type)
+                + coding (array,required)
                     + (Coding)
                         + code: specimen (string)
 + focus (array,optional) - what the service request is about,when it is not about the subject of record
     + (Reference_request)
         + identifier (Identifier,optional)
             + type (Codeable_Concept,required)
-                + coding (array,required,fixed-type)
+                + coding (array,required)
                     + (Coding)
                         + code: specimen (string)
 + inform_with (object,optional)
