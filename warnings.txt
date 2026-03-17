@@ -1,0 +1,284 @@
+Warning at line 535: Action "POST /oauth/tokens" already defined.
+Warning at line 608: Ignoring unrecognized block "## User Role".
+Warning at line 610: Ignoring unrecognized block "## User Black List".
+Warning at line 670: Action is missing parameter definitions: id.
+Warning at line 738: Action "PATCH /api/clients/{id}/connections/{connection_id}/actions/refresh_secret" already defined.
+Warning at line 853: Action "GET /api/v2/dictionaries" already defined.
+Warning at line 903: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"
+Warning at line 961: Ignoring unrecognized block "## System Configuration".
+Warning at line 1151: fixed-type keyword is redundant
+Warning at line 1343: Ignoring unrecognized block "## Medical Program Participant".
+Warning at line 1345: Ignoring unrecognized block "## Service".
+Warning at line 1347: Ignoring unrecognized block "## Medication".
+Warning at line 1349: Ignoring unrecognized block "## Device Definition".
+Warning at line 1351: Ignoring unrecognized block "## Forbidden Group".
+Warning at line 1380: fixed-type keyword is redundant
+Warning at line 1384: Ignoring unrecognized block "## Rule Engine Rule".
+Warning at line 1386: Ignoring unrecognized block "## System Global Parameters".
+Warning at line 1439: Ignoring unrecognized block "+ Headers
+        Authorization: Bearer c2778f3064753ea70de870a53795f5c9
+        API-key: uXhEczJ56adsfh3Ri9SUkc4en
+        X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4".
+Warning at line 1461: Ignoring unrecognized block "+ Headers
+        Authorization: Bearer c2778f3064753ea70de870a53795f5c9
+        API-key: uXhEczJ56adsfh3Ri9SUkc4en
+        X-Custom-PSK: a2aa05c76f3f2d91870f923a53cc8aa8f23bbc01a8238d1c2c26d4299715a7e4".
+Warning at line 1549: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.
+Warning at line 1554: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.
+Warning at line 2033: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.
+Warning at line 2018: Action is missing parameter definitions: contract_type.
+Warning at line 2058: Action is missing parameter definitions: contract_type.
+Warning at line 2088: Action is missing parameter definitions: contract_type.
+Warning at line 2134: Action is missing parameter definitions: contract_type, id.
+Warning at line 2317: Action is missing parameter definitions: contract_type.
+Warning at line 2364: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.
+Warning at line 2348: Action is missing parameter definitions: contract_type.
+Warning at line 2390: Action is missing parameter definitions: contract_type.
+Warning at line 2422: Action is missing parameter definitions: contract_type.
+Warning at line 2456: Action is missing parameter definitions: contract_type.
+Warning at line 2480: Action is missing parameter definitions: contract_type.
+Warning at line 2553: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.
+Warning at line 2536: Action is missing parameter definitions: verification_status.
+Warning at line 2608: Enum element "mis_verified" should include members.
+Warning at line 2643: Enum element "status" should include members.
+Warning at line 2750: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.
+Warning at line 2890: Action "GET /api/employee_roles/" already defined.
+Warning at line 2989: Enum element "channel" should include members.
+Warning at line 3057: Enum element "channel" should include members.
+Warning at line 3106: Enum element "channel" should include members.
+Warning at line 3109: Ignoring unrecognized block "This method will be deprecated. Use **Reject Person Request v2**.".
+Warning at line 3111: Ignoring unrecognized block "Use this method to reject previously created Person Request.".
+Warning at line 3113: Ignoring unrecognized block "More detailed information - https://e-health-ua.atlassian.net/wiki/x/MYDAIw".
+Warning at line 3144: Enum element "channel" should include members.
+Warning at line 3188: Action "PATCH /api/person_requests/{id}/actions/sign" already defined.
+Warning at line 3298: Enum element "channel" should include members.
+Warning at line 3366: Enum element "channel" should include members.
+Warning at line 3508: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.
+Warning at line 3497: Action is missing parameter definitions: legal_entity_id.
+Warning at line 3544: Ignoring unrecognized block "<!--+ Attributes (object)
+        + type: THIRD_PERSON (enum,optional)
+            - OTP
+            - OFFLINE
+            - THIRD_PERSON
+        + alias: husband (string,optional)-->".
+Warning at line 3770: Action is missing parameter definitions: id.
+Warning at line 3838: Enum element "channel" should include members.
+Warning at line 3910: Enum element "channel" should include members.
+Warning at line 3957: Enum element "channel" should include members.
+Warning at line 4039: Enum element "channel" should include members.
+Warning at line 4072: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.
+Warning at line 4079: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.
+Warning at line 4195: Action is missing parameter definitions: id.
+Warning at line 4269: Enum element "channel" should include members.
+Warning at line 4335: Action is missing parameter definitions: birth_place, page, page_size.
+Warning at line 4471: Action "GET /sign-in{?client_id,redirect_uri,scope}" already defined.
+Warning at line 4587: Type attribute "fixedType" is not allowed for a value of type "string"
+Warning at line 4633: Action is missing parameter definitions: legal_entity_id, requisition.
+Warning at line 4691: fixed-type keyword is redundant
+Warning at line 4730: Type attribute "fixedType" is not allowed for a value of type "string"
+Warning at line 4776: fixed-type keyword is redundant
+Warning at line 4793: Action "POST /api/patients/{patient_id}/care_plans" already defined.
+Warning at line 4830: fixed-type keyword is redundant
+Warning at line 4817: Action "PATCH /api/patients/{patient_id}/care_plans/{id}/actions/cancel" already defined.
+Warning at line 4883: fixed-type keyword is redundant
+Warning at line 4941: Type attribute "fixedType" is not allowed for a value of type "string"
+Warning at line 5000: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.
+Warning at line 5064: Type attribute "fixedType" is not allowed for a value of type "string"
+Warning at line 5075: fixed-type keyword is redundant
+Warning at line 5125: fixed-type keyword is redundant
+Warning at line 5123: fixed-type keyword is redundant
+Warning at line 5131: fixed-type keyword is redundant
+Warning at line 5145: fixed-type keyword is redundant
+Warning at line 5184: fixed-type keyword is redundant
+Warning at line 5211: fixed-type keyword is redundant
+Warning at line 5165: Action "PATCH /api/patients/{patient_id}/care_plans/{care_plan_id}/activities/{id}/actions/cancel" already defined.
+Warning at line 5231: Action "POST /api/patients/{patient_id}/care_plans/{care_plan_id}/activities" already defined.
+Warning at line 5320: fixed-type keyword is redundant
+Warning at line 5349: fixed-type keyword is redundant
+Warning at line 5417: fixed-type keyword is redundant
+Warning at line 5396: Action is missing parameter definitions: patient_id, encounter_id, episode_id.
+Warning at line 5465: fixed-type keyword is redundant
+Warning at line 5444: Action is missing parameter definitions: patient_id, encounter_id, context_episode_id, initial_episode_id.
+Warning at line 5494: fixed-type keyword is redundant
+Warning at line 5521: Action is missing parameter definitions: date_from, date_to.
+Warning at line 5603: fixed-type keyword is redundant
+Warning at line 5581: Action is missing parameter definitions: code.
+Warning at line 5679: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.
+Warning at line 5731: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.
+Warning at line 5715: Action is missing parameter definitions: care_plan_id.
+Warning at line 6140: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.
+Warning at line 6129: Action is missing a response
+Warning at line 6216: Type attribute "required" is not allowed for a value of type "object"
+Warning at line 6235: Type attribute "required" is not allowed for a value of type "object"
+Warning at line 6459: Action is missing parameter definitions: person_id.
+Warning at line 6545: Type attribute "required" is not allowed for a value of type "object"
+Warning at line 6565: Type attribute "required" is not allowed for a value of type "object"
+Warning at line 6674: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.
+Warning at line 6709: Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.
+Warning at line 6694: Action is missing parameter definitions: care_plan_id.
+Warning at line 6845: Action is missing parameter definitions: patient_id, encounter_id, episode_id.
+Warning at line 6938: Action is missing parameter definitions: patient_id.
+Warning at line 6992: Action is missing parameter definitions: episode_id, service_request_id, recorded_by, managing_organization_id.
+Warning at line 7043: Action is missing a response
+Warning at line 7053: Action is missing parameter definitions: patient_id.
+Warning at line 7080: Action is missing parameter definitions: id, recorded_by.
+Warning at line 7109: Action is missing parameter definitions: person_id, id.
+Warning at line 7201: Action is missing parameter definitions: patient_id, encounter_id, episode_id.
+Warning at line 7445: Action is missing parameter definitions: patient_id, service_request_id.
+Warning at line 7479: Action is missing parameter definitions: patient_id, service_request_id.
+Warning at line 7556: "Headers" is expected to be a pre-formatted code block, every of its line indented by exactly 12 spaces or 3 tabs
+Warning at line 7741: Action is missing parameter definitions: parent_id.
+Warning at line 7759: Action is missing parameter definitions: patient_id, service_request_id.
+Warning at line 7784: Action is missing parameter definitions: parent_id, service_request_id.
+Warning at line 7816: Action is missing parameter definitions: id.
+Warning at line 7982: Action is missing parameter definitions: patient_id, episode_id.
+Warning at line 8110: Action is missing parameter definitions: episode_id, date_from, date_to, page, page_size.
+Warning at line 8321: Action is missing parameter definitions: period_from, period_to.
+Warning at line 8421: Action is missing parameter definitions: id.
+Warning at line 8538: Action is missing parameter definitions: patient_id, patient_id, date.
+Warning at line 8849: Action "GET /api/persons/{person_id}/compositions/{composition_id}/medication_requests/{?id}" already defined.
+Warning at line 8958: Action is missing a response
+Warning at line 8958: Action is missing parameter definitions: patient_id.
+Warning at line 8969: Action is missing parameter definitions: patient_id.
+Warning at line 9477: Enum element "type" should include members.
+Warning at line 9482: Enum element "country" should include members.
+Warning at line 9520: No value(s) specified: "building:"
+Warning at line 9532: Enum element "type" should include members.
+Warning at line 9718: Type attribute "required" is not allowed for a value of type "string"
+Warning at line 9747: Enum element "type" should include members.
+Warning at line 9756: Enum element "type" should include members.
+Warning at line 9788: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"
+Warning at line 9788: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"
+Warning at line 9792: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"
+Warning at line 9792: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"
+Warning at line 9838: Invalid value format "13,5" for type "number".
+Warning at line 10724: fixed-type keyword is redundant
+Warning at line 10738: fixed-type keyword is redundant
+Warning at line 10751: fixed-type keyword is redundant
+Warning at line 10780: fixed-type keyword is redundant
+Warning at line 10907: Enum element "code" should include members.
+Warning at line 10972: fixed-type keyword is redundant
+Warning at line 11093: fixed-type keyword is redundant
+Warning at line 11100: fixed-type keyword is redundant
+Warning at line 11240: Invalid value format "13,5" for type "number".
+Warning at line 11412: "object" with value definition. You should use type definition without value, e.g., "+ key (object)"
+Warning at line 11412: Type attribute "optional" is not allowed for a value of type "object"
+Warning at line 11471: fixed-type keyword is redundant
+Warning at line 11486: fixed-type keyword is redundant
+Warning at line 11492: fixed-type keyword is redundant
+Warning at line 11559: No value(s) specified: "vaccine_code : (Codeable_Concept,required),//   Vaccine product administered"
+Warning at line 11566: No value(s) specified: "context : (Reference_request,required),// Encounter administered as part of"
+Warning at line 11596: No value(s) specified: "site : ( Codeable_Concept,optional),// Body site vaccine  was administered"
+Warning at line 11602: No value(s) specified: "route : ( Codeable_Concept ,optional),// How vaccine entered body"
+Warning at line 11631: No value(s) specified: "vaccination_protocols : (array,optional)// What protocols was followed"
+Warning at line 11643: No value(s) specified: "target_diseases : (array,required)"
+Warning at line 11659: No value(s) specified: "vaccine_code : (Codeable_Concept,required),//   Vaccine product administered"
+Warning at line 11666: No value(s) specified: "context : (Reference_response,required),// Encounter administered as part of"
+Warning at line 11703: No value(s) specified: "route : ( Codeable_Concept ,optional),// How vaccine entered body"
+Warning at line 11731: No value(s) specified: "reactions : (array,optional) // Details of a reaction that follows immunization"
+Warning at line 11733: No value(s) specified: "detail : (Reference_response,optional) ,// Additional information on reaction Observation"
+Warning at line 11740: No value(s) specified: "vaccination_protocols : (array,optional)// What protocols was followed"
+Warning at line 11752: No value(s) specified: "target_diseases : (array,required)"
+Warning at line 11939: Invalid value format "27,5" for type "number".
+Warning at line 12136: Invalid value format "27,5" for type "number".
+Warning at line 12364: Invalid value format "27,5" for type "number".
+Warning at line 12571: Invalid value format "TRUE" for type "boolean".
+Warning at line 12635: Type attribute "required" is not allowed for a value of type "string"
+Warning at line 12636: Type attribute "required" is not allowed for a value of type "string"
+Warning at line 12640: Type attribute "required" is not allowed for a value of type "string"
+Warning at line 12641: Type attribute "required" is not allowed for a value of type "string"
+Warning at line 12643: Type attribute "required" is not allowed for a value of type "string"
+Warning at line 12644: Type attribute "required" is not allowed for a value of type "string"
+Warning at line 12646: Type attribute "required" is not allowed for a value of type "string"
+Warning at line 12647: Type attribute "required" is not allowed for a value of type "string"
+Warning at line 12649: Type attribute "required" is not allowed for a value of type "string"
+Warning at line 12650: Type attribute "required" is not allowed for a value of type "string"
+Warning at line 12661: Type attribute "required" is not allowed for a value of type "string"
+Warning at line 12662: Type attribute "required" is not allowed for a value of type "string"
+Warning at line 12664: Type attribute "required" is not allowed for a value of type "string"
+Warning at line 12665: Type attribute "required" is not allowed for a value of type "string"
+Warning at line 12729: Attribute nullable has been defined more than once.
+Warning at line 12781: Attribute nullable has been defined more than once.
+Warning at line 12839: Attribute nullable has been defined more than once.
+Warning at line 12899: Attribute nullable has been defined more than once.
+Warning at line 12957: Attribute nullable has been defined more than once.
+Warning at line 13009: Attribute nullable has been defined more than once.
+Warning at line 13120: Attribute nullable has been defined more than once.
+Warning at line 13178: Attribute nullable has been defined more than once.
+Warning at line 13269: Enum element "status" should include members.
+Warning at line 13329: Attribute nullable has been defined more than once.
+Warning at line 13455: Invalid value format "'10.34'" for type "number".
+Warning at line 13885: Enum element "employee_type" should include members.
+Warning at line 14023: No value(s) specified: "author:  (Reference_request,required)"
+Warning at line 14038: Type attribute "required" is not allowed for a value of type "object"
+Warning at line 14054: Type attribute "required" is not allowed for a value of type "object"
+Warning at line 14123: No name specified: "(Coding)"
+Warning at line 14147: Type attribute "required" is not allowed for a value of type "object"
+Warning at line 14204: fixed-type keyword is redundant
+Warning at line 14305: fixed-type keyword is redundant
+Warning at line 14953: fixed-type keyword is redundant
+Warning at line 14961: fixed-type keyword is redundant
+Warning at line 15159: fixed-type keyword is redundant
+Warning at line 15807: Enum element "system" should include members.
+Warning at line 15878: Type attribute "required" is not allowed for a value of type "string"
+Warning at line 15890: Type attribute "required" is not allowed for a value of type "object"
+Warning at line 15926: Type attribute "required" is not allowed for a value of type "object"
+Warning at line 16194: Enum element "category" should include members.
+Warning at line 16321: Enum element "gender" should include members.
+Warning at line 16341: Enum element "gender" should include members.
+Warning at line 16362: Enum element "gender" should include members.
+Warning at line 16384: Enum element "gender" should include members.
+Warning at line 16406: Enum element "gender" should include members.
+Warning at line 16430: Enum element "gender" should include members.
+Warning at line 16459: Enum element "gender" should include members.
+Warning at line 16638: Enum element "gender" should include members.
+Warning at line 16819: Enum element "status" should include members.
+Warning at line 16895: Enum element "gender" should include members.
+Warning at line 17126: Enum element "channel" should include members.
+Warning at line 17177: Enum element "channel" should include members.
+Warning at line 17200: Enum element "gender" should include members.
+Warning at line 17228: Enum element "gender" should include members.
+Warning at line 17256: Enum element "gender" should include members.
+Warning at line 17284: Enum element "gender" should include members.
+Warning at line 17335: Enum element "gender" should include members.
+Warning at line 17370: Enum element "gender" should include members.
+Warning at line 17407: Enum element "status" should include members.
+Warning at line 17452: Enum element "gender" should include members.
+Warning at line 17537: sub-types of primitive types should not have nested members, ignoring unrecognized block "- ACTIVE".
+Warning at line 17537: sub-types of primitive types should not have nested members, ignoring unrecognized block "- INACTIVE".
+Warning at line 17551: fixed-type keyword is redundant
+Warning at line 17557: fixed-type keyword is redundant
+Warning at line 17563: fixed-type keyword is redundant
+Warning at line 17702: Type attribute "required" is not allowed for a value of type "string"
+Warning at line 17733: Enum element "nhs_payment_method" should include members.
+Warning at line 17770: Enum element "nhs_payment_method" should include members.
+Warning at line 17785: Type attribute "required" is not allowed for a value of type "string"
+Warning at line 17851: Enum element "nhs_payment_method" should include members.
+Warning at line 17860: sub-types of primitive types should not have nested members, ignoring unrecognized block "- CAPITATION".
+Warning at line 17860: sub-types of primitive types should not have nested members, ignoring unrecognized block "- REIMBURSEMENT".
+Warning at line 17964: Enum element "nhs_payment_method" should include members.
+Warning at line 18001: Enum element "nhs_payment_method" should include members.
+Warning at line 18014: Type attribute "required" is not allowed for a value of type "string"
+Warning at line 18033: Enum element "nhs_payment_method" should include members.
+Warning at line 18040: Type attribute "required" is not allowed for a value of type "string"
+Warning at line 18059: Enum element "nhs_payment_method" should include members.
+Warning at line 18088: Enum element "status" should include members.
+Warning at line 18095: Enum element "status" should include members.
+Warning at line 18114: Enum element "status" should include members.
+Warning at line 18167: Enum element "status" should include members.
+Warning at line 18210: sub-types of primitive types should not have nested members, ignoring unrecognized block "- ACTIVE".
+Warning at line 18210: sub-types of primitive types should not have nested members, ignoring unrecognized block "- INACTIVE".
+Warning at line 18298: Enum element "gender" should include members.
+Warning at line 18450: Enum element "channel" should include members.
+Warning at line 18460: Enum element "channel" should include members.
+Warning at line 18480: Enum element "gender" should include members.
+Warning at line 18518: Enum element "gender" should include members.
+Warning at line 18551: Enum element "channel" should include members.
+Warning at line 18565: Enum element "channel" should include members.
+Warning at line 18763: fixed-type keyword is redundant
+Warning at line 18770: fixed-type keyword is redundant
+Warning at line 18899: fixed-type keyword is redundant
+Warning at line 18906: fixed-type keyword is redundant
+Warning at line 19026: fixed-type keyword is redundant
+Warning at line 19033: fixed-type keyword is redundant
+Rendering done. Open "index.html" to see result.
