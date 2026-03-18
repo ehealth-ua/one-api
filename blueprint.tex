@@ -1,0 +1,285 @@
+\documentclass{article}
+\usepackage{indentfirst}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pifont}
+\usepackage{url}
+\usepackage{tikz-cd}
+\usepackage[utf8]{inputenc}
+\usepackage[english,ukrainian]{babel}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\input{journal}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue,
+    filecolor=magenta
+}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{green!60!black},
+  stringstyle=\color{red},
+  showstringspaces=false,
+  language=,
+  tabsize=2
+}
+
+\begin{document}
+
+\title{ПОРІВНЯЛЬНИЙ АНАЛІЗ ІНСТРУМЕНТАРІЮ ГЕНЕРАЦІЇ ДОКУМЕНТАЦІЇ У ФОРМАТІ API BLUEPRINT ПРИ МІГРАЦІЇ З ORACLE APIARY: \\ КЕЙС СИСТЕМИ ЕСОЗ УКРАЇНИ}
+\author{Максим Сохацький$^1$}
+\date{%
+$^1$ Керівник відділу системного аналізу ДП «Електронне Здоров'я»\\[0.3em]
+Національний технічний університет України \\
+\small Ігор Сікорський Київський політехнічний інститут \\
+\today
+}
+\maketitle
+
+УДК 004.415.2:614.2(477)
+
+SCOPUS: \url{https://www.scopus.com/authid/detail.uri?authorId=57214352719}
+
+ORCID: \url{https://orcid.org/0000-0001-7127-8796}
+
+\begin{abstract}
+У статті проведено порівняльний аналіз чотирьох активно підтримуваних інструментів рендерингу API-документації у форматі Apiary 1A (API Blueprint): \textbf{Blueprinter}, \textbf{Aglio}, \textbf{Api-blueprint-boilerplate} та \textbf{Phpdraft}. Дослідження зумовлене необхідністю міграції документації Єдиної системи охорони здоров'я України (ЕСОЗ) у зв'язку із завершенням строку підтримки (End-of-Life, EoL) платформи Oracle Apiary. На підставі формалізованого набору критеріїв — повноти підтримки MSON, якості обробки попереджень парсера, зручності УІ, автономності від хмарних сервісів Oracle та придатності до роботи з масштабними специфікаціями — обґрунтовано вибір \textbf{Blueprinter} як оптимального інструменту для безпомилкової міграції. Практичним артефактом дослідження є репозиторій \texttt{ehealth-ua/ONE-API} та мігрований файл \texttt{esoz-blueprint.apib}.
+
+\textbf{Ключові слова:} API Blueprint, APIB, Oracle Apiary, ЕСОЗ, міграція документації, Blueprinter, Aglio, MSON, рендерер, сумісність.
+\end{abstract}
+
+\begin{abstract}
+This paper presents a comparative analysis of four actively maintained API Blueprint (Apiary 1A format) documentation rendering tools: Blueprinter, Aglio, Api-blueprint-boilerplate, and Phpdraft. The study is motivated by the necessity of migrating the Ukrainian Electronic Health System (eHealth) API documentation following the End-of-Life announcement for Oracle Apiary. Based on a formalized set of criteria — MSON support completeness, parser warning handling quality, UI ergonomics, independence from Oracle cloud services, and scalability for large specifications — \textbf{Blueprinter} is justified as the optimal migration target. The practical artifact of this research is the \texttt{ehealth-ua/ONE-API} repository and the migrated \texttt{esoz-blueprint.apib} specification file.
+
+\textbf{Keywords:} API Blueprint, APIB, Oracle Apiary, eHealth Ukraine, documentation migration, Blueprinter, Aglio, MSON, renderer, compatibility.
+\end{abstract}
+
+\section{Вступ}
+Документація програмних інтерфейсів (API) є стратегічним компонентом архітектури сучасних державних інформаційних систем. У рамках цифрової трансформації охорони здоров'я України функціонує Єдина система охорони здоров'я (ЕСОЗ) — централізована інформаційна платформа, що інтегрує медичні інформаційні системи (МІС), лабораторії, аптеки та регуляторні органи. Взаємодія між учасниками екосистеми здійснюється через REST API, специфікації якого традиційно описуються у форматі \textbf{API Blueprint} і публікуються через платформу \textbf{Oracle Apiary}.
+
+Проте Oracle оголосила про завершення активної підтримки платформи Apiary (End-of-Life), що ставить перед командою ЕСОЗ завдання вибору альтернативного інструментарію. Критичним є збереження можливості рендерингу існуючих специфікацій формату APIB без значних переробок, оскільки основний файл \texttt{apiary.apib} має об'єм понад 1 МБ і охоплює сотні ресурсів, типів даних MSON та унікальних розширень формату.
+
+\textbf{Мета статті} — провести систематичний порівняльний аналіз чотирьох альтернативних інструментів та науково обґрунтувати доцільність вибору Blueprinter як основного рендерера для документації ЕСОЗ.
+
+\section{Огляд формату API Blueprint та його інструментальної екосистеми}
+API Blueprint — це мова опису веб-API рівня документації, розроблена компанією Apiary (Jakub Nešetřil та Zdenko Vrábel, 2013). Вона ґрунтується на синтаксисі Markdown та MSON (Markdown Syntax for Object Notation) і зберігається у файлах з розширенням \texttt{.apib} \cite{apiblueprint_spec}. Специфікація підтримується відкритою бібліотекою \texttt{drafter} (C++) та парсером \texttt{minim} (JavaScript), які реалізують перетворення тексту у дерево API Elements (IETF Internet Draft).
+
+ЕСОЗ з самого початку побудована навколо цього формату. Всі специфікації REST-ресурсів — від \texttt{Patient}, \texttt{Encounter}, \texttt{Composition} до \texttt{MedicationRequest} — описані у \texttt{.apib} файлах та зводяться в єдину специфікацію \texttt{apiary.apib} обсягом понад мільйон байт.
+
+Ключовою відмінністю між доступними рендерерами є глибина їхньої інтеграції з виходом парсера: деякі з них працюють лише з AST-представленням першого покоління (\texttt{apib-ast}), тоді як сучасніші — з API Elements другого покоління, що є більш семантично насиченим.
+
+\section{Формальний аналіз порівнюваних інструментів}
+
+\subsection{Aglio}
+\textbf{Автор та генеалогія.} Daniel G. Taylor (GitHub: \texttt{danielgtaylor}). Проєкт \texttt{danielgtaylor/aglio} — один із перших і найбільш відомих рендерерів API Blueprint. Початково презентований близько 2014 року, він дав поштовх розвитку всієї екосистеми відкритих рендерерів APIB. Має понад 4 000 зірок на GitHub.
+
+\textbf{Технічні характеристики.} Написаний на Node.js. Ядро (core) завантажує \texttt{.apib}-файл та обробляє аргументи, а тематичний рушій (theme engine) конвертує AST у HTML. За замовчуванням використовує тему Olio; підтримує також Streak, Flatly, Slate, Cyborg. Підтримує вбудовані директиви \texttt{<!-- include -->} для поєднання кількох APIB-файлів.
+
+\textbf{Сильні сторони:}
+\begin{itemize}
+\item Велика база встановлень та документації.
+\item Підтримка кастомних Jade-шаблонів.
+\item Вбудований live-preview сервер.
+\item Широка інтеграція у CI/CD пайплайни (Docker-образи, плагіни для Foliant, mkdocs тощо).
+\end{itemize}
+
+\textbf{Слабкі сторони:}
+\begin{itemize}
+\item З 2019 року автор офіційно повідомив про обмежену підтримку та запросив нових мейнтейнерів \cite{aglio_maintenance}.
+\item Залежить від застарілих версій \texttt{drafter}/\texttt{protagonist}, що обумовлює некоректну обробку новітніх розширень MSON (зокрема, вкладених членів підтипів примітивних типів), генеруючи численні попередження при рендерингу специфікацій ЕСОЗ.
+\item Відсутність нативного UX для мобільних пристроїв та темної теми.
+\end{itemize}
+
+\subsection{Api-blueprint-boilerplate}
+\textbf{Автор та генеалогія.} Jakub Synowiec (GitHub: \texttt{jsynowiec}), проєкт \texttt{jsynowiec/api-blueprint-boilerplate}. Не є самостійним рендерером; являє собою готовий starter-kit (шаблон репозиторію) для швидкого старту проєктів документації у форматі APIB.
+
+\textbf{Технічні характеристики.} Включає визначений набір залежностей: \texttt{apiary-cli} для локального перегляду та валідації (використовує хмарний API Apiary), \texttt{drafter.js} для тестування схеми, \texttt{aglio} для генерації статичного HTML. Вимагає наявності Node.js, NPM, Ruby та Bundler.
+
+\textbf{Сильні сторони:}
+\begin{itemize}
+\item Готова структура проєкту з прикладами, CI-конфігурацією та документацією.
+\item Вбудований \texttt{npm test} для швидкої валідації схеми через drafter.js.
+\end{itemize}
+
+\textbf{Слабкі сторони:}
+\begin{itemize}
+\item Принципово залежить від \texttt{apiary-cli} — компонента екосистеми Oracle Apiary, що підлягає міграції. Після EoL Apiary інструмент у базовій конфігурації стає непридатним.
+\item На відміну від інших кандидатів, не є рендерером, а лише обгорткою, тому не може безпосередньо замінити Apiary у виробничому середовищі.
+\item Відсутня власна система тем та функції пошуку.
+\end{itemize}
+
+\subsection{Phpdraft}
+\textbf{Автор та генеалогія.} Sean Miller (GitHub: \texttt{SMillerDev}), репозиторій \texttt{SMillerDev/phpdraft}. Первинний автор — Ryan Hellenius (попередня версія). Це єдиний PHP-реалізований парсер та рендерер API Blueprint у наведеному переліку.
+
+\textbf{Технічні характеристики.} Написаний на PHP 8.1+. Для парсингу \texttt{.apib} потребує системного бінарного файлу \texttt{drafter} або може використовувати онлайн-парсер Apiary за відсутності локального. Підтримує генерацію HTML та конвертацію у формат OpenAPI (Swagger).
+
+\textbf{Сильні сторони:}
+\begin{itemize}
+\item Можливість нативної інтеграції в PHP-додатки (Laravel, Symfony).
+\item Функція конвертації APIB → OpenAPI — цінна при стратегії повноцінної міграції на OpenAPI у майбутньому.
+\item Підтримка CSS та JavaScript-кастомізації шаблонів.
+\end{itemize}
+
+\textbf{Слабкі сторони:}
+\begin{itemize}
+\item Потребує налаштування окремого середовища (PHP + Drafter), що ускладнює DevOps для команд, що використовують Node.js.
+\item Залежність від системного \texttt{drafter} робить інструмент чутливим до версій бінарного файлу.
+\item Менш ергономічний UX при роботі з масштабними специфікаціями: відсутність вбудованого пошуку та навігаційних фільтрів.
+\end{itemize}
+
+\subsection{Blueprinter}
+\textbf{Автор та генеалогія.} Команда Funbox (GitHub: \texttt{@funboxteam}), репозиторій \texttt{funboxteam/blueprinter}. Розроблений як сучасна альтернатива Aglio з акцентом на глибоку інтеграцію з API Elements другого покоління.
+
+\textbf{Технічні характеристики.} Написаний на Node.js. Встановлюється через npm як \texttt{@funboxteam/blueprinter}. Приймає \texttt{.apib}-файл та генерує самодостатній HTML-файл (\texttt{index.html}) без зовнішніх залежностей. Підтримує режим watch/live-server.
+
+\textbf{Сильні сторони:}
+\begin{itemize}
+\item \textbf{Глибока інтеграція з API Elements:} використовує сучасну версію \texttt{minim} та \texttt{drafter}, що забезпечує коректний парсинг новітніх конструкцій MSON.
+\item \textbf{Детальна обробка помилок парсера:} чітке відображення попереджень безпосередньо в HTML-інтерфейсі з прив'язкою до рядків файлу.
+\item \textbf{Повнотекстовий пошук:} можливість пошуку по групах, ресурсах та діях.
+\item \textbf{Інтерактивні «One Of» блоки:} динамічна зміна варіантів відповіді без перезавантаження сторінки.
+\item \textbf{Версія для друку:} адаптований режим без зайвих елементів.
+\item \textbf{Локалізація UI:} можливість задати мову інтерфейсу.
+\item \textbf{Повна автономність:} не потребує сервісів Oracle; працює локально або в CI/CD.
+\end{itemize}
+
+\textbf{Слабкі сторони:}
+\begin{itemize}
+\item Менша спільнота порівняно з Aglio.
+\item Відсутність підтримки директиви \texttt{<!-- include -->} для розбиття специфікації на файли (однак це особливість формату Bootstrap-файлів, а не критична вада).
+\end{itemize}
+
+\section{Формалізація вимог до міграції}
+Виходячи з профілю ЕСОЗ (масштабна APIB-специфікація, екосистема Node.js, необхідність автономності, велика стороння аудиторія МІС-розробників), сформовано такі критерії відбору:
+
+\begin{table}[htbp]
+\centering
+\caption{Критерії відбору інструменту}
+\begin{tabular}{@{}lp{5cm}p{7cm}@{}}
+\toprule
+№ & Критерій & Обґрунтування \\
+\midrule
+K1 & \textbf{Повна підтримка MSON 2.x} & Специфікація ЕСОЗ використовує складне успадкування та вкладені елементи \\
+K2 & \textbf{Мінімальна кількість попереджень/помилок} & Безпосередній метрик якості міграції \\
+K3 & \textbf{Автономність від сервісів Oracle Apiary} & Ключова передумова задачі (EoL) \\
+K4 & \textbf{Пошук та навігація в UX} & МІС-розробники потребують зручного доступу до специфікацій \\
+K5 & \textbf{Підтримка середовища Node.js} & Відповідність поточному технологічному стеку команди \\
+K6 & \textbf{Активна підтримка та оновлення} & Зниження ризику повторного EoL у середньостроковій перспективі \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Результати порівняльного аналізу}
+
+\subsection{Зведена таблиця характеристик}
+\begin{table}[htbp]
+\centering
+\small
+\caption{Порівняння інструментів}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}p{4.2cm}cccc@{}}
+\toprule
+Характеристика & Aglio & Boilerplate & Phpdraft & \textbf{Blueprinter} \\
+\midrule
+Мова реалізації & Node.js & Node.js/Ruby & PHP & \textbf{Node.js} \\
+Початок розробки & 2014 & 2015 & 2016 & {\raise.17ex\hbox{\texttildelow}}2019 \\
+Статус підтримки & Maintenance & Залежить від Apiary & Активний & \textbf{Активний} \\
+Версія drafter & Protagonist & drafter.js & Системний & \textbf{API Elements} \\
+МSON вкладеність & Часткова & Часткова & Часткова & \textbf{Повна} \\
+Попередження ЕСОЗ & \textbf{Критичні} & Критичні & Середні & \textbf{Мінімальні} \\
+Повнотекст. пошук & --- & --- & --- & \textbf{\ding{51}} \\
+Автономність & \ding{51} & \textbf{\ding{55}} & \ding{51} & \textbf{\ding{51}} \\
+Версія для друку & --- & --- & Базова & \textbf{\ding{51}} \\
+Локалізація UI & --- & --- & --- & \textbf{\ding{51}} \\
+Npm-пакет & \texttt{aglio} & --- & Composer & \texttt{blueprinter} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Оцінювання за критеріями міграції}
+\begin{table}[htbp]
+\centering
+\small
+\caption{Оцінювання за критеріями міграції}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Критерій & Aglio & Boilerplate & Phpdraft & \textbf{Blueprinter} \\
+\midrule
+K1: Підтримка MSON 2.x & 2/5 & 2/5 & 3/5 & \textbf{5/5} \\
+K2: Мінімум помилок при рендерингу & 2/5 & 1/5 & 3/5 & \textbf{4/5} \\
+K3: Автономність від Oracle & 4/5 & 1/5 & 4/5 & \textbf{5/5} \\
+K4: Пошук та навігація & 2/5 & 1/5 & 2/5 & \textbf{5/5} \\
+K5: Node.js-сумісність & 5/5 & 3/5 & 1/5 & \textbf{5/5} \\
+K6: Активна підтримка & 2/5 & 2/5 & 4/5 & \textbf{5/5} \\
+\textbf{Загальний бал} & \textbf{17/30} & \textbf{10/30} & \textbf{17/30} & \textbf{29/30} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Практична апробація: міграція \texttt{apiary.apib} $\rightarrow$ \texttt{esoz-blueprint.apib}}
+Для верифікації теоретичних висновків було проведено практичну міграцію у репозиторії \texttt{ehealth-ua/ONE-API}. Оригінальний файл \texttt{apiary.apib} (1 061 617 байт) було адаптовано до вимог Blueprinter та збережено як \texttt{esoz-blueprint.apib} (1 007 359 байт). Серед виконаних коригувань:
+\begin{enumerate}
+\item \textbf{Усунення конструкцій \texttt{sub-types of primitive types should not have nested members}} — системне попередження, яке Blueprinter відображає явно, а Aglio ігнорує, проте генерує некоректний HTML.
+\item \textbf{Виправлення порожніх \texttt{Enum} секцій} — ідентифіковано та виправлено помилки \texttt{Enum element should include members}, що призводили до збоїв рендерингу.
+\item \textbf{Нормалізація URI-шаблонів} — усунення дублікатів та неканонічних параметрів, що спричиняли попередження парсера.
+\item \textbf{Виправлення посилань \texttt{Include}} — видалено некоректні \texttt{Include}-директиви в нетипових позиціях.
+\end{enumerate}
+
+Результуючий файл \texttt{esoz-blueprint.apib} успішно рендериться командою:
+\begin{lstlisting}[language=bash]
+blueprinter -i esoz-blueprint.apib -o index.html
+\end{lstlisting}
+без критичних помилок та з мінімальною кількістю несуттєвих попереджень (детальний звіт завжди у файлі warnings.txt). Генерований \texttt{index.html} (10 716 937 байт) є автодостатнім документом, доступним для перегляду у будь-якому сучасному браузері без підключення до мережі.
+
+Для зручності розробки у репозиторії визначено npm-скрипти:
+\begin{lstlisting}[language={}]
+{
+  "scripts": {
+    "dev": "blueprinter -i apiary.apib -s -p 3000",
+    "doc": "blueprinter -i apiary.apib -o index.html"
+  },
+  "dependencies": {
+    "@funboxteam/blueprinter": "^6.1.0"
+  }
+}
+\end{lstlisting}
+Ці скрипти забезпечують як розробницький режим з hot-reload, так і генерацію фінального артефакту документації.
+
+\section{Висновки}
+За результатами дослідження встановлено:
+\begin{enumerate}
+\item \textbf{Aglio}, незважаючи на широку популяризованість, перебуває у стані обмеженої підтримки та має системні проблеми з парсингом сучасних конструкцій MSON, що критично важливо для ЕСОЗ.
+\item \textbf{Api-blueprint-boilerplate} є стартовим шаблоном, а не повноцінним продуктом, і принципово залежить від хмарних сервісів Oracle Apiary, що унеможливлює його розгляд як цільової платформи після EoL.
+\item \textbf{Phpdraft} є функціонально придатним варіантом, однак потребує PHP-інфраструктури та не забезпечує належного UX для широкої аудиторії МІС-розробників.
+\item \textbf{Blueprinter} демонструє найвищу повноту підтримки формату API Blueprint 1A, мінімальну кількість помилок при рендерингу, сучасний та ергономічний UI, повну автономність від Oracle Apiary та відповідність технологічному стеку команди ЕСОЗ.
+\end{enumerate}
+
+Практична апробація підтвердила архітектурну правильність вибору: репозиторій \texttt{ehealth-ua/ONE-API} з мігрованим файлом \texttt{esoz-blueprint.apib} є відтворюваним науковим артефактом, що документує весь процес міграції. Blueprinter рекомендується як стандартний інструмент рендерингу API-документації ЕСОЗ на заміну Oracle Apiary.
+
+\section*{Список використаних джерел}
+\begin{enumerate}
+\item API Blueprint Specification. \url{https://apiblueprint.org/documentation/specification.html} (дата звернення: 18.03.2026).
+\item danielgtaylor/aglio: Maintenance notice. GitHub Issues. \url{https://github.com/danielgtaylor/aglio/issues} (дата звернення: 18.03.2026).
+\item funboxteam/blueprinter. GitHub Repository. \url{https://github.com/funboxteam/blueprinter} (дата звернення: 18.03.2026).
+\item SMillerDev/phpdraft. GitHub Repository. \url{https://github.com/SMillerDev/phpdraft} (дата звернення: 18.03.2026).
+\item jsynowiec/api-blueprint-boilerplate. GitHub Repository. \url{https://github.com/jsynowiec/api-blueprint-boilerplate} (дата звернення: 18.03.2026).
+\item Nešetřil, J., Vrábel, Z. API Blueprint: A Web API Documentation Language. 2013. \url{https://apiblueprint.org} (дата звернення: 18.03.2026).
+\item MSON (Markdown Syntax for Object Notation) Specification. \url{https://github.com/apiaryio/mson} (дата звернення: 18.03.2026).
+\item eHealth Ukraine ONE-API Repository. \url{https://github.com/ehealth-ua/ONE-API} (дата звернення: 18.03.2026).
+\item Oracle Apiary End-of-Life Announcement. Oracle Cloud Documentation, 2024.
+\item Drafter — C++ API Blueprint Parser. \url{https://github.com/apiaryio/drafter} (дата звернення: 18.03.2026).
+\end{enumerate}
+
+\end{document}
